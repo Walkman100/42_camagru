@@ -1,0 +1,14 @@
+# Temporary Files
+*~
+*.swp
+
+# IDE files
+.vscode/
+
+# OS Junk
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+._*
