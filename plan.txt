@@ -37,7 +37,10 @@ Back-end scripts:
 config/
     setup.php       (allows creating or re-creating database)
     database.php    (contains info about connecting to the database)
-    func.php        (functions other scripts use)
+    func_user.php        (functions other scripts use)
+    func_session.php
+    func_posts.php
+    func_comments.php
 
     create.php      (create user account)
     modify.php
