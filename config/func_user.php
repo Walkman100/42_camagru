@@ -197,4 +197,79 @@ function validate_email(string $emailhash)
     }
 }
 
+/**
+ * @param string    $email      Email address to generate and send a reset key to
+ * @return bool                 True if email sent successfully, false if email doesn't exist
+ */
+function send_password_reset_key(string $email)
+{
+    $resethash = bin2hex(openssl_random_pseudo_bytes(32));
+    $stmt = DB::prepare("UPDATE `users`
+            SET
+                `reset_password_key` = :resethash
+            WHERE `email` = :email
+            ;");
+
+    if (!$stmt->execute(array('resethash' => $resethash, 'email' => $email)))
+    {
+        $stmt = null;
+        print("Error saving the password reset key");
+        exit;
+    }
+
+    if ($stmt->rowCount() == 0)
+    {
+        $stmt = null;
+        return (false);
+    }
+    $stmt = null;
+    //send_reset_email($email, $resethash);
+    return (true);
+}
+
+/**
+ * @param string    $resetkey   Key to check if exists
+ * @return string               Name of account if key exists, NULL if not
+ */
+function check_password_reset_key(string $resetkey)
+{
+    $stmt = DB::prepare("SELECT `username` FROM `users` WHERE `reset_password_key` = :resethash");
+    if ($stmt->execute(array('resethash' => $resetkey)))
+    {
+        if (($return = $stmt->fetchAll()))
+        {
+            $stmt = null;
+            return ($return[0][0]);
+        }
+        else
+        {
+            $stmt = null;
+            return (null);
+        }
+    }
+    else
+    {
+        $stmt = null;
+        print("Error checking if reset key is correct");
+        exit;
+    }
+}
+
+/**
+ * @param string    $name       Username to delete
+ * @return void
+ */
+function delete_user(string $name)
+{
+    $stmt = DB::prepare("DELETE FROM `users` WHERE `username` = :username");
+
+    if (!$stmt->execute(array('username' => $name)))
+    {
+        $stmt = null;
+        print("Error Deleting user from database");
+        exit;
+    }
+    $stmt = null;
+}
+
 ?>
