@@ -1,0 +1,60 @@
+root/
+index.php
+
+Front-end pages:
+
+include/
+    main.css
+    main.js
+config/output.php
+  functions for outputting HTML
+    output head, output end
+    output header
+    output footer
+gallery.php
+profile.php
+        checks if logged in, if not display log in form
+        modifying data sends AJAX requests to config/modify.php
+        also handles logout?
+upload.php
+        only available to logged in users
+        shows webcam, also allow upload
+        list of images
+        all previous pictures taken available
+        allow to delete edited images
+
+
+Storage:
+
+overlays/
+    *.png
+userdata/
+    *.png
+
+
+Back-end scripts:
+
+config/
+    setup.php       (allows creating or re-creating database)
+    database.php    (contains info about connecting to the database)
+    func.php        (functions other scripts use)
+
+    create.php      (create user account)
+    modify.php
+        username, email, password, notify
+    reset.php       (reset password email handling)
+    delete.php      (delete user account)
+
+
+
+data:
+
+db: mc_camagru
+
+tables: users, posts, savedimages, overlays
+
+users: id, username, password, email, notify, account_active, email_verify ("yes" once verified, random key before), new_email, reset_password_key
+posts: post_id, user_id, post_date, array(liked_user_ids)
+comments: post_id, user_id, post_date, text
+savedimages: image_id, user_id, upload_date, md5 (path is userdata/$md5.png)
+overlays: image_id (path is overlays/$image_id.png)
