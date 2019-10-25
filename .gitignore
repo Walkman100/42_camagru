@@ -2,9 +2,6 @@
 *~
 *.swp
 
-# IDE files
-.vscode/
-
 # OS Junk
 Thumbs.db
 ehthumbs.db
