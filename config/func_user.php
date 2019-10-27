@@ -2,6 +2,9 @@
 
 include_once("setup.php");
 include_once("output.php");
+include_once("func_email.php");
+
+// ====================== return bool functions ======================
 
 /**
  * @param string    $name   User to check
@@ -89,6 +92,35 @@ function correct_pw(string $name, string $password)
 }
 
 /**
+ * @param string    $name       Username to check
+ * @return bool                 True if account is active
+ */
+function account_active(string $name)
+{
+    $stmt = DB::prepare("SELECT `account_active` FROM `users` WHERE `username` = :name");
+    if (!$stmt->execute(array('name' => $name)))
+    {
+        $stmt = null;
+        print("Error checking if the account is active");
+        exit;
+    }
+
+    if (!($return = $stmt->fetchAll()))
+    {
+        $stmt = null;
+        return (false);
+    }
+
+    $stmt = null;
+    if ($return[0][0] == 1)
+        return (true);
+    else
+        return (false);
+}
+
+// ====================== functions that affect data ======================
+
+/**
  * @param string    $name       Username to create
  * @param string    $password   Password to create
  * @param string    $email      Email Address to associate
@@ -115,7 +147,7 @@ function create_user(string $name, string $password, string $email)
         exit;
     }
     $stmt = null;
-    //send_verification_mail($name, $email, $emailhash);
+    send_verification_mail($name, $email, $emailhash);
 }
 
 /**
@@ -134,6 +166,15 @@ function change_password(string $name, string $newpw)
     {
         $stmt = null;
         print("Error changing password");
+        exit;
+    }
+    $stmt = null;
+
+    $stmt = DB::prepare("UPDATE `users` SET `reset_password_key` = NULL WHERE `username` = :username");
+    if (!$stmt->execute(array('username' => $name)))
+    {
+        $stmt = null;
+        print("Error resetting the password reset key");
         exit;
     }
     $stmt = null;
@@ -223,7 +264,7 @@ function send_password_reset_key(string $email)
         return (false);
     }
     $stmt = null;
-    //send_reset_email($email, $resethash);
+    send_reset_email($email, $resethash);
     return (true);
 }
 
