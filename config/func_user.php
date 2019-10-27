@@ -264,12 +264,60 @@ function change_password(string $name, string $newpw)
 }
 
 /**
+ * @param string    $name       Username to change the password for
+ * @param string    $newemail   New email address
+ * @return void
+ */
+function change_email(string $name, string $newemail)
+{
+    $emailhash = bin2hex(openssl_random_pseudo_bytes(32));
+    $stmt = DB::prepare("UPDATE `users`
+        SET
+            `new_email` = :newemail,
+            `email_verify` = :emailhash
+        WHERE
+            `username` = :username
+        ");
+
+    if (!$stmt->execute(array(
+        'newemail' => $newemail,
+        'emailhash' => $emailhash,
+        'username' => $name
+    )))
+    {
+        $stmt = null;
+        print("Error setting new email address");
+        exit;
+    }
+    $stmt = null;
+    send_verification_mail($name, $newemail, $emailhash);
+}
+
+/**
+ * @param string    $name       Username of account to set notifications for
+ * @param bool      $notify     True to enable notifications, false to disable
+ * @return void
+ */
+function change_notify(string $name, bool $notify)
+{
+    $stmt = DB::prepare("UPDATE `users` SET `notify` = :notify WHERE `username` = :username");
+
+    if (!$stmt->execute(array('notify' => $notify ? 1 : 0, 'username' => $name)))
+    {
+        $stmt = null;
+        print("Error changing option");
+        exit;
+    }
+    $stmt = null;
+}
+
+/**
  * @param string    $emailhash  Hash to validate an email address.
  *      If the associated account is not active,
  *          it will be set to active and the hash cleared.
  *      If the associated account is already active,
  *          the new email address will be moved to be current and the hash cleared.
- * @return bool                 True if hash was validate, false if hash doesn't exist
+ * @return bool                 True if hash was validated, false if hash doesn't exist
  */
 function validate_email(string $emailhash)
 {
