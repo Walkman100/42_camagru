@@ -35,6 +35,35 @@ function user_exists(string $name)
 }
 
 /**
+ * @param string    $name       Username to check
+ * @param string    $password   Password to check
+ * @return bool                 True if password is correct
+ */
+function correct_pw(string $name, string $password)
+{
+    $stmt = DB::prepare("SELECT * FROM `users` WHERE `username` = :name");
+    if ($stmt->execute(array('name' => $name)))
+    {
+        if (($return = $stmt->fetchAll()) && $return[0]["password"] === hash("whirlpool", $password))
+        {
+            $stmt = null;
+            return (true);
+        }
+        else
+        {
+            $stmt = null;
+            return (false);
+        }
+    }
+    else
+    {
+        $stmt = null;
+        print("Error checking if password is correct");
+        exit;
+    }
+}
+
+/**
  * @param string    $email  Email address to check
  * @return bool             True if email is already registered
  */
@@ -64,31 +93,29 @@ function email_used(string $email)
 
 /**
  * @param string    $name       Username to check
- * @param string    $password   Password to check
- * @return bool                 True if password is correct
+ * @return bool                 True if account has the notify email option on
  */
-function correct_pw(string $name, string $password)
+function notify_is_on(string $name)
 {
-    $stmt = DB::prepare("SELECT * FROM `users` WHERE `username` = :name");
-    if ($stmt->execute(array('name' => $name)))
-    {
-        if (($return = $stmt->fetchAll()) && $return[0]["password"] === hash("whirlpool", $password))
-        {
-            $stmt = null;
-            return (true);
-        }
-        else
-        {
-            $stmt = null;
-            return (false);
-        }
-    }
-    else
+    $stmt = DB::prepare("SELECT `notify` FROM `users` WHERE `username` = :name");
+    if (!$stmt->execute(array('name' => $name)))
     {
         $stmt = null;
-        print("Error checking if password is correct");
+        print("Error checking if the account is active");
         exit;
     }
+
+    if (!($return = $stmt->fetchAll()))
+    {
+        $stmt = null;
+        return (true);
+    }
+
+    $stmt = null;
+    if ($return[0][0] == 1)
+        return (true);
+    else
+        return (false);
 }
 
 /**
@@ -120,29 +147,30 @@ function account_active(string $name)
 
 /**
  * @param string    $name       Username to check
- * @return bool                 True if account has the notify email option on
+ * @return string               Pending email address if exists, NULL if not
  */
-function notify_is_on(string $name)
+function new_email_pending(string $name)
 {
-    $stmt = DB::prepare("SELECT `notify` FROM `users` WHERE `username` = :name");
-    if (!$stmt->execute(array('name' => $name)))
+    $stmt = DB::prepare("SELECT `new_email` FROM `users` WHERE `username` = :username");
+    if ($stmt->execute(array('username' => $name)))
+    {
+        if (($return = $stmt->fetchAll()))
+        {
+            $stmt = null;
+            return ($return[0][0]);
+        }
+        else
+        {
+            $stmt = null;
+            return (null);
+        }
+    }
+    else
     {
         $stmt = null;
-        print("Error checking if the account is active");
+        print("Error checking if account has a new email pending");
         exit;
     }
-
-    if (!($return = $stmt->fetchAll()))
-    {
-        $stmt = null;
-        return (true);
-    }
-
-    $stmt = null;
-    if ($return[0][0] == 1)
-        return (true);
-    else
-        return (false);
 }
 
 /**
@@ -169,34 +197,6 @@ function check_password_reset_key(string $resetkey)
     {
         $stmt = null;
         print("Error checking if reset key is correct");
-        exit;
-    }
-}
-
-/**
- * @param string    $name       Username to check
- * @return string               Pending email address if exists, NULL if not
- */
-function new_email_pending(string $name)
-{
-    $stmt = DB::prepare("SELECT `new_email` FROM `users` WHERE `username` = :username");
-    if ($stmt->execute(array('username' => $name)))
-    {
-        if (($return = $stmt->fetchAll()))
-        {
-            $stmt = null;
-            return ($return[0][0]);
-        }
-        else
-        {
-            $stmt = null;
-            return (null);
-        }
-    }
-    else
-    {
-        $stmt = null;
-        print("Error checking if account has a new email pending");
         exit;
     }
 }
