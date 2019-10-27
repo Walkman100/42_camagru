@@ -370,6 +370,43 @@ function validate_email(string $emailhash)
 }
 
 /**
+ * @param string    $email      Email address to resend validation to.
+ * @return bool                 True if email was sent, false if email wasn't found or doesn't need to be validated
+ */
+function resend_email_validation(string $email)
+{
+    $stmt = DB::prepare("SELECT
+            `username`,
+            `email_verify`
+        FROM
+            `users`
+        WHERE
+            (     `email` = :email AND `account_active` = 0 )
+        OR
+            ( `new_email` = :email AND `account_active` = 1 )
+        ");
+    if (!$stmt->execute(array('email' => $email)))
+    {
+        $stmt = null;
+        print("Error getting email data");
+        exit;
+    }
+
+    if (!($return = $stmt->fetchAll()))
+    {
+        $stmt = null;
+        return (false);
+    }
+
+    $stmt = null;
+    $name = $return[0]['username'];
+    $emailhash = $return[0]['email_verify'];
+
+    send_verification_mail($name, $email, $emailhash);
+    return (true);
+}
+
+/**
  * @param string    $email      Email address to generate and send a reset key to
  * @return bool                 True if email sent successfully, false if email doesn't exist
  */
