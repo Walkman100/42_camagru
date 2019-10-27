@@ -118,6 +118,89 @@ function account_active(string $name)
         return (false);
 }
 
+/**
+ * @param string    $name       Username to check
+ * @return bool                 True if account has the notify email option on
+ */
+function notify_is_on(string $name)
+{
+    $stmt = DB::prepare("SELECT `notify` FROM `users` WHERE `username` = :name");
+    if (!$stmt->execute(array('name' => $name)))
+    {
+        $stmt = null;
+        print("Error checking if the account is active");
+        exit;
+    }
+
+    if (!($return = $stmt->fetchAll()))
+    {
+        $stmt = null;
+        return (true);
+    }
+
+    $stmt = null;
+    if ($return[0][0] == 1)
+        return (true);
+    else
+        return (false);
+}
+
+/**
+ * @param string    $resetkey   Key to check if exists
+ * @return string               Name of account if key exists, NULL if not
+ */
+function check_password_reset_key(string $resetkey)
+{
+    $stmt = DB::prepare("SELECT `username` FROM `users` WHERE `reset_password_key` = :resethash");
+    if ($stmt->execute(array('resethash' => $resetkey)))
+    {
+        if (($return = $stmt->fetchAll()))
+        {
+            $stmt = null;
+            return ($return[0][0]);
+        }
+        else
+        {
+            $stmt = null;
+            return (null);
+        }
+    }
+    else
+    {
+        $stmt = null;
+        print("Error checking if reset key is correct");
+        exit;
+    }
+}
+
+/**
+ * @param string    $name       Username to check
+ * @return string               Pending email address if exists, NULL if not
+ */
+function new_email_pending(string $name)
+{
+    $stmt = DB::prepare("SELECT `new_email` FROM `users` WHERE `username` = :username");
+    if ($stmt->execute(array('username' => $name)))
+    {
+        if (($return = $stmt->fetchAll()))
+        {
+            $stmt = null;
+            return ($return[0][0]);
+        }
+        else
+        {
+            $stmt = null;
+            return (null);
+        }
+    }
+    else
+    {
+        $stmt = null;
+        print("Error checking if account has a new email pending");
+        exit;
+    }
+}
+
 // ====================== functions that affect data ======================
 
 /**
@@ -266,34 +349,6 @@ function send_password_reset_key(string $email)
     $stmt = null;
     send_reset_email($email, $resethash);
     return (true);
-}
-
-/**
- * @param string    $resetkey   Key to check if exists
- * @return string               Name of account if key exists, NULL if not
- */
-function check_password_reset_key(string $resetkey)
-{
-    $stmt = DB::prepare("SELECT `username` FROM `users` WHERE `reset_password_key` = :resethash");
-    if ($stmt->execute(array('resethash' => $resetkey)))
-    {
-        if (($return = $stmt->fetchAll()))
-        {
-            $stmt = null;
-            return ($return[0][0]);
-        }
-        else
-        {
-            $stmt = null;
-            return (null);
-        }
-    }
-    else
-    {
-        $stmt = null;
-        print("Error checking if reset key is correct");
-        exit;
-    }
 }
 
 /**
