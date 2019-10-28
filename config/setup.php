@@ -1,7 +1,7 @@
 <?php
 
-include_once("database.php");
-include_once("output.php");
+require_once("database.php");
+require_once("output.php");
 
 function setup_db()
 {
@@ -16,39 +16,39 @@ function setup_db()
     print(" Complete.<br />" . PHP_EOL . "Creating user table...");
     // PRIMARYKEY automatically adds: UNIQUE and NOT NULL
     $tmpPDO->exec("CREATE TABLE IF NOT EXISTS `users` (
-            `id`                    INT     PRIMARY KEY AUTO_INCREMENT,
-            `username`              TEXT    NOT NULL,
-            `password`              TEXT    NOT NULL,
-            `email`                 TEXT    NOT NULL,
-            `notify`                BOOLEAN NOT NULL DEFAULT TRUE,
-            `account_active`        BOOLEAN NOT NULL DEFAULT FALSE,
-            `email_verify`          TEXT    NOT NULL,
-            `new_email`             TEXT DEFAULT NULL,
-            `reset_password_key`    TEXT DEFAULT NULL
+            `id`                    INT         PRIMARY KEY AUTO_INCREMENT,
+            `username`              TEXT        NOT NULL,
+            `password`              TEXT        NOT NULL,
+            `email`                 TEXT        NOT NULL,
+            `notify`                BOOLEAN     NOT NULL DEFAULT TRUE,
+            `account_active`        BOOLEAN     NOT NULL DEFAULT FALSE,
+            `email_verify`          TEXT        NOT NULL,
+            `new_email`             TEXT DEFAULT    NULL,
+            `reset_password_key`    TEXT DEFAULT    NULL
         );");
 
     print(" Complete.<br />" . PHP_EOL . "Creating posts table...");
     $tmpPDO->exec("CREATE TABLE IF NOT EXISTS `posts` (
-            `post_id`               INT     PRIMARY KEY AUTO_INCREMENT,
-            `user_id`               INT     NOT NULL,
-            `post_date`             DATE    NOT NULL,
-            `liked_user_ids`        TEXT    NOT NULL
+            `post_id`               INT         PRIMARY KEY AUTO_INCREMENT,
+            `user_id`               INT         NOT NULL,
+            `post_date`             DATETIME    NOT NULL,
+            `liked_user_ids`        TEXT        NOT NULL
         );");
 
     print(" Complete.<br />" . PHP_EOL . "Creating comments table...");
     $tmpPDO->exec("CREATE TABLE IF NOT EXISTS `comments` (
-            `post_id`               INT     NOT NULL,
-            `user_id`               INT     NOT NULL,
-            `post_date`             DATE    NOT NULL,
-            `text`                  TEXT    NOT NULL
+            `post_id`               INT         NOT NULL,
+            `user_id`               INT         NOT NULL,
+            `post_date`             DATETIME    NOT NULL,
+            `text`                  TEXT        NOT NULL
         );");
 
     print(" Complete.<br />" . PHP_EOL . "Creating savedimages table...");
     $tmpPDO->exec("CREATE TABLE IF NOT EXISTS `savedimages` (
-            `image_id`              INT     PRIMARY KEY AUTO_INCREMENT,
-            `user_id`               INT     NOT NULL,
-            `upload_date`           DATE    NOT NULL,
-            `md5`               VARCHAR(32) NOT NULL
+            `image_id`              INT         PRIMARY KEY AUTO_INCREMENT,
+            `user_id`               INT         NOT NULL,
+            `upload_date`           DATETIME    NOT NULL,
+            `md5`                   VARCHAR(32) NOT NULL
         );");
 
     print(" Complete.<br />" . PHP_EOL . "Creating overlays table...");

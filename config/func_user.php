@@ -1,8 +1,8 @@
 <?php
 
-include_once("setup.php");
-include_once("output.php");
-include_once("func_email.php");
+require_once("setup.php");
+require_once("output.php");
+require_once("func_email.php");
 
 // ====================== return bool functions ======================
 

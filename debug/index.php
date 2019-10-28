@@ -38,6 +38,21 @@ output_head("Debug Info", "<style>table { border-collapse: collapse; }
       </tr>
     </table>
     <br />
-    <a href="info">PHP Info</a>
+    <a href="info">PHP Info</a><br /><br />
+    <table>
+      <tr>
+        <th>Header key</th>
+        <th>Header value</th>
+      </tr>
+
+<?php
+
+foreach (getallheaders() as $key => $value) {
+    print("<tr><td>" . $key . "</td><td>" . $value . "</td></tr>");
+}
+
+?>
+
+    </table>
 
 <?php output_end(); ?>
