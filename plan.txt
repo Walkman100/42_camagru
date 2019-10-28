@@ -30,6 +30,8 @@ overlays/
     *.png
 userdata/
     *.png
+postimages/
+    *.png
 
 
 Back-end scripts:
@@ -37,10 +39,12 @@ Back-end scripts:
 config/
     setup.php       (allows creating or re-creating database)
     database.php    (contains info about connecting to the database)
-    func_user.php        (functions other scripts use)
-    func_session.php
+    func_user.php       (functions other scripts use)
     func_posts.php
     func_comments.php
+    func_images.php
+    func_session.php
+    func_email.php
 
     create.php      (create user account)
     modify.php
@@ -57,7 +61,7 @@ db: mc_camagru
 tables: users, posts, savedimages, overlays
 
 users: id, username, password, email, notify, account_active, email_verify ("yes" once verified, random key before), new_email, reset_password_key
-posts: post_id, user_id, post_date, array(liked_user_ids)
+posts: post_id (imagepath is postimages/$post_id.png), user_id, post_date, array(liked_user_ids)
 comments: post_id, user_id, post_date, text
 savedimages: image_id, user_id, upload_date, md5 (path is userdata/$md5.png)
 overlays: image_id (path is overlays/$image_id.png)

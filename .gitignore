@@ -9,3 +9,6 @@ Desktop.ini
 $RECYCLE.BIN/
 .DS_Store
 ._*
+/overlays/
+/postimages/
+/userdata/
