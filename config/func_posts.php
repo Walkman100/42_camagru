@@ -131,4 +131,42 @@ function like_post(int $postid, string $name, bool $like = true)
     return (true);
 }
 
+/**
+ * @param int       $postid     ID of post to check
+ * @param string    $name       Username to check
+ * @return bool                 True if post is liked, false if post is not liked, user doesn't exist, or post doesn't exist
+ */
+function is_liked(int $postid, string $name)
+{
+    $stmt = DB::prepare("SELECT `id` FROM `users` WHERE `username` = :name");
+    if (!$stmt->execute(array('name' => $name)))
+    {
+        $stmt = null;
+        print("Error getting user id");
+        exit;
+    }
+    if (!($return = $stmt->fetchAll()))
+    {
+        $stmt = null;
+        return (false);
+    }
+    $userid = intval($return[0][0]);
+
+    $stmt = DB::prepare("SELECT `liked_user_ids` FROM `posts` WHERE `post_id` = :postid");
+    if (!$stmt->execute(array('postid' => $postid)))
+    {
+        $stmt = null;
+        print("Error getting likes");
+        exit;
+    }
+    if (!$return = $stmt->fetchAll())
+    {
+        $stmt = null;
+        return (false);
+    }
+
+    $like_array = unserialize($return[0][0]);
+    return (isset($like_array[$userid]));
+}
+
 ?>
