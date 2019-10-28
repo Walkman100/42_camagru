@@ -169,4 +169,40 @@ function is_liked(int $postid, string $name)
     return (isset($like_array[$userid]));
 }
 
+/**
+ * @param int       $pageindex  Index of page of posts to get (1-based, first page = 1, second page = 2)
+ * @return array|null           Index-based array of posts, each consisting of an Associative array with [post_id], [username], and [post_date] elements
+ */
+function get_posts(int $pageindex)
+{
+    $stmt = DB::prepare("SELECT
+            `post_id`,
+            `users`.`username`,
+            `post_date`
+        FROM
+            `posts`
+        INNER JOIN `users` ON `posts`.`user_id` = `users`.`id`
+        ORDER BY
+            `post_date` DESC,
+            `post_id` DESC
+        LIMIT
+            :limit1, :limit2
+        ;");
+
+    $stmt->bindValue(':limit1', intval(($pageindex - 1) * 5), PDO::PARAM_INT);
+    $stmt->bindValue(':limit2', 5, PDO::PARAM_INT);
+    if (!$stmt->execute())
+    {
+        $stmt = null;
+        print("Error getting posts");
+        exit;
+    }
+    if (!$return = $stmt->fetchAll(PDO::FETCH_ASSOC))
+    {
+        $stmt = null;
+        return (null);
+    }
+    return ($return);
+}
+
 ?>
