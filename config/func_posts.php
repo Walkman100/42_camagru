@@ -76,4 +76,59 @@ function delete_post(int $postid)
     unlink(realpath($server_root . "/postimages/" . $postid . ".png"));
 }
 
+/**
+ * @param int       $postid     ID of post to like
+ * @param string    $name       Username to like post
+ * @param bool      $like       True to like post, False to unlike
+ * @return bool                 True if post's likes was modified successfully, false if user can't be found or post doesn't exist
+ */
+function like_post(int $postid, string $name, bool $like = true)
+{
+    $stmt = DB::prepare("SELECT `id` FROM `users` WHERE `username` = :name");
+    if (!$stmt->execute(array('name' => $name)))
+    {
+        $stmt = null;
+        print("Error getting user id");
+        exit;
+    }
+    if (!($return = $stmt->fetchAll()))
+    {
+        $stmt = null;
+        return (false);
+    }
+    $userid = intval($return[0][0]);
+
+    $stmt = DB::prepare("SELECT `liked_user_ids` FROM `posts` WHERE `post_id` = :postid");
+    if (!$stmt->execute(array('postid' => $postid)))
+    {
+        $stmt = null;
+        print("Error getting likes");
+        exit;
+    }
+    if (!$return = $stmt->fetchAll())
+    {
+        $stmt = null;
+        return (false);
+    }
+
+    $like_array = unserialize($return[0][0]);
+    if ($like)
+        $like_array[$userid] = 1;
+    else
+        unset($like_array[$userid]);
+
+    $stmt = DB::prepare("UPDATE `posts` SET `liked_user_ids` = :likearr WHERE `post_id` = :postid");
+    if (!$stmt->execute(array(
+        'likearr' => serialize($like_array),
+        'postid' => $postid
+    )))
+    {
+        $stmt = null;
+        print("Error updating liked values");
+        exit;
+    }
+    $stmt = null;
+    return (true);
+}
+
 ?>
