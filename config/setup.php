@@ -62,6 +62,11 @@ function setup_db()
     print(" Complete.<br />" . PHP_EOL);
 }
 
+/**
+ * @method \PDOStatement|bool prepare(string $querystring) Prepares a statement for execution and returns a statement object
+ * @method int|bool exec(string $querystring) Execute an SQL statement and return the number of affected rows
+ * @method string lastInsertID Returns the ID of the last inserted row or sequence value
+ */
 class DB
 {
     private static $objInstance;
@@ -79,7 +84,6 @@ class DB
 
     /**
      * Returns DB instance or create initial connection
-     * @param
      * @return $objInstance;
      */
     public static function getInstance()

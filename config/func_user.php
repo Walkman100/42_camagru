@@ -1,7 +1,6 @@
 <?php
 
 require_once("setup.php");
-require_once("output.php");
 require_once("func_email.php");
 
 // ====================== return bool functions ======================

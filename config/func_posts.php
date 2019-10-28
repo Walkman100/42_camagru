@@ -1,5 +1,7 @@
 <?php
 
+require_once("setup.php");
+
 date_default_timezone_set("Africa/Johannesburg");
 if ($_SERVER['DOCUMENT_ROOT'])
     $server_root = $_SERVER['DOCUMENT_ROOT'];
@@ -32,7 +34,7 @@ function add_post(string $origmd5, string $name)
         return (false);
     }
     $stmt = null;
-    $userid = $return[0][0];
+    $userid = intval($return[0][0]);
 
     $stmt = DB::prepare("INSERT INTO `posts` (
             `user_id`, `post_date`, `liked_user_ids`
@@ -52,6 +54,26 @@ function add_post(string $origmd5, string $name)
 
     return (copy(  realpath($server_root . "/userdata/" . $origmd5 . ".png"),
                             $server_root . "/postimages/" . DB::lastInsertID() . ".png"));
+}
+
+/**
+ * @param int       $postid     ID of post and image to delete
+ * @return void
+ */
+function delete_post(int $postid)
+{
+    $stmt = DB::prepare("DELETE FROM `posts` WHERE `post_id` = :postid");
+
+    if (!$stmt->execute(array('postid' => $postid)))
+    {
+        $stmt = null;
+        print("Error deleting post from database");
+        exit;
+    }
+    $stmt = null;
+
+    global $server_root;
+    unlink(realpath($server_root . "/postimages/" . $postid . ".png"));
 }
 
 ?>
