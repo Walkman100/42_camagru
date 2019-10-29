@@ -63,5 +63,5 @@ tables: users, posts, comments, savedimages, overlays
 users: id, username, password, email, notify, account_active, email_verify ("yes" once verified, random key before), new_email, reset_password_key
 posts: post_id (imagepath is postimages/$post_id.png), user_id, post_date, array(liked_user_ids)
 comments: post_id, user_id, post_date, text
-savedimages: image_id, user_id, upload_date, md5 (path is userdata/$md5.png)
+savedimages: user_id, upload_date, md5 (path is userdata/$md5.png)
 overlays: image_id (path is overlays/$image_id.png)

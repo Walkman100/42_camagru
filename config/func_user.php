@@ -476,6 +476,7 @@ function delete_user(string $name)
         exit;
     }
 
+    global $server_root;
     // Delete posts by user: get post ids so the associated images and comments can be removed
     $stmt = DB::prepare("SELECT `post_id` FROM `posts` WHERE `user_id` = :userid");
     if (!$stmt->execute(array('userid' => $userid)))
@@ -486,8 +487,8 @@ function delete_user(string $name)
     }
     if ($return = $stmt->fetchAll())
     {
-        global $server_root;
-        foreach ($return as $post) {
+        foreach ($return as $post)
+        {
             delete_comments($post[0]);
             unlink(realpath($server_root . "/postimages/" . $post[0] . ".png"));
         }
@@ -502,7 +503,28 @@ function delete_user(string $name)
         exit;
     }
 
-    // TODO: delete all personally saved images by user
+    // Delete images saved by user: get image md5's so the associated image files can be removed
+    $stmt = DB::prepare("SELECT `md5` FROM `savedimages` WHERE `user_id` = :userid");
+    if (!$stmt->execute(array('userid' => $userid)))
+    {
+        $stmt = null;
+        print("Error getting image IDs from database");
+        exit;
+    }
+    if ($return = $stmt->fetchAll())
+    {
+        foreach ($return as $post)
+            unlink(realpath($server_root . "/userdata/" . $post[0] . ".png"));
+    }
+
+    // Delete images saved by user from DB
+    $stmt = DB::prepare("DELETE FROM `savedimages` WHERE `user_id` = :userid");
+    if (!$stmt->execute(array('userid' => $userid)))
+    {
+        $stmt = null;
+        print("Error deleting images from database");
+        exit;
+    }
 
     // Atually delete user from DB
     $stmt = DB::prepare("DELETE FROM `users` WHERE `username` = :username");
