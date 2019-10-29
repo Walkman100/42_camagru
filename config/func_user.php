@@ -7,8 +7,8 @@ require_once("func_comments.php");
 // ====================== return bool functions ======================
 
 /**
- * @param string    $name   User to check
- * @return bool             True if user exists
+ * @param string    $name       User to check
+ * @return bool                 True if user exists
  */
 function user_exists(string $name)
 {
@@ -35,8 +35,8 @@ function user_exists(string $name)
 }
 
 /**
- * @param string    $name   Username to get ID for
- * @return int|false        User ID or FALSE if user doesn't exist
+ * @param string    $name       Username to get ID for
+ * @return int|false            User ID or FALSE if user doesn't exist
  */
 function get_user_id(string $name)
 {
@@ -86,8 +86,8 @@ function correct_pw(string $name, string $password)
 }
 
 /**
- * @param string    $email  Email address to check
- * @return bool             True if email is already registered
+ * @param string    $email      Email address to check
+ * @return bool                 True if email is already registered
  */
 function email_used(string $email)
 {
