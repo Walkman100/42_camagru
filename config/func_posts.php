@@ -2,6 +2,7 @@
 
 require_once("setup.php");
 require_once("func_user.php");
+require_once("func_comments.php");
 
 date_default_timezone_set("Africa/Johannesburg");
 if ($_SERVER['DOCUMENT_ROOT'])
@@ -51,8 +52,9 @@ function add_post(string $origmd5, string $name)
  */
 function delete_post(int $postid)
 {
-    $stmt = DB::prepare("DELETE FROM `posts` WHERE `post_id` = :postid");
+    delete_comments($postid);
 
+    $stmt = DB::prepare("DELETE FROM `posts` WHERE `post_id` = :postid");
     if (!$stmt->execute(array('postid' => $postid)))
     {
         $stmt = null;
