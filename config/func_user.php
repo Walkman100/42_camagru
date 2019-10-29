@@ -34,6 +34,28 @@ function user_exists(string $name)
 }
 
 /**
+ * @param string    $name   Username to get ID for
+ * @return int|false        User ID or FALSE if user doesn't exist
+ */
+function get_user_id(string $name)
+{
+    $stmt = DB::prepare("SELECT `id` FROM `users` WHERE `username` = :name");
+    if (!$stmt->execute(array('name' => $name)))
+    {
+        $stmt = null;
+        print("Error getting user id");
+        exit;
+    }
+    if (!($return = $stmt->fetchAll()))
+    {
+        $stmt = null;
+        return (false);
+    }
+    $stmt = null;
+    return (intval($return[0][0]));
+}
+
+/**
  * @param string    $name       Username to check
  * @param string    $password   Password to check
  * @return bool                 True if password is correct

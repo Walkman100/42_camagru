@@ -1,6 +1,7 @@
 <?php
 
 require_once("setup.php");
+require_once("func_user.php");
 
 date_default_timezone_set("Africa/Johannesburg");
 if ($_SERVER['DOCUMENT_ROOT'])
@@ -21,20 +22,8 @@ function add_post(string $origmd5, string $name)
     if (!file_exists($server_root . "/userdata/" . $origmd5 . ".png"))
         return (false);
 
-    $stmt = DB::prepare("SELECT `id` FROM `users` WHERE `username` = :name");
-    if (!$stmt->execute(array('name' => $name)))
-    {
-        $stmt = null;
-        print("Error getting user id");
-        exit;
-    }
-    if (!($return = $stmt->fetchAll()))
-    {
-        $stmt = null;
+    if (!$userid = get_user_id($name))
         return (false);
-    }
-    $stmt = null;
-    $userid = intval($return[0][0]);
 
     $stmt = DB::prepare("INSERT INTO `posts` (
             `user_id`, `post_date`, `liked_user_ids`
@@ -84,19 +73,8 @@ function delete_post(int $postid)
  */
 function like_post(int $postid, string $name, bool $like = true)
 {
-    $stmt = DB::prepare("SELECT `id` FROM `users` WHERE `username` = :name");
-    if (!$stmt->execute(array('name' => $name)))
-    {
-        $stmt = null;
-        print("Error getting user id");
-        exit;
-    }
-    if (!($return = $stmt->fetchAll()))
-    {
-        $stmt = null;
+    if (!$userid = get_user_id($name))
         return (false);
-    }
-    $userid = intval($return[0][0]);
 
     $stmt = DB::prepare("SELECT `liked_user_ids` FROM `posts` WHERE `post_id` = :postid");
     if (!$stmt->execute(array('postid' => $postid)))
@@ -138,19 +116,8 @@ function like_post(int $postid, string $name, bool $like = true)
  */
 function is_liked(int $postid, string $name)
 {
-    $stmt = DB::prepare("SELECT `id` FROM `users` WHERE `username` = :name");
-    if (!$stmt->execute(array('name' => $name)))
-    {
-        $stmt = null;
-        print("Error getting user id");
-        exit;
-    }
-    if (!($return = $stmt->fetchAll()))
-    {
-        $stmt = null;
+    if (!$userid = get_user_id($name))
         return (false);
-    }
-    $userid = intval($return[0][0]);
 
     $stmt = DB::prepare("SELECT `liked_user_ids` FROM `posts` WHERE `post_id` = :postid");
     if (!$stmt->execute(array('postid' => $postid)))
