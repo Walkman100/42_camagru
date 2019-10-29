@@ -58,7 +58,7 @@ data:
 
 db: mc_camagru
 
-tables: users, posts, savedimages, overlays
+tables: users, posts, comments, savedimages, overlays
 
 users: id, username, password, email, notify, account_active, email_verify ("yes" once verified, random key before), new_email, reset_password_key
 posts: post_id (imagepath is postimages/$post_id.png), user_id, post_date, array(liked_user_ids)

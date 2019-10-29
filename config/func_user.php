@@ -2,6 +2,7 @@
 
 require_once("setup.php");
 require_once("func_email.php");
+require_once("func_comments.php");
 
 // ====================== return bool functions ======================
 
@@ -463,8 +464,48 @@ function send_password_reset_key(string $email)
  */
 function delete_user(string $name)
 {
-    $stmt = DB::prepare("DELETE FROM `users` WHERE `username` = :username");
+    if (!$userid = get_user_id($name))
+        return;
 
+    // Delete comments made by user from DB
+    $stmt = DB::prepare("DELETE FROM `comments` WHERE `user_id` = :userid");
+    if (!$stmt->execute(array('userid' => $userid)))
+    {
+        $stmt = null;
+        print("Error deleting comments from database");
+        exit;
+    }
+
+    // Delete posts by user: get post ids so the associated images and comments can be removed
+    $stmt = DB::prepare("SELECT `post_id` FROM `posts` WHERE `user_id` = :userid");
+    if (!$stmt->execute(array('userid' => $userid)))
+    {
+        $stmt = null;
+        print("Error getting post IDs from database");
+        exit;
+    }
+    if ($return = $stmt->fetchAll())
+    {
+        global $server_root;
+        foreach ($return as $post) {
+            delete_comments($post[0]);
+            unlink(realpath($server_root . "/postimages/" . $post[0] . ".png"));
+        }
+    }
+
+    // Delete posts by user from DB
+    $stmt = DB::prepare("DELETE FROM `posts` WHERE `user_id` = :userid");
+    if (!$stmt->execute(array('userid' => $userid)))
+    {
+        $stmt = null;
+        print("Error deleting posts from database");
+        exit;
+    }
+
+    // TODO: delete all personally saved images by user
+
+    // Atually delete user from DB
+    $stmt = DB::prepare("DELETE FROM `users` WHERE `username` = :username");
     if (!$stmt->execute(array('username' => $name)))
     {
         $stmt = null;
