@@ -137,6 +137,29 @@ function is_liked(int $postid, string $name)
 }
 
 /**
+ * @param int       $postid     ID of post to check
+ * @return int                  Count of likes - 0 if post doesn't exist
+ */
+function likes_count(int $postid)
+{
+    $stmt = DB::prepare("SELECT `liked_user_ids` FROM `posts` WHERE `post_id` = :postid");
+    if (!$stmt->execute(array('postid' => $postid)))
+    {
+        $stmt = null;
+        print("Error getting like count");
+        exit;
+    }
+    if (!$return = $stmt->fetchAll())
+    {
+        $stmt = null;
+        return (0);
+    }
+
+    $like_array = unserialize($return[0][0]);
+    return (count($like_array));
+}
+
+/**
  * @param int       $pageindex  Index of page of posts to get (1-based, first page = 1, second page = 2)
  * @return array|null           Index-based array of posts, each consisting of an Associative array with [post_id], [username], and [post_date] elements
  */
@@ -170,6 +193,27 @@ function get_posts(int $pageindex)
         return (null);
     }
     return ($return);
+}
+
+/**
+ * @return int                  Amount of pages needed to display all posts
+ */
+function post_page_count()
+{
+    $stmt = DB::prepare("SELECT count(`post_id`) FROM `posts`");
+    if (!$stmt->execute())
+    {
+        $stmt = null;
+        print("Error getting post count");
+        exit;
+    }
+    if (!($return = $stmt->fetchAll()))
+    {
+        $stmt = null;
+        return (0);
+    }
+    $postcount = intval($return[0][0]);
+    return (ceil($postcount / 5));
 }
 
 ?>
