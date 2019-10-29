@@ -45,10 +45,9 @@ function setup_db()
 
     print(" Complete.<br />" . PHP_EOL . "Creating savedimages table...");
     $tmpPDO->exec("CREATE TABLE IF NOT EXISTS `savedimages` (
-            `image_id`              INT         PRIMARY KEY AUTO_INCREMENT,
             `user_id`               INT         NOT NULL,
             `upload_date`           DATETIME    NOT NULL,
-            `md5`                   VARCHAR(32) NOT NULL
+            `md5`                   VARCHAR(32) PRIMARY KEY
         );");
 
     print(" Complete.<br />" . PHP_EOL . "Creating overlays table...");

@@ -55,7 +55,7 @@ function delete_comments(int $postid)
 
 /**
  * @param integer   $postid     ID of post to get comments for
- * @return array|null           Index-based array of comments, each consisting of an Associative array with [username], [post_date] and [text] elements
+ * @return array|null           Index-based array of comments, each consisting of an Associative array with [username], [post_date] and [text] elements, ordered by newest first
  */
 function get_comments(int $postid)
 {
