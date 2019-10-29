@@ -438,7 +438,8 @@ function send_password_reset_key(string $email)
     $stmt = DB::prepare("UPDATE `users`
             SET
                 `reset_password_key` = :resethash
-            WHERE `email` = :email
+            WHERE
+                `email` = :email
             ;");
 
     if (!$stmt->execute(array('resethash' => $resethash, 'email' => $email)))
