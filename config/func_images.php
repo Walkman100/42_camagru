@@ -9,6 +9,8 @@ if ($_SERVER['DOCUMENT_ROOT'])
 else
     $server_root = "/Volumes/wtc-mcarter/camagru";
 
+// ==================== savedimages (/userdata/) functions ====================
+
 /**
  * @param string    $name           Username to associate with image
  * @param string    $image_path     Path of image to add
@@ -104,6 +106,43 @@ function get_images(string $name)
         return (null);
     }
     return ($return);
+}
+
+// ==================== overlays (/overlays/) functions ====================
+
+function add_overlay(string $image_path)
+{
+    if (!file_exists(realpath($image_path)))
+        return (false);
+
+    $stmt = DB::prepare("INSERT INTO `overlays` (`image_id`) VALUES (null)");
+    if (!$stmt->execute())
+    {
+        $stmt = null;
+        print("Error adding overlay");
+        exit;
+    }
+
+    global $server_root;
+    return (copy(realpath($image_path), $server_root . "/overlays/" . DB::lastInsertID() . ".png"));
+}
+
+function delete_overlay(int $id)
+{
+    global $server_root;
+    if (!file_exists(realpath($server_root . "/overlays/" . $id . ".png")))
+        return;
+
+    unlink(realpath($server_root . "/overlays/" . $id . ".png"));
+
+    $stmt = DB::prepare("DELETE FROM `overlays` WHERE `image_id` = :id");
+    if (!$stmt->execute(array('id' => $id)))
+    {
+        $stmt = null;
+        print("Error deleting overlay from database");
+        exit;
+    }
+    $stmt = null;
 }
 
 ?>

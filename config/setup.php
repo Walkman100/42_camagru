@@ -52,7 +52,7 @@ function setup_db()
 
     print(" Complete.<br />" . PHP_EOL . "Creating overlays table...");
     $tmpPDO->exec("CREATE TABLE IF NOT EXISTS `overlays` (
-            `image_id`              INT     PRIMARY KEY
+            `image_id`              INT         PRIMARY KEY AUTO_INCREMENT
         );");
     // TODO: add all images in overlays/*.png to table
 
