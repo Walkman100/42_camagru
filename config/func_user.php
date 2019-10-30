@@ -465,22 +465,6 @@ function send_password_reset_key(string $email)
  */
 function delete_user(string $name)
 {
-    // Delete comments made by user from DB
-    $stmt = DB::prepare("DELETE
-            `comments`
-        FROM
-            `comments`
-        INNER JOIN `users` ON `users`.`id` = `comments`.`user_id`
-        WHERE
-            `users`.`username` = :username
-        ;");
-    if (!$stmt->execute(array('username' => $name)))
-    {
-        $stmt = null;
-        print("Error deleting comments from database");
-        exit;
-    }
-
     global $server_root;
     // Delete posts by user: get post ids so the associated images and comments can be removed
     $stmt = DB::prepare("SELECT
@@ -506,22 +490,6 @@ function delete_user(string $name)
         }
     }
 
-    // Delete posts by user from DB
-    $stmt = DB::prepare("DELETE
-            `posts`
-        FROM
-            `posts`
-        INNER JOIN `users` ON `users`.`id` = `posts`.`user_id`
-        WHERE
-            `users`.`username` = :username
-        ;");
-    if (!$stmt->execute(array('username' => $name)))
-    {
-        $stmt = null;
-        print("Error deleting posts from database");
-        exit;
-    }
-
     // Delete images saved by user: get image md5's so the associated image files can be removed
     $stmt = DB::prepare("SELECT
             `md5`
@@ -543,28 +511,21 @@ function delete_user(string $name)
             unlink(realpath($server_root . "/userdata/" . $post[0] . ".png"));
     }
 
-    // Delete images saved by user from DB
+    // Delete comments made by user, posts, images and the user itself from DB
     $stmt = DB::prepare("DELETE
-            `savedimages`
+            `comments`, `posts`, `savedimages`, `users`
         FROM
-            `savedimages`
-        INNER JOIN `users` ON `users`.`id` = `savedimages`.`user_id`
+            `users`
+        LEFT JOIN `comments`    ON `users`.`id` =    `comments`.`user_id`
+        LEFT JOIN `posts`       ON `users`.`id` =       `posts`.`user_id`
+        LEFT JOIN `savedimages` ON `users`.`id` = `savedimages`.`user_id`
         WHERE
             `users`.`username` = :username
         ;");
     if (!$stmt->execute(array('username' => $name)))
     {
         $stmt = null;
-        print("Error deleting images from database");
-        exit;
-    }
-
-    // Atually delete user from DB
-    $stmt = DB::prepare("DELETE FROM `users` WHERE `username` = :username");
-    if (!$stmt->execute(array('username' => $name)))
-    {
-        $stmt = null;
-        print("Error Deleting user from database");
+        print("Error deleting data from database");
         exit;
     }
     $stmt = null;
