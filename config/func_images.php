@@ -81,20 +81,19 @@ function delete_image(string $md5)
  */
 function get_images(string $name)
 {
-    if (!$userid = get_user_id($name))
-        return (null);
     $stmt = DB::prepare("SELECT
             `upload_date`,
             `md5`
         FROM
             `savedimages`
+        INNER JOIN `users` ON `savedimages`.`user_id` = `users`.`id`
         WHERE
-            `user_id` = :userid
+            `users`.`username` = :username
         ORDER BY
             `upload_date` DESC
         ;");
 
-    if (!$stmt->execute(array('userid' => $userid)))
+    if (!$stmt->execute(array('username' => $name)))
     {
         $stmt = null;
         print("Error getting images");

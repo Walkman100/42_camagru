@@ -465,12 +465,16 @@ function send_password_reset_key(string $email)
  */
 function delete_user(string $name)
 {
-    if (!$userid = get_user_id($name))
-        return;
-
     // Delete comments made by user from DB
-    $stmt = DB::prepare("DELETE FROM `comments` WHERE `user_id` = :userid");
-    if (!$stmt->execute(array('userid' => $userid)))
+    $stmt = DB::prepare("DELETE
+            `comments`
+        FROM
+            `comments`
+        INNER JOIN `users` ON `users`.`id` = `comments`.`user_id`
+        WHERE
+            `users`.`username` = :username
+        ;");
+    if (!$stmt->execute(array('username' => $name)))
     {
         $stmt = null;
         print("Error deleting comments from database");
@@ -479,8 +483,15 @@ function delete_user(string $name)
 
     global $server_root;
     // Delete posts by user: get post ids so the associated images and comments can be removed
-    $stmt = DB::prepare("SELECT `post_id` FROM `posts` WHERE `user_id` = :userid");
-    if (!$stmt->execute(array('userid' => $userid)))
+    $stmt = DB::prepare("SELECT
+            `post_id`
+        FROM
+            `posts`
+        INNER JOIN `users` ON `users`.`id` = `posts`.`user_id`
+        WHERE
+            `users`.`username` = :username
+        ;");
+    if (!$stmt->execute(array('username' => $name)))
     {
         $stmt = null;
         print("Error getting post IDs from database");
@@ -496,8 +507,15 @@ function delete_user(string $name)
     }
 
     // Delete posts by user from DB
-    $stmt = DB::prepare("DELETE FROM `posts` WHERE `user_id` = :userid");
-    if (!$stmt->execute(array('userid' => $userid)))
+    $stmt = DB::prepare("DELETE
+            `posts`
+        FROM
+            `posts`
+        INNER JOIN `users` ON `users`.`id` = `posts`.`user_id`
+        WHERE
+            `users`.`username` = :username
+        ;");
+    if (!$stmt->execute(array('username' => $name)))
     {
         $stmt = null;
         print("Error deleting posts from database");
@@ -505,8 +523,15 @@ function delete_user(string $name)
     }
 
     // Delete images saved by user: get image md5's so the associated image files can be removed
-    $stmt = DB::prepare("SELECT `md5` FROM `savedimages` WHERE `user_id` = :userid");
-    if (!$stmt->execute(array('userid' => $userid)))
+    $stmt = DB::prepare("SELECT
+            `md5`
+        FROM
+            `savedimages`
+        INNER JOIN `users` ON `users`.`id` = `savedimages`.`user_id`
+        WHERE
+            `users`.`username` = :username
+        ;");
+    if (!$stmt->execute(array('username' => $name)))
     {
         $stmt = null;
         print("Error getting image IDs from database");
@@ -519,8 +544,15 @@ function delete_user(string $name)
     }
 
     // Delete images saved by user from DB
-    $stmt = DB::prepare("DELETE FROM `savedimages` WHERE `user_id` = :userid");
-    if (!$stmt->execute(array('userid' => $userid)))
+    $stmt = DB::prepare("DELETE
+            `savedimages`
+        FROM
+            `savedimages`
+        INNER JOIN `users` ON `users`.`id` = `savedimages`.`user_id`
+        WHERE
+            `users`.`username` = :username
+        ;");
+    if (!$stmt->execute(array('username' => $name)))
     {
         $stmt = null;
         print("Error deleting images from database");
