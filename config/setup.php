@@ -2,6 +2,7 @@
 
 require_once("database.php");
 require_once("output.php");
+require_once("func_images.php");
 
 function setup_db()
 {
@@ -58,6 +59,7 @@ function setup_db()
 
     print(" Complete.<br />" . PHP_EOL . "Closing connection...");
     $tmpPDO = null;
+
     print(" Complete.<br />" . PHP_EOL . "Creating image folders...");
     if ($_SERVER['DOCUMENT_ROOT'])
         $server_root = $_SERVER['DOCUMENT_ROOT'];
@@ -66,6 +68,10 @@ function setup_db()
     mkdir($server_root . "/overlays/", 0777, true);
     mkdir($server_root . "/userdata/", 0777, true);
     mkdir($server_root . "/postimages/", 0777, true);
+
+    print(" Complete. <br />" . PHP_EOL . "Indexing all overlays...");
+    add_all_overlays();
+
     print(" Complete.<br />" . PHP_EOL);
 }
 

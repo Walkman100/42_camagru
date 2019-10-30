@@ -77,7 +77,7 @@ function delete_image(string $md5)
 
 /**
  * @param string    $name           Username to get images for
- * @return array|null               Index-based array of comments, each consisting of an Associative array with [upload_date] and [md5] elements, ordered by newest first
+ * @return array|null               Index-based array of user's images, each consisting of an Associative array with [upload_date] and [md5] elements, ordered by newest first
  */
 function get_images(string $name)
 {
@@ -110,6 +110,10 @@ function get_images(string $name)
 
 // ==================== overlays (/overlays/) functions ====================
 
+/**
+ * @param string    $image_path     Path of image to add as an overlay
+ * @return void
+ */
 function add_overlay(string $image_path)
 {
     if (!file_exists(realpath($image_path)))
@@ -127,6 +131,10 @@ function add_overlay(string $image_path)
     return (copy(realpath($image_path), $server_root . "/overlays/" . DB::lastInsertID() . ".png"));
 }
 
+/**
+ * @param integer   $id             id of overlay to delete and remove from database
+ * @return void
+ */
 function delete_overlay(int $id)
 {
     global $server_root;
@@ -143,6 +151,55 @@ function delete_overlay(int $id)
         exit;
     }
     $stmt = null;
+}
+
+/**
+ * @return array|null               Index-based array of overlay IDs ordered ascending
+ */
+function get_overlays()
+{
+    $stmt = DB::prepare("SELECT `image_id` FROM `overlays` ORDER BY `image_id` ASC");
+    if (!$stmt->execute(array()))
+    {
+        $stmt = null;
+        print("Error getting overlays");
+        exit;
+    }
+    if (!$return = $stmt->fetchAll(PDO::FETCH_COLUMN))
+    {
+        $stmt = null;
+        return (null);
+    }
+    return ($return);
+}
+
+/**
+ * Adds all .png files in the /overlays/ folder to the database
+ * @return void
+ */
+function add_all_overlays()
+{
+    DB::exec("TRUNCATE `overlays`");
+    $stmt = DB::prepare("INSERT INTO `overlays` (
+            `image_id`
+        ) VALUES (
+            :imageid
+        )");
+
+    global $server_root;
+    foreach (array_filter(glob($server_root . "/overlays/" . '*.png'), 'is_file') as $file)
+    {
+        // above gets the full path to each file. remove the path:
+        $file = substr($file, strrpos($file, '/') + 1);
+        // and clear the extension:
+        $file = substr($file, 0, -4);
+        if (!$stmt->execute(array('imageid' => $file)))
+        {
+            $stmt = null;
+            print("Error adding overlays");
+            exit;
+        }
+    }
 }
 
 ?>
