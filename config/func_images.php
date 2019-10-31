@@ -7,7 +7,7 @@ date_default_timezone_set("Africa/Johannesburg");
 if ($_SERVER['DOCUMENT_ROOT'])
     $server_root = $_SERVER['DOCUMENT_ROOT'];
 else
-    $server_root = "/Volumes/wtc-mcarter/camagru";
+    $server_root = "/Volumes/wtc-mcarter/camagru/site";
 
 // ==================== savedimages (/userdata/) functions ====================
 

@@ -64,7 +64,7 @@ function setup_db()
     if ($_SERVER['DOCUMENT_ROOT'])
         $server_root = $_SERVER['DOCUMENT_ROOT'];
     else
-        $server_root = "/Volumes/wtc-mcarter/camagru";
+        $server_root = "/Volumes/wtc-mcarter/camagru/site";
     mkdir($server_root . "/overlays/", 0777, true);
     mkdir($server_root . "/userdata/", 0777, true);
     mkdir($server_root . "/postimages/", 0777, true);

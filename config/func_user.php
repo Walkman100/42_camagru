@@ -256,7 +256,7 @@ function create_user(string $name, string $password, string $email)
 }
 
 /**
- * @param string    $name       Username of account to change
+ * @param string    $name       Username to change the password for
  * @param string    $newpw      New Password
  * @return void
  */
@@ -286,7 +286,7 @@ function change_password(string $name, string $newpw)
 }
 
 /**
- * @param string    $name       Username to change the password for
+ * @param string    $name       Username to change the email address for
  * @param string    $newemail   New email address
  * @return void
  */

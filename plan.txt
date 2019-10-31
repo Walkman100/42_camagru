@@ -43,14 +43,18 @@ config/
     func_posts.php
     func_comments.php
     func_images.php
-    func_session.php
     func_email.php
 
-    create.php      (create user account)
-    modify.php
-        username, email, password, notify
-    reset.php       (reset password email handling)
-    delete.php      (delete user account)
+site/
+    api/
+        account.php (create user account
+                    modify username, email, password, notify
+                    reset password email handling
+                    delete user account)
+        comments.php
+        posts.php   (also handles getting overlays)
+    posts.php?page=#
+    [html pages]
 
 
 
