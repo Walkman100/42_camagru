@@ -9,11 +9,36 @@ date_default_timezone_set("Africa/Johannesburg");
  * @param integer   $postid     ID of post to attach the comment to
  * @param string    $name       Username posting comment
  * @param string    $posttext   Text associated with comment
- * @return bool                 True if comment was added successfully, false if user can't be found
+ * @return bool                 True if comment was added successfully, false if post or user can't be found
  */
 function post_comment(int $postid, string $name, string $posttext)
 {
     $currdate = date("Y-m-d H:i:s");
+
+    $stmt = DB::prepare("SELECT
+            `users`.`username`,
+            `users`.`email`,
+            `users`.`notify`
+        FROM
+            `posts`
+        INNER JOIN `users` ON `posts`.`user_id` = `users`.`id`
+        WHERE
+            `post_id` = :postid
+        ;");
+    if ($stmt->execute(array('postid' => $postid)))
+    {
+        if (!$return = $stmt->fetchAll())
+        {
+            $stmt = null;
+            return (false);
+        }
+    }
+    else
+    {
+        $stmt = null;
+        print("Error checking if post exists");
+        exit;
+    }
 
     if (!$userid = get_user_id($name))
         return (false);
@@ -34,6 +59,9 @@ function post_comment(int $postid, string $name, string $posttext)
         print("Error creating comment");
         exit;
     }
+
+    if ($return[0]['notify'] === '1')
+        send_comment_notification($return[0]['username'], $return[0]['email'], $posttext);
     return (true);
 }
 

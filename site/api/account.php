@@ -138,6 +138,8 @@ elseif ($_POST["action"] === "login") // args: username, password
         print("User doesn't exist!" . PHP_EOL);
     elseif (!correct_pw($_POST["username"], $_POST["password"]))
         print("Incorrect password!" . PHP_EOL);
+    elseif (!account_active($_POST["username"]))
+        print("Account not activated! Please check your emails" . PHP_EOL);
     else
     {
         set_session_username($_POST["username"]);
