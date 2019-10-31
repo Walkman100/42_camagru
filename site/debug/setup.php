@@ -1,7 +1,7 @@
 <?php
 
-include_once("../config/setup.php");
-include_once("../config/output.php");
+include_once("../../config/setup.php");
+include_once("../../config/output.php");
 
 output_head("Database Setup");
 print("Starting DB setup...<br />" . PHP_EOL);

@@ -1,6 +1,6 @@
 <?php
 
-include_once("../config/output.php");
+include_once("../../config/output.php");
 
 output_head("Debug Info", "<style>table { border-collapse: collapse; }
       td, th { border: 1px solid #aaaaaa;
