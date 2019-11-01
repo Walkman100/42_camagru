@@ -31,7 +31,7 @@ print("<div class='pages'>");
 $endval = post_page_count();
 for ($i = 1; $i < $endval + 1; $i++)
 {
-    print("<a href=\"/posts?page=" . $i . "\">");
+    print("<a class='pageno' href=\"/posts?page=" . $i . "\">");
     print("<div class='pageno");
     if ($i == $index)
         print(" current");
