@@ -4,7 +4,7 @@ require_once("../config/output.php");
 
 session_start();
 
-output_head("Login");
+output_head("Create Account");
 
 output_header();
 
@@ -13,14 +13,15 @@ output_header();
 <br /><br />
 <div class='form'>
     <form method="POST" action="api/account">
-        <input type="hidden" name="action" value="login">
+        <input type="hidden" name="action" value="create">
               Username:
         <br /><input class='forminput' required type="text" name="username" />
         <br />Password:
         <br /><input class='forminput' required type="password" name="password" />
-        <br /><button type="submit">Login</button>
+        <br />Email Address:
+        <br /><input class='forminput' required type="email" name="email" />
+        <br /><button type="submit">Create</button>
     </form>
-    <br /><a href="/create">Create Account</a>
     <br /><a href="/reset">Reset Password</a>
     <br /><a href="/resend">Resend Validation Email</a>
 </div>
