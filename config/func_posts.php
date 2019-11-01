@@ -161,6 +161,31 @@ function likes_count(int $postid)
     return (count($like_array));
 }
 
+function post_is_owned(int $postid, string $name)
+{
+    $stmt = DB::prepare("SELECT
+            `users`.`username`
+        FROM
+            `posts`
+        INNER JOIN `users` ON `posts`.`user_id` = `users`.`id`
+        WHERE
+            `post_id` = :postid
+        ;");
+    if (!$stmt->execute(array('postid' => $postid)))
+    {
+        $stmt = null;
+        print("Error getting username");
+        exit;
+    }
+    if (!$return = $stmt->fetchAll())
+    {
+        $stmt = null;
+        return (false);
+    }
+
+    return ($return[0][0] === $name);
+}
+
 /**
  * @param int       $pageindex  Index of page of posts to get (1-based, first page = 1, second page = 2)
  * @return array|null           Index-based array of posts, each consisting of an Associative array with [post_id], [username], and [post_date] elements

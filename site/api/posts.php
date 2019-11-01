@@ -27,7 +27,17 @@ elseif ($_POST["action"] === "add") // args: md5
 }
 elseif ($_POST["action"] === "delete") // args: postid
 {
-    
+    if (!$_SESSION["username"])
+        print("Not logged in" . PHP_EOL);
+    elseif (!$_POST["postid"])
+        print("No postid supplied!" . PHP_EOL);
+    elseif (!post_is_owned($_POST["postid"], $_SESSION["username"]))
+        print("Logged in user does not own post!" . PHP_EOL);
+    else
+    {
+        delete_post($_POST["postid"]);
+        print("Post deleted successfully" . PHP_EOL);
+    }
 }
 elseif ($_POST["action"] === "like") // args: postid, like (true|false)
 {
@@ -60,5 +70,7 @@ elseif ($_POST["action"] === "likecount") // args: postid
     else
         print(likes_count($_POST["postid"]));
 }
+else
+    print("Invalid action" . PHP_EOL);
 
 ?>
