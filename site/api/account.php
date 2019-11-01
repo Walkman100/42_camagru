@@ -70,6 +70,20 @@ elseif ($_POST["action"] === "sendreset") // args: email
         print("Password Reset Email sent successfully!" . PHP_EOL);
     else
         print("Email doesn't exist!" . PHP_EOL);
+}
+elseif ($_POST["action"] === "resetpw") // args: hash, newpassword
+{
+    if (!$_POST["hash"])
+        print("No hash supplied" . PHP_EOL);
+    elseif (!$_POST["newpassword"])
+        print("New Password not supplied!" . PHP_EOL);
+    elseif ($username = check_password_reset_key($_POST["hash"]))
+    {
+        change_password($username, $_POST["newpassword"]);
+        print("Changed password successfully" . PHP_EOL);
+    }
+    else
+        print("Hash doesn't exist!");
 } // require login
 elseif ($_POST["action"] === "changepw") // args: oldpassword, newpassword
 {

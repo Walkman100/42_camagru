@@ -32,7 +32,7 @@ if (!$_GET["hash"])
     <?php
 
 }
-elseif ($username = check_password_reset_key($_GET["hash"]))
+elseif (check_password_reset_key($_GET["hash"]))
 {
 
     ?>
