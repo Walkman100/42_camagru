@@ -40,6 +40,16 @@ output_header();
     <div class='small'>Current Email Address:</div>
     <div class='small'><?php print(get_email_address($_SESSION['username'])); ?></div>
     <br />
+    <?php
+        $newemail = new_email_pending($_SESSION['username']);
+        if ($newemail)
+        {
+            print("<div class='small'>Pending Email address:</div>");
+            print("<div class='small'>" . $newemail . "</div>");
+            print("<div class='small'>(Check your inbox)</div>");
+            print("<br />");
+        }
+    ?>
     <form method="POST" action="api/account">
         <input type="hidden" name="action" value="changeemail">
               New Email Address:

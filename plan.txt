@@ -54,7 +54,10 @@ site/
         comments.php
         posts.php
     posts.php?page=#
-    [html pages]
+      not logged in pages:
+    create.php, login.php, resend.php, reset.php, verify.php
+      require login:
+    profile.php, logout.php, post.php
 
 
 
