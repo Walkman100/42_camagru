@@ -104,7 +104,7 @@ a.pageno:visited {
 
 div.form {
     width: min-content;
-    padding: 50px 50px;
+    padding: 10px 40px 40px 40px;
     text-align: center;
     background-color: #383838;
     border: 5px solid #646464;

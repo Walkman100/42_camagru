@@ -12,10 +12,11 @@ output_header();
 
 <br /><br />
 <div class='form'>
+    <h4>Login</h4>
     <form method="POST" action="api/account">
         <input type="hidden" name="action" value="login">
               Username:
-        <br /><input class='forminput' required type="text" name="username" />
+        <br /><input class='forminput' required autofocus type="text" name="username" />
         <br />Password:
         <br /><input class='forminput' required type="password" name="password" />
         <br /><button type="submit">Login</button>

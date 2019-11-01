@@ -123,7 +123,7 @@ elseif ($_POST["action"] === "changenotify") // args: notify
         print("No option supplied" . PHP_EOL);
     else
     {
-        change_notify($_SESSION["username"], $_POST["notify"]);
+        change_notify($_SESSION["username"], $_POST["notify"] === "true" ? true : false);
         print("Option changed successfully" . PHP_EOL);
     }
 }

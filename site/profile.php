@@ -15,6 +15,7 @@ output_header();
 
 <br /><br />
 <div class='form'>
+    <h4>Change Password</h4>
     <form method="POST" action="api/account">
         <input type="hidden" name="action" value="changepw">
               Old Password:
@@ -27,6 +28,7 @@ output_header();
 
 <br /><br />
 <div class='form'>
+    <h4>Change Email Address</h4>
     <form method="POST" action="api/account">
         <input type="hidden" name="action" value="changeemail">
               New Email Address:
@@ -37,14 +39,18 @@ output_header();
 
 <br /><br />
 <div class='form'>
+    <h4>Change Notify Option</h4>
     <form method="POST" action="api/account">
         <input type="hidden" name="action" value="changenotify">
-        <br /><button type="submit">Change</button>
+              <label><input type="radio" name="notify" value="true">Enable</label>
+        <br /><label><input type="radio" name="notify" value="false">Disable</label>
+        <br /><br /><button type="submit">Change</button>
     </form>
 </div>
 
 <br /><br />
 <div class='form'>
+    <h4>Delete Account</h4>
     <form method="POST" action="api/account">
         <input type="hidden" name="action" value="delete">
               Password:
