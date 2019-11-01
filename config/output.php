@@ -18,6 +18,17 @@ function output_head(string $title, string $additional_head = null)
     if ($additional_head !== null)
         print($additional_head);
     print("</head><body>");
+    print("<div class='toolbar'><div class='toolbarsub'>");
+    print("<a href=\"/posts\"><div class='toolbarbutton'>Posts</div></a>");
+    if ($_SESSION['username'])
+    {
+        print("<div class='username'>" . $_SESSION['username'] . "</div>");
+        print(" <a href=\"/logout\"><div class='toolbarbutton'>Logout</div></a>");
+        print(" <a href=\"/profile\"><div class='toolbarbutton'>Profile</div></a>");
+    }
+    else
+        print("<a href=\"/login\"><div class='toolbarbutton'>Login</div></a>");
+    print("</div></div>");
 }
 
 function output_end()
