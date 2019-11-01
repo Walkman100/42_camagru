@@ -1,11 +1,19 @@
 <?php
 
 require_once("../config/output.php");
+require_once("../config/func_user.php");
 
 session_start();
 
 if (!$_SESSION["username"])
     header("Location: /login");
+
+function isenable(int $opt)
+{
+    $isnotify = notify_is_on($_SESSION["username"]);
+    if ($opt === 1 && $isnotify || $opt === 2 && !$isnotify)
+        print("checked");
+}
 
 output_head("Profile");
 
@@ -42,8 +50,14 @@ output_header();
     <h4>Change Notify Option</h4>
     <form method="POST" action="api/account">
         <input type="hidden" name="action" value="changenotify">
-              <label><input type="radio" name="notify" value="true">Enable</label>
-        <br /><label><input type="radio" name="notify" value="false">Disable</label>
+              <label>
+                <input type="radio" name="notify" value="true" <?php isenable(1); ?> >
+                Enable
+              </label>
+        <br /><label>
+                <input type="radio" name="notify" value="false" <?php isenable(2); ?>>
+                Disable
+              </label>
         <br /><br /><button type="submit">Change</button>
     </form>
 </div>
