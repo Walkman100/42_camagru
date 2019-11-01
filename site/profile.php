@@ -37,6 +37,9 @@ output_header();
 <br /><br />
 <div class='form'>
     <h4>Change Email Address</h4>
+    <div class='small'>Current Email Address:</div>
+    <div class='small'><?php print(get_email_address($_SESSION['username'])); ?></div>
+    <br />
     <form method="POST" action="api/account">
         <input type="hidden" name="action" value="changeemail">
               New Email Address:

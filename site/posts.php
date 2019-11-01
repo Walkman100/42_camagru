@@ -16,13 +16,17 @@ if (isset($_GET['page']))
 else
     $index = 1;
 
-foreach (get_posts($index) as $post)
+$posts = get_posts($index);
+if ($posts)
 {
-    print("<div class='post'>");
-    print("  <img class='postimg' src=\"/postimages/" . $post['post_id'] . ".png\">");
-    print("<div class='postusername'>Posted by " . $post['username'] . "</div>");
-    print("<div class='postdate'>Posted on " . $post['post_date'] . "</div>");
-    print("</div>");
+    foreach (get_posts($index) as $post)
+    {
+        print("<div class='post'>");
+        print("  <img class='postimg' src=\"/postimages/" . $post['post_id'] . ".png\">");
+        print("<div class='postusername'>Posted by " . $post['username'] . "</div>");
+        print("<div class='postdate'>Posted on " . $post['post_date'] . "</div>");
+        print("</div>");
+    }
 }
 
 print("<br /><br />");

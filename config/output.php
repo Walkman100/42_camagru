@@ -20,7 +20,7 @@ function output_head(string $title, string $additional_head = null)
     print("</head><body>");
     print("<div class='toolbar'><div class='toolbarsub'>");
     print("<a href=\"/posts\"><div class='toolbarbutton'>Posts</div></a>");
-    if ($_SESSION['username'])
+    if (isset($_SESSION['username']))
     {
         print("<div class='username'>" . $_SESSION['username'] . "</div>");
         print(" <a href=\"/logout\"><div class='toolbarbutton'>Logout</div></a>");

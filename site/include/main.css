@@ -119,7 +119,11 @@ button {
 }
 
 input.forminput {
-    width: 190px;
+    width: 184px;
+}
+
+div.small {
+    font-size: 14px;
 }
 
 a:link, a:visited {

@@ -169,7 +169,35 @@ function account_active(string $name)
 
 /**
  * @param string    $name       Username to check
- * @return string               Pending email address if exists, NULL if not
+ * @return string|null          User's email address, NULL if user doesn't exist
+ */
+function get_email_address(string $name)
+{
+    $stmt = DB::prepare("SELECT `email` FROM `users` WHERE `username` = :username");
+    if ($stmt->execute(array('username' => $name)))
+    {
+        if (($return = $stmt->fetchAll()))
+        {
+            $stmt = null;
+            return ($return[0][0]);
+        }
+        else
+        {
+            $stmt = null;
+            return (null);
+        }
+    }
+    else
+    {
+        $stmt = null;
+        print("Error getting account email address");
+        exit;
+    }
+}
+
+/**
+ * @param string    $name       Username to check
+ * @return string|null          Pending email address if exists, NULL if not
  */
 function new_email_pending(string $name)
 {
