@@ -52,7 +52,7 @@ site/
                     reset password email handling
                     delete user account)
         comments.php
-        posts.php   (also handles getting overlays)
+        posts.php
     posts.php?page=#
     [html pages]
 

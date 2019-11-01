@@ -1,12 +1,7 @@
 <?php
 
-require_once("../../config/setup.php");
 require_once("../../config/output.php");
-require_once("../../config/func_user.php");
 require_once("../../config/func_posts.php");
-require_once("../../config/func_comments.php");
-require_once("../../config/func_images.php");
-require_once("../../config/func_email.php");
 
 session_start();
 
