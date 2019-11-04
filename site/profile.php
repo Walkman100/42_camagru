@@ -8,7 +8,7 @@ session_start();
 if (!$_SESSION["username"])
     header("Location: /login");
 
-function isenable(int $opt)
+function printenable(int $opt)
 {
     $isnotify = notify_is_on($_SESSION["username"]);
     if ($opt === 1 && $isnotify || $opt === 2 && !$isnotify)
@@ -21,7 +21,18 @@ output_header();
 
 ?>
 
-<br /><br />
+<br />  <!-- Change Username -->
+<div class='form'>
+    <h4>Change Username</h4>
+    <form method="POST" action="api/account">
+        <input type="hidden" name="action" value="changeusername">
+              New Username:
+        <br /><input class='forminput' required type="text" name="username" />
+        <br /><button type="submit">Submit</button>
+    </form>
+</div>
+
+<br />  <!-- Change Password -->
 <div class='form'>
     <h4>Change Password</h4>
     <form method="POST" action="api/account">
@@ -34,7 +45,7 @@ output_header();
     </form>
 </div>
 
-<br /><br />
+<br />  <!-- Change Email Address -->
 <div class='form'>
     <h4>Change Email Address</h4>
     <div class='small'>Current Email Address:</div>
@@ -58,24 +69,24 @@ output_header();
     </form>
 </div>
 
-<br /><br />
+<br />  <!-- Change Notify Option -->
 <div class='form'>
     <h4>Change Notify Option</h4>
     <form method="POST" action="api/account">
         <input type="hidden" name="action" value="changenotify">
               <label>
-                <input type="radio" name="notify" value="true" <?php isenable(1); ?> >
+                <input type="radio" name="notify" value="true" <?php printenable(1); ?> >
                 Enable
               </label>
         <br /><label>
-                <input type="radio" name="notify" value="false" <?php isenable(2); ?>>
+                <input type="radio" name="notify" value="false" <?php printenable(2); ?>>
                 Disable
               </label>
         <br /><br /><button type="submit">Change</button>
     </form>
 </div>
 
-<br /><br />
+<br />  <!-- Delete Account -->
 <div class='form'>
     <h4>Delete Account</h4>
     <form method="POST" action="api/account">

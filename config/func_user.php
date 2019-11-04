@@ -284,6 +284,27 @@ function create_user(string $name, string $password, string $email)
 }
 
 /**
+ * @param string    $oldname    Name of user to change username for
+ * @param string    $newname    New username
+ * @return void
+ */
+function change_username(string $oldname, string $newname)
+{
+    $stmt = DB::prepare("UPDATE `users` SET `username` = :newusername WHERE `username` = :oldusername");
+
+    if (!$stmt->execute(array(
+        'oldusername' => $oldname,
+        'newusername' => $newname
+    )))
+    {
+        $stmt = null;
+        print("Error changing username");
+        exit;
+    }
+    $stmt = null;
+}
+
+/**
  * @param string    $name       Username to change the password for
  * @param string    $newpw      New Password
  * @return void

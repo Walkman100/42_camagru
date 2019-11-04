@@ -41,7 +41,7 @@ elseif ($_POST["action"] === "create") // args: username, password, email
     else
     {
         create_user($_POST["username"], $_POST["password"], $_POST["email"]);
-        print("Account created successfully" . PHP_EOL);
+        print("Account created successfully, check your inbox for the verification email" . PHP_EOL);
     }
 }
 elseif ($_POST["action"] === "validate") // args: hash
@@ -85,6 +85,21 @@ elseif ($_POST["action"] === "resetpw") // args: hash, newpassword
     else
         print("Hash doesn't exist!");
 } // require login
+elseif ($_POST["action"] === "changeusername") // args: username
+{
+    if (!$_SESSION["username"])
+        print("Not logged in" . PHP_EOL);
+    if (!$_POST["username"])
+        print("No username supplied!" . PHP_EOL);
+    elseif (user_exists($_POST["username"]))
+        print("Username in use!" . PHP_EOL);
+    else
+    {
+        change_username($_SESSION["username"], $_POST["username"]);
+        $_SESSION["username"] = $_POST["username"];
+        print("Username changed successfully" . PHP_EOL);
+    }
+}
 elseif ($_POST["action"] === "changepw") // args: oldpassword, newpassword
 {
     if (!$_SESSION["username"])

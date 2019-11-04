@@ -7,7 +7,6 @@ body {
 /* toolbar */
 
 div.toolbar {
-    width: 98%;
     height: 50px;
     background-color: #646464;
     border: 1px solid #9b9b9b;
@@ -30,7 +29,7 @@ div.toolbarbutton {
 }
 
 div.username {
-    width: 100px;
+    min-width: 100px;
     padding: 15px;
     text-align: center;
     float: left;
