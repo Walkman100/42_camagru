@@ -1,6 +1,6 @@
 <?php
 
-require_once("setup.php");
+require_once("connection.php");
 require_once("func_user.php");
 
 date_default_timezone_set("Africa/Johannesburg");

@@ -37,9 +37,10 @@ postimages/
 Back-end scripts:
 
 config/
-    setup.php       (allows creating or re-creating database)
     database.php    (contains info about connecting to the database)
-    func_user.php       (functions other scripts use)
+    setup.php       (allows creating or re-creating database)
+    connection.php  (contains DB class)
+    func_user.php   (functions other scripts use)
     func_posts.php
     func_comments.php
     func_images.php

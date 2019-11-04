@@ -1,6 +1,6 @@
 <?php
 
-require_once("setup.php");
+require_once("connection.php");
 require_once("func_email.php");
 require_once("func_comments.php");
 
