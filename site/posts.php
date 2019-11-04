@@ -7,9 +7,9 @@ session_start();
 
 output_head("Posts");
 
-print("<h1>Posts</h1>");
-
 output_header();
+
+print("<h1>Posts</h1>");
 
 if (isset($_GET['page']))
     $index = intval($_GET['page']);

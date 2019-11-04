@@ -2,9 +2,11 @@
 
 include_once("../../config/output.php");
 
-output_head("Debug Info", "<style>table { border-collapse: collapse; }
-      td, th { border: 1px solid #aaaaaa;
-        color: black; padding: 8px; } </style>");
+output_head("Debug Info", "<style>
+    table { border-collapse: collapse; }
+    td, th { border: 1px solid #aaaaaa; color: #cccccc; padding: 8px; }
+  </style>");
+
 ?>
 
     <table>

@@ -18,6 +18,16 @@ function output_head(string $title, string $additional_head = null)
     if ($additional_head !== null)
         print($additional_head);
     print("</head><body>");
+}
+
+function output_end()
+{
+    print("</body></html>" . PHP_EOL);
+}
+
+
+function output_header()
+{
     print("<div class='toolbar'><div class='toolbarsub'>");
     print("<a href=\"/posts\"><div class='toolbarbutton'>Posts</div></a>");
     if (isset($_SESSION['username']))
@@ -29,16 +39,6 @@ function output_head(string $title, string $additional_head = null)
     else
         print("<a href=\"/login\"><div class='toolbarbutton'>Login</div></a>");
     print("</div></div>");
-}
-
-function output_end()
-{
-    print("</body></html>" . PHP_EOL);
-}
-
-
-function output_header()
-{
     print("<div>");
 }
 
@@ -46,6 +46,7 @@ function output_footer()
 {
     print("</div>");
 }
+
 
 function dbconnectfailed(string $message)
 {
