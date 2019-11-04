@@ -132,3 +132,69 @@ a:link, a:visited {
 a:hover, a:active {
     color: #7482ff;
 }
+
+/* add post page */
+
+div.postviewport {
+    width: 98%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div.postmain, div.userimages, div.overlays {
+    padding: 10px 10px;
+    background-color: #383838;
+    border: 5px solid #646464;
+    border-radius: 10px;
+}
+
+div.postmain {
+    float: left;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-bottom: 30px;
+    width: 800px;
+    height: 600px;
+}
+
+/* user images */
+
+div.userimages {
+    float: left;
+    width: 200px;
+    height: 600px;
+}
+
+div.userimage {
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+}
+
+img.userimage {
+    display: block;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+/* overlays */
+
+div.overlays {
+    float: left;
+    margin-left: 30px;
+    width: 1060px;
+    height: 200px;
+}
+
+div.overlay {
+    margin-left: 5px;
+    height: 100%;
+}
+
+img.overlay {
+    /* display: block; */
+    margin-left: 0px;
+    margin-right: 0px;
+    max-height: 100%;
+    max-width: 160px;
+}

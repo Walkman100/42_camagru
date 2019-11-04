@@ -19,7 +19,7 @@ else
 $posts = get_posts($index);
 if ($posts)
 {
-    foreach (get_posts($index) as $post)
+    foreach ($posts as $post)
     {
         print("<div class='post'>");
         print("  <img class='postimg' src=\"/postimages/" . $post['post_id'] . ".png\">");
