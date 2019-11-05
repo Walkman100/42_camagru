@@ -12,13 +12,14 @@ output_head("Add Post");
 output_header();
 
 ?>
+
 <h1>Add Post</h1>
 <div class='postviewport'>
     <div class='postmain'>
         <form method="POST" action="api/upload" enctype="multipart/form-data">
-            <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
-                  Select Image:
-            <br /><input style="width: 100%; height: 25px" required type="file" name="userfile" />
+            <input type="hidden" name="MAX_FILE_SIZE" value="35000000" /> <!-- php POST max size is 40M, so set image max size to 35M -->
+                  Select Image (Only PNG):
+            <br /><input style="width: 100%; height: 25px" required type="file" accept="image/png" name="userfile" />
             <br /><button type="submit">Upload</button>
         </form>
     </div>

@@ -163,18 +163,25 @@ div.userimages {
     float: left;
     width: 200px;
     height: 600px;
+    text-align: center;
+    overflow: auto;
 }
 
 div.userimage {
-    margin-left: auto;
-    margin-right: auto;
-    width: 90%;
+    margin-bottom: 5px;
+    width: 100%;
 }
 
 img.userimage {
     display: block;
-    margin-top: 0px;
-    margin-bottom: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+    max-height: 200px;
+}
+
+div.postdate {
+    font-size: 10px;
 }
 
 /* overlays */
@@ -184,10 +191,11 @@ div.overlays {
     margin-left: 30px;
     width: 1060px;
     height: 200px;
+    overflow: auto;
 }
 
 div.overlay {
-    margin-left: 5px;
+    margin-right: 5px;
     height: 100%;
 }
 
@@ -195,6 +203,6 @@ img.overlay {
     /* display: block; */
     margin-left: 0px;
     margin-right: 0px;
-    max-height: 100%;
+    max-height: 75%;
     max-width: 160px;
 }

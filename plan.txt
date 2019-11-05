@@ -54,6 +54,7 @@ site/
                     delete user account)
         comments.php
         posts.php
+        upload.php
     posts.php?page=#
       not logged in pages:
     create.php, login.php, resend.php, reset.php, verify.php
