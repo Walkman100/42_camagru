@@ -2,6 +2,7 @@
 
 require_once("../../config/output.php");
 require_once("../../config/func_posts.php");
+require_once("../../config/func_images.php");
 
 session_start();
 
@@ -27,11 +28,25 @@ elseif ($_POST["action"] === "delete") // args: postid
     elseif (!$_POST["postid"])
         output_error("No postid supplied!", 400);
     elseif (!post_is_owned($_POST["postid"], $_SESSION["username"]))
-        output_error("Logged in user does not own post!", 400);
+        output_error("Logged in user does not own post!", 403);
     else
     {
         delete_post($_POST["postid"]);
         print("Post deleted successfully" . PHP_EOL);
+    }
+}
+elseif ($_POST["action"] === "deleteimage") // args: md5
+{
+    if (!$_SESSION["username"])
+        output_error("Not logged in", 401);
+    elseif (!$_POST["md5"])
+        output_error("No md5 supplied!", 400);
+    elseif (!image_is_owned($_POST["md5"], $_SESSION["username"]))
+        output_error("Logged in user does not own image!", 403);
+    else
+    {
+        delete_image($_POST["md5"]);
+        print("Image deleted successfully!" . PHP_EOL);
     }
 }
 elseif ($_POST["action"] === "like") // args: postid, like (true|false)

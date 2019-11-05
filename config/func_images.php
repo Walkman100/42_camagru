@@ -76,6 +76,36 @@ function delete_image(string $md5)
 }
 
 /**
+ * @param string    $md5            MD5 of image to check
+ * @param string    $name           User to check if they are the owner
+ * @return bool                     True if $name owns image $md5, False if $name doesn't own image $md5 or $md5 doesn't exist.
+ */
+function image_is_owned(string $md5, string $name)
+{
+    $stmt = DB::prepare("SELECT
+            `users`.`username`
+        FROM
+            `savedimages`
+        INNER JOIN `users` ON `savedimages`.`user_id` = `users`.`id`
+        WHERE
+            `md5` = :md5
+        ;");
+    if (!$stmt->execute(array('md5' => $md5)))
+    {
+        $stmt = null;
+        print("Error getting username");
+        exit;
+    }
+    if (!$return = $stmt->fetchAll())
+    {
+        $stmt = null;
+        return (false);
+    }
+
+    return ($return[0][0] === $name);
+}
+
+/**
  * @param string    $name           Username to get images for
  * @return array|null               Index-based array of user's images, each consisting of an Associative array with [upload_date] and [md5] elements, ordered by newest first
  */

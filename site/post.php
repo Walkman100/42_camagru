@@ -34,7 +34,12 @@ if ($images)
     {
         print("<div class='userimage'>");
         print("  <img class='userimage' src=\"/userdata/" . $image['md5'] . ".png\">");
-        print("<div class='postdate'>Uploaded on " . $image['upload_date'] . "</div>");
+        print("  <div class='postdate'>Uploaded on " . $image['upload_date'] . "</div>");
+        print("  <form method='POST' action='api/posts'>");
+        print("    <input type='hidden' name='md5' value=\"" . $image['md5'] . "\" />");
+        print("    <button type='submit' name='action' value='add'>Select</button>");
+        print("    <button type='submit' name='action' value='deleteimage'>Delete</button>");
+        print("  </form>");
         print("</div>");
     }
 }

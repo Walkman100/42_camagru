@@ -161,6 +161,11 @@ function likes_count(int $postid)
     return (count($like_array));
 }
 
+/**
+ * @param integer   $postid     ID of post to check
+ * @param string    $name       User to check if they are the owner
+ * @return bool                 True if $name owns $postid, False if $name doesn't own $postid or $postid doesn't exist.
+ */
 function post_is_owned(int $postid, string $name)
 {
     $stmt = DB::prepare("SELECT
