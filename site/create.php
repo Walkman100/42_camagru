@@ -21,7 +21,7 @@ output_header();
         <br /><input class='forminput' required type="password" name="password" />
         <br />Email Address:
         <br /><input class='forminput' required type="email" name="email" />
-        <br /><button type="submit">Create</button>
+        <br /><button class='submitbtn' type="submit">Create</button>
     </form>
     <br /><a href="/reset">Reset Password</a>
     <br /><a href="/resend">Resend Validation Email</a>

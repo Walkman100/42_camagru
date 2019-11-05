@@ -19,7 +19,7 @@ output_header();
         <br /><input class='forminput' required autofocus type="text" name="username" />
         <br />Password:
         <br /><input class='forminput' required type="password" name="password" />
-        <br /><button type="submit">Login</button>
+        <br /><button class='submitbtn' type="submit">Login</button>
     </form>
     <br /><a href="/create">Create Account</a>
     <br /><a href="/reset">Reset Password</a>

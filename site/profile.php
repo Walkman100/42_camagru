@@ -28,7 +28,7 @@ output_header();
         <input type="hidden" name="action" value="changeusername">
               New Username:
         <br /><input class='forminput' required type="text" name="username" />
-        <br /><button type="submit">Submit</button>
+        <br /><button class='submitbtn' type="submit">Submit</button>
     </form>
 </div>
 
@@ -41,7 +41,7 @@ output_header();
         <br /><input class='forminput' required type="password" name="oldpassword" />
         <br />New Password:
         <br /><input class='forminput' required type="password" name="newpassword" />
-        <br /><button type="submit">Submit</button>
+        <br /><button class='submitbtn' type="submit">Submit</button>
     </form>
 </div>
 
@@ -65,7 +65,7 @@ output_header();
         <input type="hidden" name="action" value="changeemail">
               New Email Address:
         <br /><input class='forminput' required type="email" name="newemail" />
-        <br /><button type="submit">Submit</button>
+        <br /><button class='submitbtn' type="submit">Submit</button>
     </form>
 </div>
 
@@ -82,7 +82,7 @@ output_header();
                 <input type="radio" name="notify" value="false" <?php printenable(2); ?>>
                 Disable
               </label>
-        <br /><br /><button type="submit">Change</button>
+        <br /><br /><button class='submitbtn' type="submit">Change</button>
     </form>
 </div>
 
@@ -93,7 +93,7 @@ output_header();
         <input type="hidden" name="action" value="delete">
               Password:
         <br /><input class='forminput' required type="password" name="password" />
-        <br /><button type="submit">Delete</button>
+        <br /><button class='submitbtn' type="submit">Delete</button>
     </form>
 </div>
 

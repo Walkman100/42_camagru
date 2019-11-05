@@ -20,7 +20,7 @@ output_header();
             <input type="hidden" name="MAX_FILE_SIZE" value="35000000" /> <!-- php POST max size is 40M, so set image max size to 35M -->
                   Select Image (Only PNG):
             <br /><input style="width: 100%; height: 25px" required type="file" accept="image/png" name="userfile" />
-            <br /><button type="submit">Upload</button>
+            <br /><button type="submit" class='submitbtn'>Upload</button>
         </form>
     </div>
     <div class='userimages'>
@@ -37,8 +37,8 @@ if ($images)
         print("  <div class='postdate'>Uploaded on " . $image['upload_date'] . "</div>");
         print("  <form method='POST' action='api/posts'>");
         print("    <input type='hidden' name='md5' value=\"" . $image['md5'] . "\" />");
-        print("    <button type='submit' name='action' value='add'>Select</button>");
-        print("    <button type='submit' name='action' value='deleteimage'>Delete</button>");
+        print("    <button type='submit' name='action' value='add' class='select'>Select</button>");
+        print("    <button type='submit' name='action' value='deleteimage' class='delete'>Delete</button>");
         print("  </form>");
         print("</div>");
     }

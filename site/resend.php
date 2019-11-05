@@ -17,7 +17,7 @@ output_header();
         <input type="hidden" name="action" value="resend">
               Email Address:
         <br /><input class='forminput' required autofocus type="email" name="email" />
-        <br /><button type="submit">Send</button>
+        <br /><button class='submitbtn' type="submit">Send</button>
     </form>
     <br /><a href="/create">Create Account</a>
     <br /><a href="/reset">Reset Password</a>

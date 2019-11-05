@@ -112,7 +112,7 @@ div.form {
     margin-right: auto;
 }
 
-button {
+button.submitbtn {
     width: 200px;
     height: 25px;
 }
@@ -182,6 +182,14 @@ img.userimage {
 
 div.postdate {
     font-size: 10px;
+}
+
+button.select {
+    width: 70px;
+}
+
+button.delete {
+    width: 70px;
 }
 
 /* overlays */

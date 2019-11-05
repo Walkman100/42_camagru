@@ -25,7 +25,7 @@ if (!$_GET["hash"])
             <input type="hidden" name="action" value="sendreset">
                 Email Address:
             <br /><input class='forminput' required autofocus type="email" name="email" />
-            <br /><button type="submit">Send</button>
+            <br /><button class='submitbtn' type="submit">Send</button>
         </form>
         <br /><a href="/create">Create Account</a>
         <br /><a href="/resend">Resend Validation Email</a>
@@ -44,7 +44,7 @@ elseif (check_password_reset_key($_GET["hash"]))
             <input type="hidden" name="hash" value="<?php print($_GET["hash"]); ?>">
                   New Password:
             <br /><input class='forminput' required autofocus type="password" name="newpassword" />
-            <br /><button type="submit">Send</button>
+            <br /><button class='submitbtn' type="submit">Send</button>
         </form>
     </div>
     <?php
