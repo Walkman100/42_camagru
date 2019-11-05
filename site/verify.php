@@ -5,7 +5,7 @@ require_once("../config/func_user.php");
 
 session_start();
 
-output_head("Create Account");
+output_head("Verify Email Address");
 
 output_header();
 

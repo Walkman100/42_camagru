@@ -40,57 +40,80 @@ div.username {
 
 /* posts */
 
+div.posts {
+    text-align: center;
+}
+
 div.post {
-    width: 400px;
-    height: 400px;
-    padding: 10px 10px;
+    display: inline-block;
+    vertical-align: top;
+    width: 360px;
+    height: 360px;
+    padding: 4px 4px;
     background-color: #383838;
     border: 5px solid #646464;
     border-radius: 10px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 5px;
 }
 
 img.postimg {
     display: block;
     max-width: 100%;
-    max-height: 362px;
+    max-height: 300px;
     margin-left: auto;
     margin-right: auto;
 }
 
 div.postusername {
-    color: lightgrey;
+    color: #999999;
+    font-size: 14px;
 }
 
-div.postdate {
-    color: dimgray;
+button.likebutton {
+    background-color: transparent;
+    border: none;
+    color: white;
+    padding: 0px;
+    text-align: center;
+    font-size: 22px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+button.likebutton:hover {
+    color: lightcoral;
+}
+
+button.likeDbutton {
+    color: firebrick;
 }
 
 /* page numbers */
 
 div.pages {
-    margin-left: auto;
-    margin-right: auto;
-    width: min-content;
+    text-align: center;
 }
 
 div.pageno {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 16px;
     width: 20px;
     height: 20px;
-    padding: 20px;
-    background-color: #383838;
+    padding: 14px;
+    background-color: #444444;
     border: 2px solid #646464;
     border-radius: 10px;
     text-align: center;
 }
+
 div.pageno:active, div.pageno:hover {
     background-color: #333333;
     border-color: #444444;
 }
 
 div.current {
-    background-color: #444444;
+    background-color: #383838;
 }
 
 a.pageno:link {
@@ -185,6 +208,7 @@ img.userimage {
 
 div.postdate {
     font-size: 10px;
+    color: dimgray;
 }
 
 button.select {
