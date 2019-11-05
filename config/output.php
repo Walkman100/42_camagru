@@ -48,6 +48,11 @@ function output_footer()
 }
 
 
+/**
+ * Prints the connecting to the database error and quits the current PHP execution
+ * @param string    $message        Message to print.
+ * @return void
+ */
 function dbconnectfailed(string $message)
 {
     output_head("Database Error");
@@ -56,6 +61,30 @@ function dbconnectfailed(string $message)
     output_end();
     exit;
     die;
+}
+
+/**
+ * Outputs the error message followed by <br /> and PHP_EOL.
+ * Also sends the response code if provided.
+ *
+ * @param string    $message        Message to print.
+ * @param integer   $response_code  Response code:
+ *      400: 'Bad Request'
+ *      401: 'Unauthorized'
+ *      403: 'Forbidden'
+ *      413: 'Request Entity Too Large'
+ *      414: 'Request-URI Too Large'
+ *      415: 'Unsupported Media Type'
+ *      500: 'Internal Server Error'
+ *      501: 'Not Implemented'
+ * See https://www.php.net/manual/en/function.http-response-code.php
+ * @return void
+ */
+function output_error(string $message, int $response_code = null)
+{
+    if (!is_null($response_code))
+        http_response_code($response_code);
+    print($message . "<br />" . PHP_EOL);
 }
 
 ?>

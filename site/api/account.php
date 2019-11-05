@@ -24,20 +24,20 @@ function logout()
 
 if (!isset($_POST["action"]))
 {
-    print("No action supplied" . PHP_EOL);
+    output_error("No action supplied", 400);
 } // don't require login
 elseif ($_POST["action"] === "create") // args: username, password, email
 {
     if (!$_POST["username"])
-        print("No username supplied!" . PHP_EOL);
+        output_error("No username supplied!", 400);
     elseif (!$_POST["password"])
-        print("No password supplied!" . PHP_EOL);
+        output_error("No password supplied!", 400);
     elseif (!$_POST["email"])
-        print("No email supplied!" . PHP_EOL);
+        output_error("No email supplied!", 400);
     elseif (user_exists($_POST["username"]))
-        print("User already exists!" . PHP_EOL);
+        output_error("User already exists!", 400);
     elseif (email_used($_POST["email"]))
-        print("Email already used!" . PHP_EOL);
+        output_error("Email already used!", 400);
     else
     {
         create_user($_POST["username"], $_POST["password"], $_POST["email"]);
@@ -47,52 +47,52 @@ elseif ($_POST["action"] === "create") // args: username, password, email
 elseif ($_POST["action"] === "validate") // args: hash
 {
     if (!$_POST["hash"])
-        print("No hash supplied" . PHP_EOL);
+        output_error("No hash supplied", 400);
     elseif (validate_email($_POST["hash"]))
         print("Email successfully validated!" . PHP_EOL);
     else
-        print("Hash doesn't exist!" . PHP_EOL);
+        output_error("Hash doesn't exist!", 400);
 }
 elseif ($_POST["action"] === "resend") // args: email
 {
     if (!$_POST["email"])
-        print("No email address supplied" . PHP_EOL);
+        output_error("No email address supplied", 400);
     elseif (resend_email_validation($_POST["email"]))
         print("Password Reset Email sent successfully!" . PHP_EOL);
     else
-        print("Unvalidated email not found!" . PHP_EOL);
+        output_error("Unvalidated email not found!", 400);
 }
 elseif ($_POST["action"] === "sendreset") // args: email
 {
     if (!$_POST["email"])
-        print("No email address supplied" . PHP_EOL);
+        output_error("No email address supplied", 400);
     elseif (send_password_reset_key($_POST["email"]))
         print("Password Reset Email sent successfully!" . PHP_EOL);
     else
-        print("Email doesn't exist!" . PHP_EOL);
+        output_error("Email doesn't exist!", 400);
 }
 elseif ($_POST["action"] === "resetpw") // args: hash, newpassword
 {
     if (!$_POST["hash"])
-        print("No hash supplied" . PHP_EOL);
+        output_error("No hash supplied", 400);
     elseif (!$_POST["newpassword"])
-        print("New Password not supplied!" . PHP_EOL);
+        output_error("New Password not supplied!", 400);
     elseif ($username = check_password_reset_key($_POST["hash"]))
     {
         change_password($username, $_POST["newpassword"]);
         print("Changed password successfully" . PHP_EOL);
     }
     else
-        print("Hash doesn't exist!");
+        output_error("Hash doesn't exist!", 400);
 } // require login
 elseif ($_POST["action"] === "changeusername") // args: username
 {
     if (!$_SESSION["username"])
-        print("Not logged in" . PHP_EOL);
+        output_error("Not logged in", 401);
     if (!$_POST["username"])
-        print("No username supplied!" . PHP_EOL);
+        output_error("No username supplied!", 400);
     elseif (user_exists($_POST["username"]))
-        print("Username in use!" . PHP_EOL);
+        output_error("Username in use!", 400);
     else
     {
         change_username($_SESSION["username"], $_POST["username"]);
@@ -103,13 +103,13 @@ elseif ($_POST["action"] === "changeusername") // args: username
 elseif ($_POST["action"] === "changepw") // args: oldpassword, newpassword
 {
     if (!$_SESSION["username"])
-        print("Not logged in" . PHP_EOL);
+        output_error("Not logged in", 401);
     elseif (!$_POST["oldpassword"])
-        print("Old Password not supplied!" . PHP_EOL);
+        output_error("Old Password not supplied!", 400);
     elseif (!$_POST["newpassword"])
-        print("New Password not supplied!" . PHP_EOL);
+        output_error("New Password not supplied!", 400);
     elseif (!correct_pw($_SESSION["username"], $_POST["oldpassword"]))
-        print("Incorrect password!" . PHP_EOL);
+        output_error("Incorrect password!", 400);
     else
     {
         change_password($_SESSION["username"], $_POST["newpassword"]);
@@ -119,11 +119,11 @@ elseif ($_POST["action"] === "changepw") // args: oldpassword, newpassword
 elseif ($_POST["action"] === "changeemail") // args: newemail
 {
     if (!$_SESSION["username"])
-        print("Not logged in" . PHP_EOL);
+        output_error("Not logged in", 401);
     elseif (!$_POST["newemail"])
-        print("No email address supplied" . PHP_EOL);
+        output_error("No email address supplied", 400);
     elseif (email_used($_POST["newemail"]))
-        print("Email address already used!" . PHP_EOL);
+        output_error("Email address already used!", 400);
     else
     {
         change_email($_SESSION["username"], $_POST["newemail"]);
@@ -133,9 +133,9 @@ elseif ($_POST["action"] === "changeemail") // args: newemail
 elseif ($_POST["action"] === "changenotify") // args: notify
 {
     if (!$_SESSION["username"])
-        print("Not logged in" . PHP_EOL);
+        output_error("Not logged in", 401);
     elseif (!$_POST["notify"])
-        print("No option supplied" . PHP_EOL);
+        output_error("No option supplied", 400);
     else
     {
         change_notify($_SESSION["username"], $_POST["notify"] === "true" ? true : false);
@@ -145,11 +145,11 @@ elseif ($_POST["action"] === "changenotify") // args: notify
 elseif ($_POST["action"] === "delete") // args: password
 {
     if (!$_SESSION["username"])
-        print("Not logged in" . PHP_EOL);
+        output_error("Not logged in", 401);
     elseif (!$_POST["password"])
-        print("No password supplied!" . PHP_EOL);
+        output_error("No password supplied!", 400);
     elseif (!correct_pw($_SESSION["username"], $_POST["password"]))
-        print("Incorrect Password!" . PHP_EOL);
+        output_error("Incorrect Password!", 400);
     else
     {
         delete_user($_SESSION["username"]);
@@ -160,15 +160,15 @@ elseif ($_POST["action"] === "delete") // args: password
 elseif ($_POST["action"] === "login") // args: username, password
 {
     if (!$_POST["username"])
-        print("No username supplied!" . PHP_EOL);
+        output_error("No username supplied!", 400);
     elseif (!$_POST["password"])
-        print("No password supplied!" . PHP_EOL);
+        output_error("No password supplied!", 400);
     elseif (!user_exists($_POST["username"]))
-        print("User doesn't exist!" . PHP_EOL);
+        output_error("User doesn't exist!", 400);
     elseif (!correct_pw($_POST["username"], $_POST["password"]))
-        print("Incorrect password!" . PHP_EOL);
+        output_error("Incorrect password!", 400);
     elseif (!account_active($_POST["username"]))
-        print("Account not activated! Please check your emails" . PHP_EOL);
+        output_error("Account not activated! Please check your emails", 400);
     else
     {
         set_session_username($_POST["username"]);
@@ -178,7 +178,7 @@ elseif ($_POST["action"] === "login") // args: username, password
 elseif ($_POST["action"] === "logout")
 {
     if (!$_SESSION["username"])
-        print("Not logged in" . PHP_EOL);
+        output_error("Not logged in", 401);
     else
     {
         logout();
@@ -186,6 +186,6 @@ elseif ($_POST["action"] === "logout")
     }
 }
 else
-    print("Invalid action" . PHP_EOL);
+    output_error("Invalid action", 400);
 
 ?>

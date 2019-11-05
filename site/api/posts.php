@@ -7,27 +7,27 @@ session_start();
 
 if (!isset($_POST["action"]))
 {
-    print("No action supplied" . PHP_EOL);
+    output_error("No action supplied", 400);
 }
 elseif ($_POST["action"] === "add") // args: md5
 {
     if (!$_SESSION["username"])
-        print("Not logged in" . PHP_EOL);
+        output_error("Not logged in", 401);
     elseif (!$_POST["md5"])
-        print("No md5 supplied!" . PHP_EOL);
+        output_error("No md5 supplied!", 400);
     elseif (add_post($_POST["md5"], $_SESSION["username"]))
         print("Post added successfully!" . PHP_EOL);
     else
-        print("Failed to add post!" . PHP_EOL);
+        output_error("Failed to add post!", 400);
 }
 elseif ($_POST["action"] === "delete") // args: postid
 {
     if (!$_SESSION["username"])
-        print("Not logged in" . PHP_EOL);
+        output_error("Not logged in", 401);
     elseif (!$_POST["postid"])
-        print("No postid supplied!" . PHP_EOL);
+        output_error("No postid supplied!", 400);
     elseif (!post_is_owned($_POST["postid"], $_SESSION["username"]))
-        print("Logged in user does not own post!" . PHP_EOL);
+        output_error("Logged in user does not own post!", 400);
     else
     {
         delete_post($_POST["postid"]);
@@ -37,22 +37,22 @@ elseif ($_POST["action"] === "delete") // args: postid
 elseif ($_POST["action"] === "like") // args: postid, like (true|false)
 {
     if (!$_SESSION["username"])
-        print("Not logged in" . PHP_EOL);
+        output_error("Not logged in", 401);
     elseif (!$_POST["postid"])
-        print("No postid supplied!" . PHP_EOL);
+        output_error("No postid supplied!", 400);
     elseif (!$_POST["like"])
-        print("Option not specified!");
+        output_error("Option not specified!", 400);
     elseif (like_post($_POST["postid"], $_SESSION["username"], $_POST["like"] === "true" ? true : false))
         print("Post like status changed successfully");
     else
-        print("Failed to change post like status");
+        output_error("Failed to change post like status", 400);
 }
 elseif ($_POST["action"] === "isliked") // args: postid
 {
     if (!$_SESSION["username"])
-        print("Not logged in" . PHP_EOL);
+        output_error("Not logged in", 401);
     elseif (!$_POST["postid"])
-        print("No postid supplied!" . PHP_EOL);
+        output_error("No postid supplied!", 400);
     elseif (is_liked($_POST["postid"], $_SESSION["username"]))
         print("true");
     else
@@ -61,11 +61,11 @@ elseif ($_POST["action"] === "isliked") // args: postid
 elseif ($_POST["action"] === "likecount") // args: postid
 {
     if (!$_POST["postid"])
-        print("No postid supplied!" . PHP_EOL);
+        output_error("No postid supplied!", 400);
     else
         print(likes_count($_POST["postid"]));
 }
 else
-    print("Invalid action" . PHP_EOL);
+    output_error("Invalid action", 400);
 
 ?>
