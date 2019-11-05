@@ -32,7 +32,8 @@ function output_header()
     print("<a href=\"/posts\"><div class='toolbarbutton'>Posts</div></a>");
     if (isset($_SESSION['username']))
     {
-        print("<div class='username'>" . $_SESSION['username'] . "</div>");
+        print(" <a href=\"/post\"><div class='toolbarbutton'>Add</div></a>");
+        print(" <div class='username'>" . $_SESSION['username'] . "</div>");
         print(" <a href=\"/logout\"><div class='toolbarbutton'>Logout</div></a>");
         print(" <a href=\"/profile\"><div class='toolbarbutton'>Profile</div></a>");
     }

@@ -14,25 +14,28 @@ div.toolbar {
 }
 
 div.toolbarsub {
-    width: 520px;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
 }
 
 div.toolbarbutton {
-    width: 100px;
+    display: inline-block;
+    margin-right: -5px;
+    vertical-align: top;
     padding: 15px;
+    width: 100px;
     background-color: #d1d1d1;
-    text-align: center;
     color: #181818;
-    float: left;
 }
 
 div.username {
-    min-width: 100px;
+    display: inline-block;
+    margin-right: -5px;
+    vertical-align: top;
     padding: 15px;
-    text-align: center;
-    float: left;
+    min-width: 100px;
 }
 
 /* posts */
