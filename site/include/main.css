@@ -84,6 +84,10 @@ button.likebutton:hover {
     color: lightcoral;
 }
 
+button.disabled, button.disabled:hover {
+    color: lightgrey;
+}
+
 button.likeDbutton {
     color: firebrick;
 }

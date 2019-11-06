@@ -18,7 +18,9 @@ else
 
 function class_if_liked(int $postid)
 {
-    if (is_liked($postid, $_SESSION['username']))
+    if (!isset($_SESSION['username']))
+        print(" disabled");
+    elseif (is_liked($postid, $_SESSION['username']))
         print(" likeDbutton");
 }
 
@@ -37,8 +39,9 @@ if ($posts)
         print("</div>");
         if ($post['username'] === $_SESSION['username'])
             print("<form method='POST' action='api/posts'>
-                   <input type='hidden' name='postid' value=\"" . $post['post_id'] . "\" />
-                   <button type='submit' name='action' value='delete' class='delete'>Delete</button>");
+                    <input type='hidden' name='postid' value=\"" . $post['post_id'] . "\" />
+                    <button type='submit' name='action' value='delete' class='delete'>Delete</button>
+                   </form>");
         print("</div>");
     }
 }
