@@ -6,7 +6,7 @@ require_once("../../config/func_images.php");
 
 session_start();
 
-if (!$_SESSION["username"])
+if (!isset($_SESSION["username"]))
     output_error("Not logged in", 401);
 elseif (!isset($_FILES) || !isset($_FILES['userfile']))
     output_error("No file selected", 400);

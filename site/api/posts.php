@@ -12,7 +12,7 @@ if (!isset($_POST["action"]))
 }
 elseif ($_POST["action"] === "add") // args: md5
 {
-    if (!$_SESSION["username"])
+    if (!isset($_SESSION["username"]))
         output_error("Not logged in", 401);
     elseif (!$_POST["md5"])
         output_error("No md5 supplied!", 400);
@@ -23,7 +23,7 @@ elseif ($_POST["action"] === "add") // args: md5
 }
 elseif ($_POST["action"] === "delete") // args: postid
 {
-    if (!$_SESSION["username"])
+    if (!isset($_SESSION["username"]))
         output_error("Not logged in", 401);
     elseif (!$_POST["postid"])
         output_error("No postid supplied!", 400);
@@ -37,7 +37,7 @@ elseif ($_POST["action"] === "delete") // args: postid
 }
 elseif ($_POST["action"] === "deleteimage") // args: md5
 {
-    if (!$_SESSION["username"])
+    if (!isset($_SESSION["username"]))
         output_error("Not logged in", 401);
     elseif (!$_POST["md5"])
         output_error("No md5 supplied!", 400);
@@ -51,7 +51,7 @@ elseif ($_POST["action"] === "deleteimage") // args: md5
 }
 elseif ($_POST["action"] === "like") // args: postid, like (true|false)
 {
-    if (!$_SESSION["username"])
+    if (!isset($_SESSION["username"]))
         output_error("Not logged in", 401);
     elseif (!$_POST["postid"])
         output_error("No postid supplied!", 400);
@@ -64,7 +64,7 @@ elseif ($_POST["action"] === "like") // args: postid, like (true|false)
 }
 elseif ($_POST["action"] === "isliked") // args: postid
 {
-    if (!$_SESSION["username"])
+    if (!isset($_SESSION["username"]))
         output_error("Not logged in", 401);
     elseif (!$_POST["postid"])
         output_error("No postid supplied!", 400);

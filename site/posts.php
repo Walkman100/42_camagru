@@ -48,7 +48,7 @@ if ($posts)
                 class_if_liked($post['post_id']);
                 print("'>♥︎</button>");
         print("    </div>");
-        if ($post['username'] === $_SESSION['username'])
+        if (isset($_SESSION['username']) && $post['username'] === $_SESSION['username'])
             print("<button type='submit' name='action' value='delete' class='delete'>Delete</button>");
         print("  </form>");
         print("</div>");

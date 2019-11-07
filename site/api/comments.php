@@ -11,7 +11,7 @@ if (!isset($_POST["action"]))
 }
 elseif ($_POST["action"] === "add") // args: postid, posttext
 {
-    if (!$_SESSION["username"])
+    if (!isset($_SESSION["username"]))
         output_error("Not logged in", 401);
     elseif (!$_POST["postid"])
         output_error("No postid supplied!", 400);

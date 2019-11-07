@@ -5,7 +5,7 @@ require_once("../config/func_user.php");
 
 session_start();
 
-if (!$_GET["hash"])
+if (!isset($_GET["hash"]))
     output_head("Send Password Reset Email");
 else
     output_head("Reset Password");
@@ -15,7 +15,7 @@ output_header();
 print("<br /><br />");
 
 
-if (!$_GET["hash"])
+if (!isset($_GET["hash"]))
 {
 
     ?>

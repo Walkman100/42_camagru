@@ -4,9 +4,9 @@ require_once("database.php");
 require_once("output.php");
 
 /**
- * @method \PDOStatement|bool prepare(string $querystring) Prepares a statement for execution and returns a statement object
- * @method int|bool exec(string $querystring) Execute an SQL statement and return the number of affected rows
- * @method string lastInsertID Returns the ID of the last inserted row or sequence value
+ * @method \PDOStatement|bool   prepare(string $querystring)    Prepares a statement for execution and returns a statement object
+ * @method int|bool             exec(string $querystring)       Execute an SQL statement and return the number of affected rows
+ * @method string               lastInsertID                    Returns the ID of the last inserted row or sequence value
  */
 class DB
 {

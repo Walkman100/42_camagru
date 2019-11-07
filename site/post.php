@@ -5,8 +5,11 @@ require_once("../config/func_images.php");
 
 session_start();
 
-if (!$_SESSION["username"])
+if (!isset($_SESSION["username"]))
+{
     header("Location: /login");
+    exit;
+}
 
 output_head("Add Post");
 output_header();

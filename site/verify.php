@@ -11,7 +11,7 @@ output_header();
 
 print("<br /><br />");
 
-if (!$_GET["hash"])
+if (!isset($_GET["hash"]))
     print("No hash supplied" . PHP_EOL);
 elseif (validate_email($_GET["hash"]))
     print("Email successfully validated!" . PHP_EOL);
