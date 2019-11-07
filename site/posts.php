@@ -49,7 +49,7 @@ if ($posts)
                 print("'>♥︎</button>");
         print("    </div>");
         if (isset($_SESSION['username']) && $post['username'] === $_SESSION['username'])
-            print("<button type='submit' name='action' value='delete' class='delete'>Delete</button>");
+            print("<button type='submit' name='action' value='delete' class='deletepost'>Delete</button>");
         print("  </form>");
         print("</div>");
     }

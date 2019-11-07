@@ -4,6 +4,10 @@ body {
     color: #dddddd;
 }
 
+div.main {
+    text-align: center;
+}
+
 /* toolbar */
 
 div.toolbar {
@@ -45,21 +49,22 @@ div.posts {
 }
 
 div.post {
-    display: inline-block;
-    vertical-align: top;
-    width: 360px;
-    height: 360px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    width: 400px;
+    height: auto;
     padding: 4px 4px;
     background-color: #383838;
     border: 5px solid #646464;
     border-radius: 10px;
-    margin: 5px;
 }
 
 img.postimg {
     display: block;
     max-width: 100%;
-    max-height: 300px;
+    max-height: 348px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -83,13 +88,16 @@ button.likebutton {
 button.likebutton:hover {
     color: lightcoral;
 }
-
 button.disabled, button.disabled:hover {
     color: lightgrey;
 }
-
 button.likeDbutton {
     color: firebrick;
+}
+
+button.deletepost {
+    width: 70px;
+    margin-bottom: 3px;
 }
 
 /* page numbers */

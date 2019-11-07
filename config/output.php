@@ -40,7 +40,7 @@ function output_header()
     else
         print("<a href=\"/login\"><div class='toolbarbutton'>Login</div></a>");
     print("</div></div>");
-    print("<div>");
+    print("<div class='main'>");
 }
 
 function output_footer()
