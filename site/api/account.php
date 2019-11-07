@@ -1,6 +1,7 @@
 <?php
 
 require_once("../../config/output.php");
+require_once("../../config/globals.php");
 require_once("../../config/func_user.php");
 
 session_start();
@@ -36,6 +37,8 @@ elseif ($_POST["action"] === "create") // args: username, password, email
         output_error("No email supplied!", 400);
     elseif (user_exists($_POST["username"]))
         output_error("User already exists!", 400);
+    elseif (!preg_match("/" . $PASSWORD_REGEX . "/", $_POST["password"]))
+        output_error("Password must contain " . $PASSWORD_HINT, 400);
     elseif (email_used($_POST["email"]))
         output_error("Email already used!", 400);
     else
@@ -77,6 +80,8 @@ elseif ($_POST["action"] === "resetpw") // args: hash, newpassword
         output_error("No hash supplied", 400);
     elseif (!isset($_POST["newpassword"]))
         output_error("New Password not supplied!", 400);
+    elseif (!preg_match("/" . $PASSWORD_REGEX . "/", $_POST["newpassword"]))
+        output_error("Password must contain " . $PASSWORD_HINT, 400);
     elseif ($username = check_password_reset_key($_POST["hash"]))
     {
         change_password($username, $_POST["newpassword"]);
@@ -110,6 +115,8 @@ elseif ($_POST["action"] === "changepw") // args: oldpassword, newpassword
         output_error("New Password not supplied!", 400);
     elseif (!correct_pw($_SESSION["username"], $_POST["oldpassword"]))
         output_error("Incorrect password!", 400);
+    elseif (!preg_match("/" . $PASSWORD_REGEX . "/", $_POST["newpassword"]))
+        output_error("Password must contain " . $PASSWORD_HINT, 400);
     else
     {
         change_password($_SESSION["username"], $_POST["newpassword"]);

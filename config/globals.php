@@ -13,6 +13,10 @@ else
 // default domain name, used in emails
 $DOMAIN_NAME = "cmg.carteronline.net";
 
+// password validation for browser and server
+$PASSWORD_REGEX = "^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$";
+$PASSWORD_HINT = "at least one number, lowercase and uppercase letter, minimum 8 characters";
+
 // php POST max size is 40M, so set image max size to 35M
 $MAX_UPLOAD_SIZE = 35000000;
 

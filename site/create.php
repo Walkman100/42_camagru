@@ -1,5 +1,6 @@
 <?php
 
+require_once("../config/globals.php");
 require_once("../config/output.php");
 
 session_start();
@@ -18,7 +19,8 @@ output_header();
               Username:
         <br /><input class='forminput' required autofocus type="text" name="username" />
         <br />Password:
-        <br /><input class='forminput' required type="password" name="password" />
+        <br /><input class='forminput' required type="password" name="password"
+                    pattern="<?php print($PASSWORD_REGEX); ?>" title="<?php print($PASSWORD_HINT); ?>" />
         <br />Email Address:
         <br /><input class='forminput' required type="email" name="email" />
         <br /><button class='submitbtn' type="submit">Create</button>

@@ -1,5 +1,6 @@
 <?php
 
+require_once("../config/globals.php");
 require_once("../config/output.php");
 require_once("../config/func_user.php");
 
@@ -40,7 +41,8 @@ output_header();
     <form method="POST" action="api/account">
             <input type="hidden" name="action" value="changepw">
             <input class='forminput' required type="password" name="oldpassword" placeholder="Old Password" />
-      <br /><input class='forminput' required type="password" name="newpassword" placeholder="New Password" />
+      <br /><input class='forminput' required type="password" name="newpassword" placeholder="New Password"
+                    pattern="<?php print($PASSWORD_REGEX); ?>" title="<?php print($PASSWORD_HINT); ?>" />
       <br /><button class='submitbtn' type="submit">Submit</button>
     </form>
 </div>

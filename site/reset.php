@@ -1,6 +1,7 @@
 <?php
 
 require_once("../config/output.php");
+require_once("../config/globals.php");
 require_once("../config/func_user.php");
 
 session_start();
@@ -41,7 +42,8 @@ elseif (check_password_reset_key($_GET["hash"]))
         <form method="POST" action="api/account">
                 <input type="hidden" name="action" value="resetpw">
                 <input type="hidden" name="hash" value="<?php print($_GET["hash"]); ?>">
-                <input class='forminput' required autofocus type="password" name="newpassword" placeholder="New Password" />
+                <input class='forminput' required autofocus type="password" name="newpassword" placeholder="New Password"
+                        pattern="<?php print($PASSWORD_REGEX); ?>" title="<?php print($PASSWORD_HINT); ?>" />
           <br /><button class='submitbtn' type="submit">Send</button>
         </form>
     </div>
