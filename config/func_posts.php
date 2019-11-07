@@ -211,7 +211,10 @@ function get_posts(int $pageindex)
             :limit1, :limit2
         ;");
 
-    $stmt->bindValue(':limit1', intval(($pageindex - 1) * 5), PDO::PARAM_INT);
+    if ($pageindex > 0)
+        $stmt->bindValue(':limit1', intval(($pageindex - 1) * 5), PDO::PARAM_INT);
+    else
+        $stmt->bindValue(':limit1', 0, PDO::PARAM_INT);
     $stmt->bindValue(':limit2', 5, PDO::PARAM_INT);
     if (!$stmt->execute())
     {

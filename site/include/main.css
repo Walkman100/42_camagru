@@ -64,7 +64,7 @@ img.postimg {
     margin-right: auto;
 }
 
-div.postusername {
+div.postdetails {
     color: #999999;
     font-size: 14px;
 }
@@ -120,11 +120,7 @@ div.current {
     background-color: #383838;
 }
 
-a.pageno:link {
-    color: #dddddd;
-    text-decoration: none;
-}
-a.pageno:visited {
+a.pageno:link, a.pageno:visited {
     color: #dddddd;
     text-decoration: none;
 }
@@ -142,9 +138,18 @@ div.form {
     margin-right: auto;
 }
 
-button.submitbtn {
-    width: 200px;
-    height: 25px;
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    button.submitbtn {
+        width: 194px;
+        height: 21px;
+    }
+}
+
+@-moz-document url-prefix() {
+    button.submitbtn {
+        width: 200px;
+        height: 25px;
+    }
 }
 
 input.forminput {
@@ -215,11 +220,7 @@ div.postdate {
     color: dimgray;
 }
 
-button.select {
-    width: 70px;
-}
-
-button.delete {
+button.select, button.delete {
     width: 70px;
 }
 

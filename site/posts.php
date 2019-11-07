@@ -24,6 +24,14 @@ function class_if_liked(int $postid)
         print(" likeDbutton");
 }
 
+function like_value(int $postid)
+{
+    if (!isset($_SESSION['username']) || !is_liked($postid, $_SESSION['username']))
+        return ("true");
+    else
+        return ("false");
+}
+
 $posts = get_posts($index);
 if ($posts)
 {
@@ -31,17 +39,18 @@ if ($posts)
     {
         print("<div class='post'>");
         print("  <img class='postimg' src=\"/postimages/" . $post['post_id'] . ".png\">");
-        print("<div class='postusername'>");
-            print($post['username'] . " | " . $post['post_date'] . " | " . likes_count($post['post_id']));
-            print(" <button type='button' class='likebutton");
+        print("  <form method='POST' action='api/posts'>");
+        print("    <input type='hidden' name='postid' value=\"" . $post['post_id'] . "\" />");
+        print("    <input type='hidden' name='like' value=\"" . like_value($post['post_id']) . "\" />");
+        print("    <div class='postdetails'>");
+            print($post['username'] . " | " . $post['post_date'] . " | " . likes_count($post['post_id']) . " ");
+            print("<button type='submit' name='action' value='like' class='likebutton");
                 class_if_liked($post['post_id']);
                 print("'>♥︎</button>");
-        print("</div>");
+        print("    </div>");
         if ($post['username'] === $_SESSION['username'])
-            print("<form method='POST' action='api/posts'>
-                    <input type='hidden' name='postid' value=\"" . $post['post_id'] . "\" />
-                    <button type='submit' name='action' value='delete' class='delete'>Delete</button>
-                   </form>");
+            print("<button type='submit' name='action' value='delete' class='delete'>Delete</button>");
+        print("  </form>");
         print("</div>");
     }
 }
