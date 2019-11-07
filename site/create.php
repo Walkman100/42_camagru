@@ -17,7 +17,8 @@ output_header();
     <form method="POST" action="api/account">
         <input type="hidden" name="action" value="create">
               Username:
-        <br /><input class='forminput' required autofocus type="text" name="username" />
+        <br /><input class='forminput' required autofocus type="text" name="username"
+                    pattern="<?php print($USERNAME_REGEX); ?>" title="<?php print($USERNAME_HINT); ?>" />
         <br />Password:
         <br /><input class='forminput' required type="password" name="password"
                     pattern="<?php print($PASSWORD_REGEX); ?>" title="<?php print($PASSWORD_HINT); ?>" />

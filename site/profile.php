@@ -30,7 +30,8 @@ output_header();
     <h4>Change Username</h4>
     <form method="POST" action="api/account">
             <input type="hidden" name="action" value="changeusername">
-            <input class='forminput' required type="text" name="username" placeholder="New Username" />
+            <input class='forminput' required type="text" name="username" placeholder="New Username"
+                    pattern="<?php print($USERNAME_REGEX); ?>" title="<?php print($USERNAME_HINT); ?>" />
       <br /><button class='submitbtn' type="submit">Submit</button>
     </form>
 </div>

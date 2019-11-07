@@ -37,6 +37,8 @@ elseif ($_POST["action"] === "create") // args: username, password, email
         output_error("No email supplied!", 400);
     elseif (user_exists($_POST["username"]))
         output_error("User already exists!", 400);
+    elseif (!preg_match("/" . $USERNAME_REGEX . "/", $_POST["username"]))
+        output_error("Username must consist of " . $USERNAME_HINT, 400);
     elseif (!preg_match("/" . $PASSWORD_REGEX . "/", $_POST["password"]))
         output_error("Password must contain " . $PASSWORD_HINT, 400);
     elseif (email_used($_POST["email"]))
@@ -96,6 +98,8 @@ elseif ($_POST["action"] === "changeusername") // args: username
         output_error("Not logged in", 401);
     elseif (!isset($_POST["username"]))
         output_error("No username supplied!", 400);
+    elseif (!preg_match("/" . $USERNAME_REGEX . "/", $_POST["username"]))
+        output_error("Username must consist of " . $USERNAME_HINT, 400);
     elseif (user_exists($_POST["username"]))
         output_error("Username in use!", 400);
     else
