@@ -14,8 +14,8 @@ else
 $DOMAIN_NAME = "cmg.carteronline.net";
 
 // username validation for browser and server
-$USERNAME_REGEX = "^[a-zA-Z][a-zA-Z0-9-_\.]{4,20}$";
-$USERNAME_HINT = "only letters, numbers or (-_\.), and minimum 5 & maximum 20 characters";
+$USERNAME_REGEX = "^[a-zA-Z][a-zA-Z0-9-_\. ]{4,20}$";
+$USERNAME_HINT = "only letters, numbers or (-_\. ), and minimum 5 & maximum 20 characters";
 
 // password validation for browser and server
 $PASSWORD_REGEX = "^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$";

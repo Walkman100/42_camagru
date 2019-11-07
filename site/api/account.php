@@ -42,7 +42,11 @@ elseif ($_POST["action"] === "create") // args: username, password, email
     elseif (!preg_match("/" . $PASSWORD_REGEX . "/", $_POST["password"]))
         output_error("Password must contain " . $PASSWORD_HINT, 400);
     elseif (email_used($_POST["email"]))
-        output_error("Email already used!", 400);
+        output_error("Email address already used!", 400);
+    elseif (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL))
+        output_error("Invalid email address!", 400);
+    elseif (!checkdnsrr( substr($_POST["email"], strrpos($_POST["email"], '@') + 1) , 'MX'))
+        output_error("Invalid email address domain!", 400);
     else
     {
         create_user($_POST["username"], $_POST["password"], $_POST["email"]);
@@ -135,6 +139,10 @@ elseif ($_POST["action"] === "changeemail") // args: newemail
         output_error("No email address supplied", 400);
     elseif (email_used($_POST["newemail"]))
         output_error("Email address already used!", 400);
+    elseif (!filter_var($_POST["newemail"], FILTER_VALIDATE_EMAIL))
+        output_error("Invalid email address!", 400);
+    elseif (!checkdnsrr( substr($_POST["newemail"], strrpos($_POST["newemail"], '@') + 1) , 'MX'))
+        output_error("Invalid domain!", 400);
     else
     {
         change_email($_SESSION["username"], $_POST["newemail"]);

@@ -4,6 +4,7 @@ require_once("globals.php");
 
 function send_mail(string $to, string $subject, string $htmltext)
 {
+    global $DOMAIN_NAME;
     $headers = array(
         'From' => 'Camagru <noreply@' . $DOMAIN_NAME . '>',
         'Reply-To' => 'Camagru <noreply@' . $DOMAIN_NAME . '>',
@@ -19,6 +20,7 @@ function send_mail(string $to, string $subject, string $htmltext)
 
 function send_verification_mail($name, $email, $emailhash)
 {
+    global $DOMAIN_NAME;
     $verifypage = "<a href='http://" . $DOMAIN_NAME . "/verify?hash=$emailhash'>Verify Address</a>";
 
     $message = "<html><head><title>Email Verification</title></head><body>
@@ -32,6 +34,7 @@ function send_verification_mail($name, $email, $emailhash)
 
 function send_reset_email($email, $resethash)
 {
+    global $DOMAIN_NAME;
     $resetpage = "<a href='http://" . $DOMAIN_NAME . "/reset?hash=$resethash'>Verify Address</a>";
 
     $message = "<html><head><title>Password Reset</title></head><body>
