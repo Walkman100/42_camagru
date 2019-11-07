@@ -83,7 +83,7 @@ function delete_comments(int $postid)
 
 /**
  * @param integer   $postid     ID of post to get comments for
- * @return array|null           Index-based array of comments, each consisting of an Associative array with [username], [post_date] and [text] elements, ordered by newest first
+ * @return array|null           Index-based array of comments, each consisting of an Associative array with [username], [post_date] and [text] elements, ordered by oldest first
  */
 function get_comments(int $postid)
 {
@@ -97,7 +97,7 @@ function get_comments(int $postid)
         WHERE
             `post_id` = :postid
         ORDER BY
-            `post_date` DESC
+            `post_date` ASC
         ;");
 
     if (!$stmt->execute(array('postid' => $postid)))

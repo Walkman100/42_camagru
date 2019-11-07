@@ -2,6 +2,7 @@
 
 require_once("../config/output.php");
 require_once("../config/func_posts.php");
+require_once("../config/func_comments.php");
 
 session_start();
 
@@ -39,6 +40,7 @@ if ($posts)
     {
         print("<div class='post'>");
         print("  <img class='postimg' src=\"/postimages/" . $post['post_id'] . ".png\">");
+
         print("  <form method='POST' action='api/posts'>");
         print("    <input type='hidden' name='postid' value=\"" . $post['post_id'] . "\" />");
         print("    <input type='hidden' name='like' value=\"" . like_value($post['post_id']) . "\" />");
@@ -51,6 +53,26 @@ if ($posts)
         if (isset($_SESSION['username']) && $post['username'] === $_SESSION['username'])
             print("<button type='submit' name='action' value='delete' class='deletepost'>Delete</button>");
         print("  </form>");
+
+        print("  <div class='comments'>");
+        $comments = get_comments($post['post_id']);
+        if ($comments)
+        {
+            foreach ($comments as $comment)
+            { // [username], [post_date], [text]
+                print("<div class='commentdetails'>");
+                print($comment['username'] . " | " . $comment['post_date'] . "");
+                print("</div><div class='commenttext'>");
+                print($comment['text']);
+                print("</div>");
+            }
+        }
+        print("    <form method='POST' action='api/comments'>");
+        print("      <input type='hidden' name='postid' value=\"" . $post['post_id'] . "\" />");
+        print("      <textarea name='posttext' rows='2' cols='48' placeholder='Post a comment...' class='commentinput'></textarea>");
+        print("      <br /><button type='submit' name='action' value='add' class='postcomment'>Post</button>");
+        print("    </form>");
+        print("  </div>");
         print("</div>");
     }
 }

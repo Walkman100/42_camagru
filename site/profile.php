@@ -28,10 +28,9 @@ output_header();
 <div class='form'>
     <h4>Change Username</h4>
     <form method="POST" action="api/account">
-        <input type="hidden" name="action" value="changeusername">
-              New Username:
-        <br /><input class='forminput' required type="text" name="username" />
-        <br /><button class='submitbtn' type="submit">Submit</button>
+            <input type="hidden" name="action" value="changeusername">
+            <input class='forminput' required type="text" name="username" placeholder="New Username" />
+      <br /><button class='submitbtn' type="submit">Submit</button>
     </form>
 </div>
 
@@ -39,12 +38,10 @@ output_header();
 <div class='form'>
     <h4>Change Password</h4>
     <form method="POST" action="api/account">
-        <input type="hidden" name="action" value="changepw">
-              Old Password:
-        <br /><input class='forminput' required type="password" name="oldpassword" />
-        <br />New Password:
-        <br /><input class='forminput' required type="password" name="newpassword" />
-        <br /><button class='submitbtn' type="submit">Submit</button>
+            <input type="hidden" name="action" value="changepw">
+            <input class='forminput' required type="password" name="oldpassword" placeholder="Old Password" />
+      <br /><input class='forminput' required type="password" name="newpassword" placeholder="New Password" />
+      <br /><button class='submitbtn' type="submit">Submit</button>
     </form>
 </div>
 
@@ -65,10 +62,9 @@ output_header();
         }
     ?>
     <form method="POST" action="api/account">
-        <input type="hidden" name="action" value="changeemail">
-              New Email Address:
-        <br /><input class='forminput' required type="email" name="newemail" />
-        <br /><button class='submitbtn' type="submit">Submit</button>
+            <input type="hidden" name="action" value="changeemail">
+            <input class='forminput' required type="email" name="newemail" placeholder="New Email Address" />
+      <br /><button class='submitbtn' type="submit">Submit</button>
     </form>
 </div>
 
@@ -93,10 +89,9 @@ output_header();
 <div class='form'>
     <h4>Delete Account</h4>
     <form method="POST" action="api/account">
-        <input type="hidden" name="action" value="delete">
-              Password:
-        <br /><input class='forminput' required type="password" name="password" />
-        <br /><button class='submitbtn' type="submit">Delete</button>
+            <input type="hidden" name="action" value="delete">
+            <input class='forminput' required type="password" name="password" placeholder="Password" />
+      <br /><button class='submitbtn' type="submit">Delete</button>
     </form>
 </div>
 

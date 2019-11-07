@@ -22,10 +22,9 @@ if (!isset($_GET["hash"]))
     <div class='form'>
         <h4>Password Reset</h4>
         <form method="POST" action="api/account">
-            <input type="hidden" name="action" value="sendreset">
-                Email Address:
-            <br /><input class='forminput' required autofocus type="email" name="email" />
-            <br /><button class='submitbtn' type="submit">Send</button>
+                <input type="hidden" name="action" value="sendreset">
+                <input class='forminput' required autofocus type="email" name="email" placeholder="Email Address" />
+          <br /><button class='submitbtn' type="submit">Send</button>
         </form>
         <br /><a href="/create">Create Account</a>
         <br /><a href="/resend">Resend Validation Email</a>
