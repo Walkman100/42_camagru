@@ -1,13 +1,15 @@
 <?php
 
+require_once("globals.php");
+
 function send_mail(string $to, string $subject, string $htmltext)
 {
     $headers = array(
-        'From' => 'Camagru <noreply@camagru.carteronline.net>',
-        'Reply-To' => 'Camagru <noreply@camagru.carteronline.net>',
+        'From' => 'Camagru <noreply@' . $DOMAIN_NAME . '>',
+        'Reply-To' => 'Camagru <noreply@' . $DOMAIN_NAME . '>',
         'Date' => date('r'),
         'X-Mailer' => 'PHP/' . phpversion(),
-        'Message-ID' => '<' . sha1(microtime(true)) . '@camagru.carteronline.net>',
+        'Message-ID' => '<' . sha1(microtime(true)) . '@' . $DOMAIN_NAME . '>',
         'MIME-Version' => '1.0',
         'Content-Type' => 'text/html;charset=UTF-8'
     );
@@ -17,7 +19,7 @@ function send_mail(string $to, string $subject, string $htmltext)
 
 function send_verification_mail($name, $email, $emailhash)
 {
-    $verifypage = "<a href='http://camagru.carteronline.net/verify?hash=$emailhash'>Verify Address</a>";
+    $verifypage = "<a href='http://" . $DOMAIN_NAME . "/verify?hash=$emailhash'>Verify Address</a>";
 
     $message = "<html><head><title>Email Verification</title></head><body>
         <p>Hello $name. To verify this address, go to the following page: $verifypage</p>
@@ -30,7 +32,7 @@ function send_verification_mail($name, $email, $emailhash)
 
 function send_reset_email($email, $resethash)
 {
-    $resetpage = "<a href='http://camagru.carteronline.net/reset?hash=$resethash'>Verify Address</a>";
+    $resetpage = "<a href='http://" . $DOMAIN_NAME . "/reset?hash=$resethash'>Verify Address</a>";
 
     $message = "<html><head><title>Password Reset</title></head><body>
         <p>A password reset was requested for an account with this address.</p>

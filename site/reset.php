@@ -39,11 +39,10 @@ elseif (check_password_reset_key($_GET["hash"]))
     <div class='form'>
         <h4>Password Reset</h4>
         <form method="POST" action="api/account">
-            <input type="hidden" name="action" value="resetpw">
-            <input type="hidden" name="hash" value="<?php print($_GET["hash"]); ?>">
-                  New Password:
-            <br /><input class='forminput' required autofocus type="password" name="newpassword" />
-            <br /><button class='submitbtn' type="submit">Send</button>
+                <input type="hidden" name="action" value="resetpw">
+                <input type="hidden" name="hash" value="<?php print($_GET["hash"]); ?>">
+                <input class='forminput' required autofocus type="password" name="newpassword" placeholder="New Password" />
+          <br /><button class='submitbtn' type="submit">Send</button>
         </form>
     </div>
     <?php

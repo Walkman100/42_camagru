@@ -1,6 +1,7 @@
 <?php
 
 require_once("../config/output.php");
+require_once("../config/globals.php");
 require_once("../config/func_images.php");
 
 session_start();
@@ -20,7 +21,7 @@ output_header();
 <div class='postviewport'>
     <div class='postmain'>
         <form method="POST" action="api/upload" enctype="multipart/form-data">
-            <input type="hidden" name="MAX_FILE_SIZE" value="35000000" /> <!-- php POST max size is 40M, so set image max size to 35M -->
+            <input type="hidden" name="MAX_FILE_SIZE" value="<?php print($MAX_UPLOAD_SIZE); ?>" />
                   Select Image (Only PNG):
             <br /><input style="width: 200px; height: 23px" required type="file" accept="image/png" name="userfile" />
             <br /><button type="submit" class='submitbtn'>Upload</button>

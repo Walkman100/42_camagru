@@ -3,12 +3,7 @@
 require_once("connection.php");
 require_once("func_user.php");
 require_once("func_comments.php");
-
-date_default_timezone_set("Africa/Johannesburg");
-if ($_SERVER['DOCUMENT_ROOT'])
-    $server_root = $_SERVER['DOCUMENT_ROOT'];
-else
-    $server_root = "/Volumes/wtc-mcarter/camagru/site";
+require_once("globals.php");
 
 /**
  * @param string    $origmd5    md5 of image to copy

@@ -1,7 +1,7 @@
 <?php
 
 require_once("../../config/output.php");
-require_once("../../config/func_posts.php");
+require_once("../../config/globals.php");
 require_once("../../config/func_images.php");
 
 session_start();
@@ -36,8 +36,8 @@ elseif ($_FILES['userfile']['error'] !== UPLOAD_ERR_OK)
             output_error("Unknown Error", 400);
             break;
     }
-}        // php POST max size is 40M, so set image max size to 35M (also in site/post.php)
-elseif ($_FILES['userfile']['size'] > 35000000)
+}
+elseif ($_FILES['userfile']['size'] > $MAX_UPLOAD_SIZE)
     output_error("Client Error: Exceeded filesize limit", 413);
 else
 {

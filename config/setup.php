@@ -1,6 +1,7 @@
 <?php
 
 require_once("database.php");
+require_once("globals.php");
 require_once("output.php");
 require_once("func_images.php");
 
@@ -55,16 +56,11 @@ function setup_db()
     $tmpPDO->exec("CREATE TABLE IF NOT EXISTS `overlays` (
             `image_id`              INT         PRIMARY KEY AUTO_INCREMENT
         );");
-    // TODO: add all images in overlays/*.png to table
 
     print(" Complete.<br />" . PHP_EOL . "Closing connection...");
     $tmpPDO = null;
 
     print(" Complete.<br />" . PHP_EOL . "Creating image folders...");
-    if ($_SERVER['DOCUMENT_ROOT'])
-        $server_root = $_SERVER['DOCUMENT_ROOT'];
-    else
-        $server_root = "/Volumes/wtc-mcarter/camagru/site";
     mkdir($server_root . "/overlays/", 0777, true);
     mkdir($server_root . "/userdata/", 0777, true);
     mkdir($server_root . "/postimages/", 0777, true);

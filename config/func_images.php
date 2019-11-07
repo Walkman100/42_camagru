@@ -2,12 +2,7 @@
 
 require_once("connection.php");
 require_once("func_user.php");
-
-date_default_timezone_set("Africa/Johannesburg");
-if ($_SERVER['DOCUMENT_ROOT'])
-    $server_root = $_SERVER['DOCUMENT_ROOT'];
-else
-    $server_root = "/Volumes/wtc-mcarter/camagru/site";
+require_once("globals.php");
 
 // ==================== savedimages (/userdata/) functions ====================
 

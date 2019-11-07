@@ -2,8 +2,7 @@
 
 require_once("connection.php");
 require_once("func_user.php");
-
-date_default_timezone_set("Africa/Johannesburg");
+require_once("globals.php");
 
 /**
  * @param integer   $postid     ID of post to attach the comment to

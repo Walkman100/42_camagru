@@ -59,7 +59,7 @@ if ($posts)
         if ($comments)
         {
             foreach ($comments as $comment)
-            { // [username], [post_date], [text]
+            {
                 print("<div class='commentdetails'>");
                 print($comment['username'] . " | " . $comment['post_date'] . "");
                 print("</div><div class='commenttext'>");
