@@ -4,9 +4,9 @@ require_once('../config/output.php');
 
 session_start();
 
-if (isset($_SESSION["username"]))
+if (isset($_SESSION['username']))
 {
-    header("Location: /profile");
+    header('Location: /profile');
     exit;
 }
 
@@ -19,12 +19,12 @@ output_header();
 <br /><br />
 <div class='form'>
     <h4>Login</h4>
-    <form method='POST' action='api/account'>
+    <form method='POST' action='api/account' id='form'>
               Username:
         <br /><input class='forminput' required autofocus type='text' name='username' />
         <br />Password:
         <br /><input class='forminput' required type='password' name='password' />
-        <br /><button type='submit' class='submitbtn' name='action' value='login'>Login</button>
+        <br /><button type='submit' class='submitbtn' name='action' value='login' onclick="return submitForm('form');">Login</button>
     </form>
     <br /><a href='/create'>Create Account</a>
     <br /><a href='/reset'>Reset Password</a>

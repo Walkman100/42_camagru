@@ -14,7 +14,8 @@ function output_head(string $title, string $additional_head = null)
         <meta http-equiv='Cache-control' content='no-store'>
         <meta http-equiv='X-UA-Compatible' content='ie=edge'>
         <title>" . $title . "</title>
-        <link rel='stylesheet' href='/include/main.css' type='text/css'>");
+        <link rel='stylesheet' href='/include/main.css' type='text/css'>
+        <script type='text/javascript' src='/include/main.js'></script>");
     if ($additional_head !== null)
         print($additional_head);
     print("</head><body>");
@@ -85,7 +86,7 @@ function output_error(string $message, int $response_code = null)
 {
     if (!is_null($response_code))
         http_response_code($response_code);
-    print($message . "<br />" . PHP_EOL);
+    print($message . PHP_EOL);
 }
 
 ?>
