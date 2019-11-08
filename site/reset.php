@@ -27,7 +27,7 @@ if (!isset($_GET['hash']))
           <br /><button type='submit' class='submitbtn' name='action' value='sendreset'>Send</button>
         </form>
         <br /><a href='/create'>Create Account</a>
-        <br /><a href='/resend'>Resend Validation Email</a>
+        <br /><a href='/resend'>Resend Verification Email</a>
     </div>
     <?php
 

@@ -383,20 +383,20 @@ function change_notify(string $name, bool $notify)
 }
 
 /**
- * @param string    $emailhash  Hash to validate an email address.
+ * @param string    $emailhash  Hash to verify an email address.
  *      If the associated account is not active,
  *          it will be set to active and the hash cleared.
  *      If the associated account is already active,
  *          the new email address will be moved to be current and the hash cleared.
- * @return bool                 True if hash was validated, false if hash doesn't exist
+ * @return bool                 True if hash was verified, false if hash doesn't exist
  */
-function validate_email(string $emailhash)
+function verify_email(string $emailhash)
 {
     $stmt = DB::prepare("SELECT `account_active` FROM `users` WHERE `email_verify` = :emailhash");
     if (!$stmt->execute(array('emailhash' => $emailhash)))
     {
         $stmt = null;
-        print("Error checking if the validation hash exists");
+        print("Error checking if the verification hash exists");
         exit;
     }
 
@@ -416,7 +416,7 @@ function validate_email(string $emailhash)
             WHERE `email_verify` = :emailhash
             ;");
     }
-    else        // account is already active, this is a new email validation request
+    else        // account is already active, this is a new email verification request
     {
         $stmt = DB::prepare("UPDATE `users`
             SET
@@ -435,16 +435,16 @@ function validate_email(string $emailhash)
     else
     {
         $stmt = null;
-        print("Error setting the email as validated");
+        print("Error setting the email as verified");
         exit;
     }
 }
 
 /**
- * @param string    $email      Email address to resend validation to.
- * @return bool                 True if email was sent, false if email wasn't found or doesn't need to be validated
+ * @param string    $email      Email address to resend verification to.
+ * @return bool                 True if email was sent, false if email wasn't found or doesn't need to be verified
  */
-function resend_email_validation(string $email)
+function resend_email_verification(string $email)
 {
     $stmt = DB::prepare("SELECT
             `username`,

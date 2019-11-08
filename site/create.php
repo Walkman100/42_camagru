@@ -26,7 +26,7 @@ output_header();
         <br /><button type='submit' class='submitbtn' name='action' value='create'>Create</button>
     </form>
     <br /><a href='/reset'>Reset Password</a>
-    <br /><a href='/resend'>Resend Validation Email</a>
+    <br /><a href='/resend'>Resend Verification Email</a>
 </div>
 
 <?php

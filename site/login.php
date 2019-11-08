@@ -22,7 +22,7 @@ output_header();
     </form>
     <br /><a href='/create'>Create Account</a>
     <br /><a href='/reset'>Reset Password</a>
-    <br /><a href='/resend'>Resend Validation Email</a>
+    <br /><a href='/resend'>Resend Verification Email</a>
 </div>
 
 <?php

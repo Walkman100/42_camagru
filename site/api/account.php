@@ -53,12 +53,12 @@ elseif ($_POST["action"] === "create") // args: username, password, email
         print("Account created successfully, check your inbox for the verification email" . PHP_EOL);
     }
 }
-elseif ($_POST["action"] === "validate") // args: hash
+elseif ($_POST["action"] === "verify") // args: hash
 {
     if (!isset($_POST["hash"]))
         output_error("No hash supplied", 400);
-    elseif (validate_email($_POST["hash"]))
-        print("Email successfully validated!" . PHP_EOL);
+    elseif (verify_email($_POST["hash"]))
+        print("Email successfully verified!" . PHP_EOL);
     else
         output_error("Hash doesn't exist!", 400);
 }
@@ -66,10 +66,10 @@ elseif ($_POST["action"] === "resend") // args: email
 {
     if (!isset($_POST["email"]))
         output_error("No email address supplied", 400);
-    elseif (resend_email_validation($_POST["email"]))
-        print("Password Reset Email sent successfully!" . PHP_EOL);
+    elseif (resend_email_verification($_POST["email"]))
+        print("Verification Email sent successfully!" . PHP_EOL);
     else
-        output_error("Unvalidated email not found!", 400);
+        output_error("Unverified email not found!", 400);
 }
 elseif ($_POST["action"] === "sendreset") // args: email
 {
