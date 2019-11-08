@@ -1,25 +1,25 @@
 <?php
 
-require_once("../config/globals.php");
-require_once("../config/output.php");
-require_once("../config/func_user.php");
+require_once('../config/globals.php');
+require_once('../config/output.php');
+require_once('../config/func_user.php');
 
 session_start();
 
-if (!isset($_SESSION["username"]))
+if (!isset($_SESSION['username']))
 {
-    header("Location: /login");
+    header('Location: /login');
     exit;
 }
 
 function printenable(int $opt)
 {
-    $isnotify = notify_is_on($_SESSION["username"]);
+    $isnotify = notify_is_on($_SESSION['username']);
     if ($opt === 1 && $isnotify || $opt === 2 && !$isnotify)
-        print("checked");
+        print('checked');
 }
 
-output_head("Profile");
+output_head('Profile');
 
 output_header();
 
@@ -28,23 +28,21 @@ output_header();
 <br />  <!-- Change Username -->
 <div class='form'>
     <h4>Change Username</h4>
-    <form method="POST" action="api/account">
-            <input type="hidden" name="action" value="changeusername">
-            <input class='forminput' required type="text" name="username" placeholder="New Username"
-                    pattern="<?php print($USERNAME_REGEX); ?>" title="<?php print($USERNAME_HINT); ?>" />
-      <br /><button class='submitbtn' type="submit">Submit</button>
+    <form method='POST' action='api/account'>
+            <input class='forminput' required type='text' name='username' placeholder='New Username'
+                    pattern='<?php print($USERNAME_REGEX); ?>' title='<?php print($USERNAME_HINT); ?>' />
+      <br /><button type='submit' class='submitbtn' name='action' value='changeusername'>Submit</button>
     </form>
 </div>
 
 <br />  <!-- Change Password -->
 <div class='form'>
     <h4>Change Password</h4>
-    <form method="POST" action="api/account">
-            <input type="hidden" name="action" value="changepw">
-            <input class='forminput' required type="password" name="oldpassword" placeholder="Old Password" />
-      <br /><input class='forminput' required type="password" name="newpassword" placeholder="New Password"
-                    pattern="<?php print($PASSWORD_REGEX); ?>" title="<?php print($PASSWORD_HINT); ?>" />
-      <br /><button class='submitbtn' type="submit">Submit</button>
+    <form method='POST' action='api/account'>
+            <input class='forminput' required type='password' name='oldpassword' placeholder='Old Password' />
+      <br /><input class='forminput' required type='password' name='newpassword' placeholder='New Password'
+                    pattern='<?php print($PASSWORD_REGEX); ?>' title='<?php print($PASSWORD_HINT); ?>' />
+      <br /><button type='submit' class='submitbtn' name='action' value='changepw'>Submit</button>
     </form>
 </div>
 
@@ -58,43 +56,40 @@ output_header();
         $newemail = new_email_pending($_SESSION['username']);
         if ($newemail)
         {
-            print("<div class='small'>Pending Email address:</div>");
-            print("<div class='small'>" . $newemail . "</div>");
-            print("<div class='small'>(Check your inbox)</div>");
-            print("<br />");
+            print('<div class="small">Pending Email address:</div>');
+            print('<div class="small">' . $newemail . '</div>');
+            print('<div class="small">(Check your inbox)</div>');
+            print('<br />');
         }
     ?>
-    <form method="POST" action="api/account">
-            <input type="hidden" name="action" value="changeemail">
-            <input class='forminput' required type="email" name="newemail" placeholder="New Email Address" />
-      <br /><button class='submitbtn' type="submit">Submit</button>
+    <form method='POST' action='api/account'>
+            <input class='forminput' required type='email' name='newemail' placeholder='New Email Address' />
+      <br /><button type='submit' class='submitbtn' name='action' value='changeemail'>Submit</button>
     </form>
 </div>
 
 <br />  <!-- Change Notify Option -->
 <div class='form'>
     <h4>Change Notify Option</h4>
-    <form method="POST" action="api/account">
-        <input type="hidden" name="action" value="changenotify">
+    <form method='POST' action='api/account'>
               <label>
-                <input type="radio" name="notify" value="true" <?php printenable(1); ?> >
+                <input type='radio' name='notify' value='true' <?php printenable(1); ?> >
                 Enable
               </label>
         <br /><label>
-                <input type="radio" name="notify" value="false" <?php printenable(2); ?>>
+                <input type='radio' name='notify' value='false' <?php printenable(2); ?>>
                 Disable
               </label>
-        <br /><br /><button class='submitbtn' type="submit">Change</button>
+        <br /><br /><button type='submit' class='submitbtn' name='action' value='changenotify'>Change</button>
     </form>
 </div>
 
 <br />  <!-- Delete Account -->
 <div class='form'>
     <h4>Delete Account</h4>
-    <form method="POST" action="api/account">
-            <input type="hidden" name="action" value="delete">
-            <input class='forminput' required type="password" name="password" placeholder="Password" />
-      <br /><button class='submitbtn' type="submit">Delete</button>
+    <form method='POST' action='api/account'>
+            <input class='forminput' required type='password' name='password' placeholder='Password' />
+      <br /><button type='submit' class='submitbtn' name='action' value='delete'>Delete</button>
     </form>
 </div>
 

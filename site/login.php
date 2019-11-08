@@ -1,10 +1,10 @@
 <?php
 
-require_once("../config/output.php");
+require_once('../config/output.php');
 
 session_start();
 
-output_head("Login");
+output_head('Login');
 
 output_header();
 
@@ -13,17 +13,16 @@ output_header();
 <br /><br />
 <div class='form'>
     <h4>Login</h4>
-    <form method="POST" action="api/account">
-        <input type="hidden" name="action" value="login">
+    <form method='POST' action='api/account'>
               Username:
-        <br /><input class='forminput' required autofocus type="text" name="username" />
+        <br /><input class='forminput' required autofocus type='text' name='username' />
         <br />Password:
-        <br /><input class='forminput' required type="password" name="password" />
-        <br /><button class='submitbtn' type="submit">Login</button>
+        <br /><input class='forminput' required type='password' name='password' />
+        <br /><button type='submit' class='submitbtn' name='action' value='login'>Login</button>
     </form>
-    <br /><a href="/create">Create Account</a>
-    <br /><a href="/reset">Reset Password</a>
-    <br /><a href="/resend">Resend Validation Email</a>
+    <br /><a href='/create'>Create Account</a>
+    <br /><a href='/reset'>Reset Password</a>
+    <br /><a href='/resend'>Resend Validation Email</a>
 </div>
 
 <?php
