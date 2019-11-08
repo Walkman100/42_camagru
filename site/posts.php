@@ -54,9 +54,10 @@ if ($posts)
             print("<button type='submit' name='action' value='delete' class='deletepost'>Delete</button>");
         print("  </form>");
 
-        print("  <div class='comments'>");
-
         $comments = get_comments($post['post_id']);
+        if ($comments || isset($_SESSION['username']))
+            print("  <div class='comments'>");
+
         if ($comments)
         {
             foreach ($comments as $comment)
@@ -74,11 +75,12 @@ if ($posts)
             print("<form method='POST' action='api/comments'>");
             print("  <input type='hidden' name='postid' value=\"" . $post['post_id'] . "\" />");
             print("  <textarea name='posttext' rows='2' cols='48' placeholder='Post a comment...' class='commentinput'></textarea>");
-            print("  <br /><button type='submit' name='action' value='add' class='postcomment'>Post</button>");
+            print("  <br /><button type='submit' name='action' value='add' class='postcomment submitbtn'>Post</button>");
             print("</form>");
         }
 
-        print("  </div>"); // comments
+        if ($comments || isset($_SESSION['username']))
+            print("  </div>"); // comments
         print("</div>"); // post
     }
 }

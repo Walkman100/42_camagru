@@ -55,12 +55,17 @@ output_header();
     <?php
         $newemail = new_email_pending($_SESSION['username']);
         if ($newemail)
-        {
-            print('<div class="small">Pending Email address:</div>');
-            print('<div class="small">' . $newemail . '</div>');
-            print('<div class="small">(Check your inbox)</div>');
-            print('<br />');
-        }
+        { ?>
+            <div class="small">Pending Email address:</div>
+            <div class="small"><?php print($newemail); ?></div>
+            <form method='POST' action='api/account'>
+                <div class="small">(Check your inbox)
+                    <input type='hidden' name='email' value="<?php print($newemail); ?>" />
+                    <button type='submit' name='action' value='resend'>Resend</button>
+                </div>
+            </form>
+            <br />
+        <?php }
     ?>
     <form method='POST' action='api/account'>
             <input class='forminput' required type='email' name='newemail' placeholder='New Email Address' />
