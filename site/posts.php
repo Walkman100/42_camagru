@@ -49,12 +49,13 @@ if ($posts)
             print("<button type='submit' name='action' value='like' class='likebutton");
                 class_if_liked($post['post_id']);
                 print("'>&hearts;</button>");
-        print("    </div>");
+        print("    </div>"); // postdetails
         if (isset($_SESSION['username']) && $post['username'] === $_SESSION['username'])
             print("<button type='submit' name='action' value='delete' class='deletepost'>Delete</button>");
         print("  </form>");
 
         print("  <div class='comments'>");
+
         $comments = get_comments($post['post_id']);
         if ($comments)
         {
@@ -64,7 +65,7 @@ if ($posts)
                 print($comment['username'] . " | " . $comment['post_date'] . "");
                 print("</div><div class='commenttext'>");
                 print($comment['text']);
-                print("</div>");
+                print("</div>"); // commenttext
             }
         }
 
@@ -76,12 +77,13 @@ if ($posts)
             print("  <br /><button type='submit' name='action' value='add' class='postcomment'>Post</button>");
             print("</form>");
         }
-        print("  </div>");
-        print("</div>");
+
+        print("  </div>"); // comments
+        print("</div>"); // post
     }
 }
 
-print("</div><br /><br />");
+print("</div><br /><br />"); // posts
 print("<div class='pages'>");
 
 $endval = post_page_count();
@@ -94,7 +96,7 @@ for ($i = 1; $i < $endval + 1; $i++)
     print("'>" . $i . "</div></a>");
 }
 
-print("</div>");
+print("</div>"); // pages
 
 output_footer();
 

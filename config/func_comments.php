@@ -12,8 +12,10 @@ require_once("globals.php");
  */
 function post_comment(int $postid, string $name, string $posttext)
 {
+    // get the current date in the same format it's stored in the table
     $currdate = date("Y-m-d H:i:s");
 
+    // get information about the user owning the post so they can be emailed
     $stmt = DB::prepare("SELECT
             `users`.`username`,
             `users`.`email`,
@@ -39,9 +41,16 @@ function post_comment(int $postid, string $name, string $posttext)
         exit;
     }
 
+    // get userid of the commenter
     if (!$userid = get_user_id($name))
         return (false);
 
+    // sanitise $posttext
+    $post_patterns = array("/&/", "/</", "/>/", "/(\r\n|\r|\n)/");
+    $post_repl = array("&amp;", "&lt;", "&gt;", "<br />");
+    $posttext = preg_replace($post_patterns, $post_repl, $posttext);
+
+    // add the comment to the database
     $stmt = DB::prepare("INSERT INTO `comments` (
             `post_id`, `user_id`, `post_date`, `text`
         ) VALUES (
@@ -59,6 +68,7 @@ function post_comment(int $postid, string $name, string $posttext)
         exit;
     }
 
+    // send email if notify is on for the post owner
     if ($return[0]['notify'] === '1')
         send_comment_notification($return[0]['username'], $return[0]['email'], $posttext);
     return (true);
