@@ -5,6 +5,9 @@ date_default_timezone_set("Africa/Johannesburg");
 // fallback for physical location
 $COMMANDLINE_ROOT = "/Volumes/wtc-mcarter/camagru/site";
 
+$ADMIN_USER = "admin";
+$ADMIN_PASSWORD = "admin";
+
 if ($_SERVER['DOCUMENT_ROOT'])
     $server_root = $_SERVER['DOCUMENT_ROOT'];
 else

@@ -136,7 +136,7 @@ function get_images(string $name)
 
 /**
  * @param string    $image_path     Path of image to add as an overlay
- * @return void
+ * @return bool                     True if image was added successfully, false if file doesn't exist or copy failed.
  */
 function add_overlay(string $image_path)
 {

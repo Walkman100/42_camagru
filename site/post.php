@@ -12,6 +12,12 @@ if (!isset($_SESSION["username"]))
     exit;
 }
 
+if ($_SESSION["username"] === $ADMIN_USER)
+{
+    header('Location: /admin');
+    exit;
+}
+
 output_head("Add Post");
 output_header();
 

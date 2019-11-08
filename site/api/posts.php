@@ -14,6 +14,8 @@ elseif ($_POST["action"] === "add") // args: md5
 {
     if (!isset($_SESSION["username"]))
         output_error("Not logged in", 401);
+    elseif ($_SESSION["username"] === $ADMIN_USER)
+        output_error("Cannot post as Administrator Account", 403);
     elseif (!$_POST["md5"])
         output_error("No md5 supplied!", 400);
     elseif (add_post($_POST["md5"], $_SESSION["username"]))
@@ -27,7 +29,7 @@ elseif ($_POST["action"] === "delete") // args: postid
         output_error("Not logged in", 401);
     elseif (!$_POST["postid"])
         output_error("No postid supplied!", 400);
-    elseif (!post_is_owned($_POST["postid"], $_SESSION["username"]))
+    elseif (!post_is_owned($_POST["postid"], $_SESSION["username"]) && $_SESSION["username"] !== $ADMIN_USER)
         output_error("Logged in user does not own post!", 403);
     else
     {
@@ -41,7 +43,7 @@ elseif ($_POST["action"] === "deleteimage") // args: md5
         output_error("Not logged in", 401);
     elseif (!$_POST["md5"])
         output_error("No md5 supplied!", 400);
-    elseif (!image_is_owned($_POST["md5"], $_SESSION["username"]))
+    elseif (!image_is_owned($_POST["md5"], $_SESSION["username"]) && $_SESSION["username"] !== $ADMIN_USER)
         output_error("Logged in user does not own image!", 403);
     else
     {
@@ -49,10 +51,26 @@ elseif ($_POST["action"] === "deleteimage") // args: md5
         print("Image deleted successfully!" . PHP_EOL);
     }
 }
+elseif ($_POST["action"] === "deleteoverlay") // args: id
+{
+    if (!isset($_SESSION["username"]))
+        output_error("Not logged in", 401);
+    elseif (!$_POST["id"])
+        output_error("No id supplied!", 400);
+    elseif ($_SESSION["username"] !== $ADMIN_USER)
+        output_error("Not logged in as admin!", 403);
+    else
+    {
+        delete_overlay($_POST["id"]);
+        print("Overlay deleted" . PHP_EOL);
+    }
+}
 elseif ($_POST["action"] === "like") // args: postid, like (true|false)
 {
     if (!isset($_SESSION["username"]))
         output_error("Not logged in", 401);
+    elseif ($_SESSION["username"] === $ADMIN_USER)
+        output_error("Cannot like as Administrator Account", 403);
     elseif (!$_POST["postid"])
         output_error("No postid supplied!", 400);
     elseif (!$_POST["like"])

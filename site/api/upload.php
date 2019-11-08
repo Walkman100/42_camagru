@@ -44,6 +44,13 @@ else
     $finfo = new finfo(FILEINFO_MIME_TYPE);
     if ($finfo->file($_FILES['userfile']['tmp_name']) !== 'image/png')
         output_error("Invalid filetype", 415);
+    elseif ($_SESSION["username"] === $ADMIN_USER)
+    {
+        if (add_overlay($_FILES['userfile']['tmp_name']))
+            print("Overlay Added" . PHP_EOL);
+        else
+            output_error("Failed to add overlay", 400);
+    }
     elseif (add_image($_SESSION['username'], $_FILES['userfile']['tmp_name']))
         print("Image added successfully" . PHP_EOL);
     else

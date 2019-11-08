@@ -12,6 +12,12 @@ if (!isset($_SESSION['username']))
     exit;
 }
 
+if ($_SESSION["username"] === $ADMIN_USER)
+{
+    header('Location: /admin');
+    exit;
+}
+
 function printenable(int $opt)
 {
     $isnotify = notify_is_on($_SESSION['username']);

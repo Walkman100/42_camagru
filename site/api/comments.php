@@ -1,6 +1,7 @@
 <?php
 
 require_once("../../config/output.php");
+require_once("../../config/globals.php");
 require_once("../../config/func_comments.php");
 
 session_start();
@@ -13,6 +14,8 @@ elseif ($_POST["action"] === "add") // args: postid, posttext
 {
     if (!isset($_SESSION["username"]))
         output_error("Not logged in", 401);
+    elseif ($_SESSION["username"] === $ADMIN_USER)
+        output_error("Cannot post as Administrator Account", 403);
     elseif (!$_POST["postid"])
         output_error("No postid supplied!", 400);
     elseif (!$_POST["posttext"])

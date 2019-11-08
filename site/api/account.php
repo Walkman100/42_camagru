@@ -35,6 +35,8 @@ elseif ($_POST["action"] === "create") // args: username, password, email
         output_error("No password supplied!", 400);
     elseif (!isset($_POST["email"]))
         output_error("No email supplied!", 400);
+    elseif ($_POST["username"] === $ADMIN_USER)
+        output_error("Cannot create an account with the same username as the Administrator Account", 403);
     elseif (user_exists($_POST["username"]))
         output_error("User already exists!", 400);
     elseif (!preg_match("/" . $USERNAME_REGEX . "/", $_POST["username"]))
@@ -100,8 +102,12 @@ elseif ($_POST["action"] === "changeusername") // args: username
 {
     if (!isset($_SESSION["username"]))
         output_error("Not logged in", 401);
+    elseif ($_SESSION["username"] === $ADMIN_USER)
+        output_error("Cannot change settings for Administrator Account", 403);
     elseif (!isset($_POST["username"]))
         output_error("No username supplied!", 400);
+    elseif ($_POST["username"] === $ADMIN_USER)
+        output_error("Cannot change username to the same username as the Administrator Account", 403);
     elseif (!preg_match("/" . $USERNAME_REGEX . "/", $_POST["username"]))
         output_error("Username must consist of " . $USERNAME_HINT, 400);
     elseif (user_exists($_POST["username"]))
@@ -117,6 +123,8 @@ elseif ($_POST["action"] === "changepw") // args: oldpassword, newpassword
 {
     if (!isset($_SESSION["username"]))
         output_error("Not logged in", 401);
+    elseif ($_SESSION["username"] === $ADMIN_USER)
+        output_error("Cannot change settings for Administrator Account", 403);
     elseif (!isset($_POST["oldpassword"]))
         output_error("Old Password not supplied!", 400);
     elseif (!isset($_POST["newpassword"]))
@@ -135,6 +143,8 @@ elseif ($_POST["action"] === "changeemail") // args: newemail
 {
     if (!isset($_SESSION["username"]))
         output_error("Not logged in", 401);
+    elseif ($_SESSION["username"] === $ADMIN_USER)
+        output_error("Cannot change settings for Administrator Account", 403);
     elseif (!isset($_POST["newemail"]))
         output_error("No email address supplied", 400);
     elseif (email_used($_POST["newemail"]))
@@ -153,6 +163,8 @@ elseif ($_POST["action"] === "changenotify") // args: notify
 {
     if (!isset($_SESSION["username"]))
         output_error("Not logged in", 401);
+    elseif ($_SESSION["username"] === $ADMIN_USER)
+        output_error("Cannot change settings for Administrator Account", 403);
     elseif (!isset($_POST["notify"]))
         output_error("No option supplied", 400);
     else
@@ -165,6 +177,8 @@ elseif ($_POST["action"] === "delete") // args: password
 {
     if (!isset($_SESSION["username"]))
         output_error("Not logged in", 401);
+    elseif ($_SESSION["username"] === $ADMIN_USER)
+        output_error("Cannot change settings for Administrator Account", 403);
     elseif (!isset($_POST["password"]))
         output_error("No password supplied!", 400);
     elseif (!correct_pw($_SESSION["username"], $_POST["password"]))
@@ -182,6 +196,11 @@ elseif ($_POST["action"] === "login") // args: username, password
         output_error("No username supplied!", 400);
     elseif (!isset($_POST["password"]))
         output_error("No password supplied!", 400);
+    elseif ($_POST["username"] === $ADMIN_USER && $_POST["password"] === $ADMIN_PASSWORD)
+    {
+        set_session_username($_POST["username"]);
+        print("Logged in as Administrator" . PHP_EOL);
+    }
     elseif (!user_exists($_POST["username"]))
         output_error("User doesn't exist!", 400);
     elseif (!correct_pw($_POST["username"], $_POST["password"]))

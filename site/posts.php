@@ -1,6 +1,7 @@
 <?php
 
 require_once("../config/output.php");
+require_once("../config/globals.php");
 require_once("../config/func_posts.php");
 require_once("../config/func_comments.php");
 
@@ -19,7 +20,8 @@ else
 
 function class_if_liked(int $postid)
 {
-    if (!isset($_SESSION['username']))
+    global $ADMIN_USER;
+    if (!isset($_SESSION['username']) || $_SESSION['username'] === $ADMIN_USER)
         print(" disabled");
     elseif (is_liked($postid, $_SESSION['username']))
         print(" likeDbutton");
@@ -50,7 +52,7 @@ if ($posts)
                 class_if_liked($post['post_id']);
                 print("'>&hearts;</button>");
         print("    </div>"); // postdetails
-        if (isset($_SESSION['username']) && $post['username'] === $_SESSION['username'])
+        if (isset($_SESSION['username']) && ($post['username'] === $_SESSION['username'] || $_SESSION['username'] === $ADMIN_USER))
             print("<button type='submit' name='action' value='delete' class='deletepost'>Delete</button>");
         print("  </form>");
 
@@ -70,7 +72,7 @@ if ($posts)
             }
         }
 
-        if (isset($_SESSION['username']))
+        if (isset($_SESSION['username']) && $_SESSION['username'] !== $ADMIN_USER)
         {
             print("<form method='POST' action='api/comments'>");
             print("  <input type='hidden' name='postid' value=\"" . $post['post_id'] . "\" />");
