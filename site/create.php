@@ -20,7 +20,7 @@ output_header();
 <br /><br />
 <div class='form'>
     <h4>Create Account</h4>
-    <form method='POST' action='api/account' id='form'>
+    <form method='POST' action='api/account' id='form' onsubmit="return submitForm('form');">
               Username:
         <br /><input class='forminput' required autofocus type='text' name='username'
                     pattern='<?php print($USERNAME_REGEX); ?>' title='<?php print($USERNAME_HINT); ?>' />
@@ -29,7 +29,7 @@ output_header();
                     pattern='<?php print($PASSWORD_REGEX); ?>' title='<?php print($PASSWORD_HINT); ?>' />
         <br />Email Address:
         <br /><input class='forminput' required type='email' name='email' />
-        <br /><button type='submit' class='submitbtn' name='action' value='create' onclick="return submitForm('form');">Create</button>
+        <br /><button type='submit' class='submitbtn' name='action' value='create'>Create</button>
     </form>
     <br /><a href='/reset'>Reset Password</a>
     <br /><a href='/resend'>Resend Verification Email</a>

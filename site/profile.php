@@ -34,21 +34,21 @@ output_header();
 <br />  <!-- Change Username -->
 <div class='form'>
     <h4>Change Username</h4>
-    <form method='POST' action='api/account' id='form1'>
+    <form method='POST' action='api/account' id='form1' onsubmit="return submitForm('form1');">
             <input class='forminput' required type='text' name='username' placeholder='New Username'
                     pattern='<?php print($USERNAME_REGEX); ?>' title='<?php print($USERNAME_HINT); ?>' />
-      <br /><button type='submit' class='submitbtn' name='action' value='changeusername' onclick="return submitForm('form1');">Submit</button>
+      <br /><button type='submit' class='submitbtn' name='action' value='changeusername'>Submit</button>
     </form>
 </div>
 
 <br />  <!-- Change Password -->
 <div class='form'>
     <h4>Change Password</h4>
-    <form method='POST' action='api/account' id='form2'>
+    <form method='POST' action='api/account' id='form2' onsubmit="return submitForm('form2');">
             <input class='forminput' required type='password' name='oldpassword' placeholder='Old Password' />
       <br /><input class='forminput' required type='password' name='newpassword' placeholder='New Password'
                     pattern='<?php print($PASSWORD_REGEX); ?>' title='<?php print($PASSWORD_HINT); ?>' />
-      <br /><button type='submit' class='submitbtn' name='action' value='changepw' onclick="return submitForm('form2');">Submit</button>
+      <br /><button type='submit' class='submitbtn' name='action' value='changepw'>Submit</button>
     </form>
 </div>
 
@@ -64,25 +64,25 @@ output_header();
         { ?>
             <div class='small'>Pending Email address:</div>
             <div class='small'><?php print($newemail); ?></div>
-            <form method='POST' action='api/account' id='form3'>
+            <form method='POST' action='api/account' id='form3' onsubmit="return submitForm('form3');">
                 <div class='small'>(Check your inbox)
                     <input type='hidden' name='email' value='<?php print($newemail); ?>' />
-                    <button type='submit' name='action' value='resend' onclick="return submitForm('form3');">Resend</button>
+                    <button type='submit' name='action' value='resend'>Resend</button>
                 </div>
             </form>
             <br />
         <?php }
     ?>
-    <form method='POST' action='api/account' id='form4'>
+    <form method='POST' action='api/account' id='form4' onsubmit="return submitForm('form4');">
             <input class='forminput' required type='email' name='newemail' placeholder='New Email Address' />
-      <br /><button type='submit' class='submitbtn' name='action' value='changeemail' onclick="return submitForm('form4');">Submit</button>
+      <br /><button type='submit' class='submitbtn' name='action' value='changeemail'>Submit</button>
     </form>
 </div>
 
 <br />  <!-- Change Notify Option -->
 <div class='form'>
     <h4>Change Notify Option</h4>
-    <form method='POST' action='api/account' id='form5'>
+    <form method='POST' action='api/account' id='form5' onsubmit="return submitForm('form5');">
               <label>
                 <input type='radio' name='notify' value='true' <?php printenable(1); ?> >
                 Enable
@@ -91,16 +91,16 @@ output_header();
                 <input type='radio' name='notify' value='false' <?php printenable(2); ?>>
                 Disable
               </label>
-        <br /><br /><button type='submit' class='submitbtn' name='action' value='changenotify' onclick="return submitForm('form5');">Change</button>
+        <br /><br /><button type='submit' class='submitbtn' name='action' value='changenotify'>Change</button>
     </form>
 </div>
 
 <br />  <!-- Delete Account -->
 <div class='form'>
     <h4>Delete Account</h4>
-    <form method='POST' action='api/account' id='form6'>
+    <form method='POST' action='api/account' id='form6' onsubmit="return submitForm('form6');">
             <input class='forminput' required type='password' name='password' placeholder='Password' />
-      <br /><button type='submit' class='submitbtn' name='action' value='delete' onclick="return submitForm('form6');">Delete</button>
+      <br /><button type='submit' class='submitbtn' name='action' value='delete'>Delete</button>
     </form>
 </div>
 

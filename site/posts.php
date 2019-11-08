@@ -74,10 +74,10 @@ if ($posts)
 
         if (isset($_SESSION['username']) && $_SESSION['username'] !== $ADMIN_USER)
         {
-            print("<form method='POST' action='api/comments' id='form" . $post['post_id'] . "comments'>");
+            print("<form method='POST' action='api/comments' id='form" . $post['post_id'] . "comments' onsubmit=\"return submitForm('form" . $post['post_id'] . "comments');\">");
             print("  <input type='hidden' name='postid' value=\"" . $post['post_id'] . "\" />");
             print("  <textarea name='posttext' rows='2' cols='48' placeholder='Post a comment...' class='commentinput'></textarea>");
-            print("  <br /><button type='submit' name='action' value='add' class='postcomment submitbtn' onclick=\"return submitForm('form" . $post['post_id'] . "comments');\">Post</button>");
+            print("  <br /><button type='submit' name='action' value='add' class='postcomment submitbtn'>Post</button>");
             print("</form>");
         }
 
