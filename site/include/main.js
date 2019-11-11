@@ -1,3 +1,8 @@
+/**
+ * Set a form's disabled state
+ * @param {HTMLFormElement} form        Form to change
+ * @param {boolean}         disabled    True to disable the form, false to enable
+ */
 function changeDisabled(form, disabled)
 {
     var elements = form.elements;
@@ -7,6 +12,11 @@ function changeDisabled(form, disabled)
     }
 }
 
+/**
+ * Submits a form using AJAX (XHR)
+ * @param {string}          formName    Name of the form's ID to submit
+ * @returns {boolean}                   False so onsubmit is cancelled
+ */
 function submitForm(formName) {
     // get the requested form
     var form = document.forms[formName];
@@ -20,8 +30,9 @@ function submitForm(formName) {
     // build the request string
     var request_str = "";
     for (var element in form)
-    {                        // ignore elements without a name, and identifiers that are "action"
-        if (form.hasOwnProperty(element) && form[element].name && element != "action")
+    {            // ignore elements without a name, and identifiers that are "action", and radio buttons that aren't checked
+        if (form.hasOwnProperty(element) && form[element].name && element != "action" &&
+                        !(form[element].type == "radio" && form[element].checked == false))
         {
             if (request_str != "") // add an & between fields
                 request_str += "&";
