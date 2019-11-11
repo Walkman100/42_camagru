@@ -58,7 +58,7 @@ if ($images)
         print("  <img class='userimage' src=\"/userdata/" . $image['md5'] . ".png\">");
         print("  <div class='postdate'>Uploaded on " . $image['upload_date'] . "</div>");
         print("  <div class='postdate'>By " . $image['username'] . "</div>");
-        print("  <form method='POST' action='api/posts'>");
+        print("  <form method='POST' action='api/posts' id='form" . $image['md5'] . "' onsubmit=\"return submitForm('form" . $image['md5'] . "');\">");
         print("    <input type='hidden' name='md5' value=\"" . $image['md5'] . "\" />");
         print("    <button type='submit' name='action' value='deleteimage' class='delete'>Delete</button>");
         print("  </form>");
@@ -78,7 +78,7 @@ if ($overlays)
     {
         print("<div class='userimage'>");
         print("  <img class='overlay' src=\"/overlays/" . $id . ".png\">");
-        print("  <form method='POST' action='api/posts'>");
+        print("  <form method='POST' action='api/posts' id='form" . $id . "' onsubmit=\"return submitForm('form" . $id . "');\">");
         print("    <input type='hidden' name='id' value=\"" . $id . "\" />");
         print("    <button type='submit' name='action' value='deleteoverlay' class='delete'>Delete</button>");
         print("  </form>");

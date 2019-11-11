@@ -69,3 +69,48 @@ function submitForm(formName) {
     XHR(action, form, request_str);
     return (false);
 }
+
+function submitMultibuttonForm(formName) {
+    // get focused element
+    // Firefox || Opera || IE || unsupported
+    var target = event.explicitOriginalTarget || event.relatedTarget || document.activeElement || {};
+
+    // get the value of the focused element
+    var submit_action;
+    if (target.type == "submit")
+        submit_action = target.value;
+    else
+    {
+        alert("No button clicked! Please click a button...");
+        return (false);
+    }
+
+    // get the requested form
+    var form = document.forms[formName];
+    // disable the form
+    changeDisabled(form, true);
+    // get the form action
+    var action = form.attributes.action.value;
+
+    // build the request string
+    var request_str = "";
+    for (var element in form)
+    {        // ignore elements without a name, identifiers that are "action", radio buttons that aren't checked, and names that are action
+        if (form.hasOwnProperty(element) && form[element].name && element != "action" &&
+                        !(form[element].type == "radio" && form[element].checked == false) && form[element].name != 'action')
+        {
+            if (request_str != "") // add an & between fields
+                request_str += "&";
+            request_str += encodeURI(form[element].name) + "=" + encodeURI(form[element].value);
+        }
+    }
+
+    if (request_str != "")
+        request_str += "&";
+    request_str += encodeURI('action') + '=' + encodeURI(submit_action);
+
+    console.log("request: " + action + "?" + request_str);
+
+    XHR(action, form, request_str);
+    return (false);
+}
