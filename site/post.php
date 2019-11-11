@@ -26,11 +26,13 @@ output_header();
 <h1>Add Post</h1>
 <div class='postviewport'>
     <div class='postmain'>
-        <form method="POST" action="api/upload" enctype="multipart/form-data">
+        <form method="POST" action="api/upload" enctype="multipart/form-data" id='formupload' onsubmit="return submitUploadForm('formupload');">
             <input type="hidden" name="MAX_FILE_SIZE" value="<?php print($MAX_UPLOAD_SIZE); ?>" />
                   Select Image (Only PNG):
             <br /><input style="width: 200px; height: 23px" required type="file" accept="image/png" name="userfile" />
             <br /><button type="submit" class='submitbtn'>Upload</button>
+            <div id="upload-status"></div>
+            <div id="upload-progress"></div>
         </form>
     </div>
     <div class='userimages'>

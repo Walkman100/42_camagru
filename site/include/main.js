@@ -40,11 +40,12 @@ function XHR(action, form, request_str)
 }
 
 /**
- * Submits a form using AJAX (XHR)
- * @param {string}          formName    Name of the form's ID to submit
+ * Submits a form using AJAX (XHR). All elements of the form are used, so which button a user clicked is ignored
+ * @param   {string}        formName    Name of the form's ID to submit
  * @returns {boolean}                   False so onsubmit is cancelled
  */
-function submitForm(formName) {
+function submitForm(formName)
+{
     // get the requested form
     var form = document.forms[formName];
     // disable the form
@@ -70,7 +71,13 @@ function submitForm(formName) {
     return (false);
 }
 
-function submitMultibuttonForm(formName) {
+/**
+ * Submits a multibutton form using AJAX (XHR). If no button is clicked (e.g. User pressed enter), an error message is shown
+ * @param   {string}        formName    Name of the form's ID to submit
+ * @returns {boolean}                   False so onsubmit is cancelled
+ */
+function submitMultibuttonForm(formName)
+{
     // get focused element
     // Firefox || Opera || IE || unsupported
     var target = event.explicitOriginalTarget || event.relatedTarget || document.activeElement || {};
@@ -113,4 +120,67 @@ function submitMultibuttonForm(formName) {
 
     XHR(action, form, request_str);
     return (false);
+}
+
+/**
+ * Submits a form with an image upload.
+ * @param   {string}        formName    Name of the form's ID to submit
+ * @returns {boolean}                   False so onsubmit is cancelled
+ */
+function submitUploadForm(formName)
+{
+    // get the requested form
+    var form = document.forms[formName];
+    // create a formData object, used for uploading a file
+    var formData = new FormData(form);
+    // disable the form
+    changeDisabled(form, true);
+    // get the form action
+    var action = form.attributes.action.value;
+
+    // build the request object and actions
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', action);
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            alert(xhr.responseText);
+            location.reload(true);
+        }
+        else {
+            alert(xhr.responseText);
+            document.getElementById('upload-status').innerHTML = '';
+            changeDisabled(form, false);
+        }
+    };
+    xhr.upload.addEventListener('loadstart', onloadstartHandler, false);
+    xhr.upload.addEventListener('progress', onprogressHandler, false);
+    xhr.upload.addEventListener('load', onloadHandler, false);
+
+
+    // send the request
+    xhr.send(formData);
+    return (false);
+}
+
+// Handle the start of the transmission
+function onloadstartHandler(evt)
+{
+    var uploadstatus = document.getElementById('upload-status');
+    uploadstatus.innerHTML = 'Upload started.';
+}
+
+// Handle the progress
+function onprogressHandler(evt)
+{
+    var uploadprogress = document.getElementById('upload-progress');
+    var percent = Math.floor(evt.loaded / evt.total * 100);
+    uploadprogress.innerHTML = 'Progress: ' + percent + '%';
+}
+
+// Handle the end of the transmission
+function onloadHandler(evt)
+{
+    document.getElementById('upload-progress').innerHTML = '';
+    var uploadstatus = document.getElementById('upload-status');
+    uploadstatus.innerHTML = 'File uploaded. Waiting for response.';
 }
