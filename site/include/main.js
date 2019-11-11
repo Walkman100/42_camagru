@@ -25,11 +25,13 @@ function XHR(action, form, request_str)
     xhr.open('POST', action);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onload = function() {
-        if (xhr.status === 200) {
+        if (xhr.status === 200)
+        {
             alert(xhr.responseText);
             location.reload(true);
         }
-        else {
+        else
+        {
             alert(xhr.responseText);
             changeDisabled(form, false);
         }
@@ -141,46 +143,35 @@ function submitUploadForm(formName)
     // build the request object and actions
     var xhr = new XMLHttpRequest();
     xhr.open('POST', action);
-    xhr.onload = function() {
-        if (xhr.status === 200) {
+    xhr.onload = function()
+    {
+        if (xhr.status === 200)
+        {
             alert(xhr.responseText);
             location.reload(true);
         }
-        else {
+        else
+        {
             alert(xhr.responseText);
             document.getElementById('upload-status').innerHTML = '';
             changeDisabled(form, false);
         }
     };
-    xhr.upload.addEventListener('loadstart', onloadstartHandler, false);
-    xhr.upload.addEventListener('progress', onprogressHandler, false);
-    xhr.upload.addEventListener('load', onloadHandler, false);
 
+    // add events
+    xhr.upload.addEventListener('loadstart', function(evt) {
+                document.getElementById('upload-status').innerHTML = 'Upload started.'
+            }, false);
+    xhr.upload.addEventListener('progress', function(evt) {
+                var percent = Math.floor(evt.loaded / evt.total * 100);
+                document.getElementById('upload-progress').innerHTML = 'Progress: ' + percent + '%';
+            }, false);
+    xhr.upload.addEventListener('load', function(evt) {
+                document.getElementById('upload-progress').innerHTML = '';
+                document.getElementById('upload-status').innerHTML = 'File uploaded. Waiting for response.';
+            }, false);
 
     // send the request
     xhr.send(formData);
     return (false);
-}
-
-// Handle the start of the transmission
-function onloadstartHandler(evt)
-{
-    var uploadstatus = document.getElementById('upload-status');
-    uploadstatus.innerHTML = 'Upload started.';
-}
-
-// Handle the progress
-function onprogressHandler(evt)
-{
-    var uploadprogress = document.getElementById('upload-progress');
-    var percent = Math.floor(evt.loaded / evt.total * 100);
-    uploadprogress.innerHTML = 'Progress: ' + percent + '%';
-}
-
-// Handle the end of the transmission
-function onloadHandler(evt)
-{
-    document.getElementById('upload-progress').innerHTML = '';
-    var uploadstatus = document.getElementById('upload-status');
-    uploadstatus.innerHTML = 'File uploaded. Waiting for response.';
 }
