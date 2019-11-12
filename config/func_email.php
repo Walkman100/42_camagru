@@ -35,7 +35,7 @@ function send_verification_mail($name, $email, $emailhash)
 function send_reset_email($email, $resethash)
 {
     global $DOMAIN_NAME;
-    $resetpage = "<a href='http://" . $DOMAIN_NAME . "/reset?hash=$resethash'>Verify Address</a>";
+    $resetpage = "<a href='http://" . $DOMAIN_NAME . "/reset?hash=$resethash'>Reset Password</a>";
 
     $message = "<html><head><title>Password Reset</title></head><body>
         <p>A password reset was requested for an account with this address.</p>
