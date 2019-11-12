@@ -4,9 +4,11 @@ const stopButton = document.getElementById('btnstop');
 const captureButton = document.getElementById('btncapture');
 const img = document.getElementById('captureImage');
 const canvas = document.getElementById('captureCanvas');
+const webcamdiv = document.getElementById('webcamdiv');
 
 if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia)
 {
+    webcamdiv.style.display = "none";
     alert('getUserMedia() is not supported by your browser!');
 }
 
@@ -20,6 +22,7 @@ startButton.onclick = function() {
         stopButton.disabled = false;
         captureButton.disabled = false;
     }).catch(function (error) {
+        webcamdiv.style.display = "none";
         console.log("User denied the request");
     });
 }
