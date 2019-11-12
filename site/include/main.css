@@ -228,6 +228,11 @@ div.postmain {
     height: 600px;
 }
 
+video#videoElement {
+    width: 100%;
+    max-height: 500px;
+}
+
 /* user images */
 
 div.userimages {
