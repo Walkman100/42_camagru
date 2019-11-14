@@ -68,7 +68,7 @@ uploadButton.onclick = function()
             {
                 alert(xhr.responseText);
                 uploadButton.disabled = false;
-                document.getElementById('wc-upload-status').innerHTML = '';
+                document.getElementById('wc-upload-status').innerHTML = '&nbsp;';
             }
         };
 
@@ -81,7 +81,7 @@ uploadButton.onclick = function()
                     document.getElementById('wc-upload-progress').innerHTML = 'Progress: ' + percent + '%';
                 }, false);
         xhr.upload.addEventListener('load', function(evt) {
-                    document.getElementById('wc-upload-progress').innerHTML = '';
+                    document.getElementById('wc-upload-progress').innerHTML = '&nbsp;';
                     document.getElementById('wc-upload-status').innerHTML = 'File uploaded. Waiting for response.';
                 }, false);
 

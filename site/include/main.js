@@ -153,7 +153,7 @@ function submitUploadForm(formName)
         else
         {
             alert(xhr.responseText);
-            document.getElementById('upload-status').innerHTML = '';
+            document.getElementById('upload-status').innerHTML = '&nbsp;';
             changeDisabled(form, false);
         }
     };
@@ -167,7 +167,7 @@ function submitUploadForm(formName)
                 document.getElementById('upload-progress').innerHTML = 'Progress: ' + percent + '%';
             }, false);
     xhr.upload.addEventListener('load', function(evt) {
-                document.getElementById('upload-progress').innerHTML = '';
+                document.getElementById('upload-progress').innerHTML = '&nbsp;';
                 document.getElementById('upload-status').innerHTML = 'File uploaded. Waiting for response.';
             }, false);
 

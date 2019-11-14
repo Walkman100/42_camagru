@@ -231,7 +231,7 @@ div.postmain {
     margin-right: 30px;
     margin-bottom: 30px;
     width: 800px;
-    height: 1162px;
+    height: 1270px;
 }
 
 video#videoElement {
@@ -249,7 +249,7 @@ img#captureImage {
 div.userimages {
     float: left;
     width: 200px;
-    height: 1162px;
+    height: 1270px;
     text-align: center;
     overflow: auto;
 }

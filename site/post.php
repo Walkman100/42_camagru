@@ -33,8 +33,8 @@ output_header();
                     Select Image (Only PNG):
                 <br /><input style="width: 200px; height: 23px" required type="file" accept="image/png" name="userfile" />
                 <br /><button type="submit" class='submitbtn'>Upload</button>
-                <div id="upload-status"></div>
-                <div id="upload-progress"></div>
+                <div id="upload-status">&nbsp;</div>
+                <div id="upload-progress">&nbsp;</div>
             </form>
         </div>
         <div id="webcamdiv">
@@ -48,8 +48,8 @@ output_header();
             <img src="" id="captureImage">
             <br />
             <button type='button' class='submitbtn' id='btnupload'>Upload</button>
-            <div id="wc-upload-status"></div>
-            <div id="wc-upload-progress"></div>
+            <div id="wc-upload-status">&nbsp;</div>
+            <div id="wc-upload-progress">&nbsp;</div>
             <canvas style="display:none;" id="captureCanvas"></canvas>
 
             <script type='text/javascript' src='/include/webcam.js'></script>

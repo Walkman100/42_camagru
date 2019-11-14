@@ -93,11 +93,13 @@ if ($overlays)
 
 <div class='userimages'>
     <h2>Add Overlay</h2>
-    <form method="POST" action="api/upload" enctype="multipart/form-data">
+    <form method="POST" action="api/upload" enctype="multipart/form-data" id='formupload' onsubmit="return submitUploadForm('formupload');">
         <input type="hidden" name="MAX_FILE_SIZE" value="<?php print($MAX_UPLOAD_SIZE); ?>" />
             Select Image (Only PNG):
         <br /><input style="width: 200px; height: 23px" required type="file" accept="image/png" name="userfile" />
         <br /><button type="submit" class='submitbtn'>Upload</button>
+        <div id="upload-status">&nbsp;</div>
+        <div id="upload-progress">&nbsp;</div>
     </form>
 </div>
 
