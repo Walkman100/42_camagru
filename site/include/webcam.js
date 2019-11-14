@@ -52,6 +52,15 @@ uploadButton.onclick = function()
         var formData = new FormData();
         formData.append('MAX_FILE_SIZE', '35000000');
         formData.append('userfile', blob, 'webcamimage.png');
+
+        var overlayForm = document.forms['formupload'];
+        for (var element in overlayForm)
+        {
+            var formElement = overlayForm[element];
+            if (overlayForm.hasOwnProperty(element) && formElement.name && formElement.type == 'checkbox' && formElement.checked == true)
+                formData.append(formElement.name, formElement.value);
+        }
+
         var action = 'api/upload';
 
         // build the request object and actions

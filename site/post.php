@@ -82,9 +82,9 @@ output_header();
         {
             foreach ($overlays as $id)
             {
-                // print("<div class='overlay'>");
-                print("  <img class='overlay' src=\"/overlays/" . $id . ".png\">");
-                // print("</div>");
+                print("<label><input type='checkbox' form='formupload' name='overlay[]' value='" . $id . "'>");
+                print("<img class='overlay' src=\"/overlays/" . $id . ".png\">");
+                print("</label> ");
             }
         }
     print("</div>"); // overlays
