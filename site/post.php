@@ -46,6 +46,10 @@ output_header();
             <button type='button' class='submitbtn' id='btncapture' disabled>Capture</button>
             <br /><br />
             <img src="" id="captureImage">
+            <br />
+            <button type='button' class='submitbtn' id='btnupload'>Upload</button>
+            <div id="wc-upload-status"></div>
+            <div id="wc-upload-progress"></div>
             <canvas style="display:none;" id="captureCanvas"></canvas>
 
             <script type='text/javascript' src='/include/webcam.js'></script>
