@@ -8,13 +8,17 @@ $COMMANDLINE_ROOT = "/Volumes/wtc-mcarter/camagru/site";
 $ADMIN_USER = "admin";
 $ADMIN_PASSWORD = "admin";
 
-if ($_SERVER['DOCUMENT_ROOT'])
+// $server_root is used for image locations
+if (isset($_SERVER['DOCUMENT_ROOT']))
     $server_root = $_SERVER['DOCUMENT_ROOT'];
 else
     $server_root = $COMMANDLINE_ROOT;
 
 // default domain name, used in emails
-$DOMAIN_NAME = "cmg.carteronline.net";
+if (isset($_SERVER["SERVER_NAME"]) && isset($_SERVER["SERVER_PORT"]))
+    $DOMAIN_NAME = $_SERVER["SERVER_NAME"] . ':' . $_SERVER["SERVER_PORT"];
+else
+    $DOMAIN_NAME = "cmg.carteronline.net";
 
 // URL after domain name - used for all links
 $ROOT_PATH = '/';

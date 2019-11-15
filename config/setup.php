@@ -73,4 +73,23 @@ function setup_db()
     print(" Complete.<br />" . PHP_EOL);
 }
 
+output_head("Database Setup");
+print("Starting DB setup...<br />" . PHP_EOL);
+
+try
+{
+    setup_db();
+}
+catch (PDOException $e)
+{
+    print("<h1>Error setting up the database!</h1>");
+    print("Error message: " . $e->getMessage());
+    output_end();
+    exit;
+    die;
+}
+
+print("DB Setup Successful!<br />" . PHP_EOL);
+output_end();
+
 ?>
