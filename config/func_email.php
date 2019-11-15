@@ -4,7 +4,10 @@ require_once("globals.php");
 
 function send_mail(string $to, string $subject, string $htmltext)
 {
-    global $DOMAIN_NAME;
+    //global $DOMAIN_NAME;
+    $DOMAIN_NAME = 'camagru.carteronline.net';
+    // override DOMAIN_NAME because we don't want to sent emails from 'localhost'
+
     $headers = array(
         'From' => 'Camagru <noreply@' . $DOMAIN_NAME . '>',
         'Reply-To' => 'Camagru <noreply@' . $DOMAIN_NAME . '>',

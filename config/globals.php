@@ -19,13 +19,13 @@ else
 
 // default domain name, used in emails
 if (isset($_SERVER["SERVER_NAME"]) && isset($_SERVER["SERVER_PORT"]))
-    $DOMAIN_NAME = $_SERVER["SERVER_NAME"] . ':' . $_SERVER["SERVER_PORT"];
+    $DOMAIN_NAME = $_SERVER["REQUEST_SCHEME"] . '://' . $_SERVER["SERVER_NAME"] . ':' . $_SERVER["SERVER_PORT"];
 else
     $DOMAIN_NAME = $_SERVER['PWD']; // get the working directory when using command line php
 
 // username validation for browser and server
-$USERNAME_REGEX = "^[a-zA-Z][a-zA-Z0-9-_\. ]{4,20}$";
-$USERNAME_HINT = "only letters, numbers or (-_\. ), and minimum 5 & maximum 20 characters";
+$USERNAME_REGEX = "^[a-zA-Z][a-zA-Z0-9-_\. ]{3,20}$";
+$USERNAME_HINT = "only letters, numbers or (-_\. ), and minimum 4 & maximum 20 characters";
 
 // password validation for browser and server
 $PASSWORD_REGEX = "^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$";

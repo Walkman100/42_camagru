@@ -63,6 +63,7 @@ function output_footer()
  */
 function dbconnectfailed(string $message)
 {
+    http_response_code(503); // Service Unavailable
     output_head("Database Error");
     print("<h1>Error Connecting to the database!</h1>");
     print("Error message: " . $message);
