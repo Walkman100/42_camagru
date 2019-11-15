@@ -8,13 +8,13 @@ session_start();
 
 if (!isset($_SESSION["username"]))
 {
-    header("Location: /login");
+    header("Location: " . $ROOT_PATH . "login");
     exit;
 }
 
 if ($_SESSION["username"] === $ADMIN_USER)
 {
-    header('Location: /admin');
+    header("Location: " . $ROOT_PATH . "admin");
     exit;
 }
 
@@ -52,7 +52,7 @@ output_header();
             <div id="wc-upload-progress">&nbsp;</div>
             <canvas style="display:none;" id="captureCanvas"></canvas>
 
-            <script type='text/javascript' src='/include/webcam.js'></script>
+            <script type='text/javascript' src='<?php print($ROOT_PATH); ?>include/webcam.js'></script>
         </div>
     </div>
     <div class='userimages'>
@@ -64,7 +64,7 @@ output_header();
             foreach ($images as $image)
             {
                 print("<div class='userimage'>");
-                print("  <img class='userimage' src=\"/userdata/" . $image['md5'] . ".png\">");
+                print("  <img class='userimage' src=\"" . $ROOT_PATH . "userdata/" . $image['md5'] . ".png\">");
                 print("  <div class='postdate'>Uploaded on " . $image['upload_date'] . "</div>");
                 print("  <form method='POST' action='api/posts' id='form" . $image['md5'] . "' onsubmit=\"return submitMultibuttonForm('form" . $image['md5'] . "');\">");
                 print("    <input type='hidden' name='md5' value=\"" . $image['md5'] . "\" />");
@@ -83,7 +83,7 @@ output_header();
             foreach ($overlays as $id)
             {
                 print("<label><input type='checkbox' form='formupload' name='overlay[]' value='" . $id . "'>");
-                print("<img class='overlay' src=\"/overlays/" . $id . ".png\">");
+                print("<img class='overlay' src=\"" . $ROOT_PATH . "overlays/" . $id . ".png\">");
                 print("</label> ");
             }
         }

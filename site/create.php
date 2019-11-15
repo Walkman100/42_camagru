@@ -7,7 +7,7 @@ session_start();
 
 if (isset($_SESSION['username']))
 {
-    header('Location: /profile');
+    header("Location: " . $ROOT_PATH . "profile");
     exit;
 }
 
@@ -31,8 +31,8 @@ output_header();
         <br /><input class='forminput' required type='email' name='email' />
         <br /><button type='submit' class='submitbtn' name='action' value='create'>Create</button>
     </form>
-    <br /><a href='/reset'>Reset Password</a>
-    <br /><a href='/resend'>Resend Verification Email</a>
+    <br /><a href="<?php print($ROOT_PATH); ?>reset">Reset Password</a>
+    <br /><a href="<?php print($ROOT_PATH); ?>resend">Resend Verification Email</a>
 </div>
 
 <?php

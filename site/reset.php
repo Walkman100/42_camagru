@@ -26,8 +26,8 @@ if (!isset($_GET['hash']))
                 <input class='forminput' required autofocus type='email' name='email' placeholder='Email Address' />
           <br /><button type='submit' class='submitbtn' name='action' value='sendreset'>Send</button>
         </form>
-        <br /><a href='/create'>Create Account</a>
-        <br /><a href='/resend'>Resend Verification Email</a>
+        <br /><a href='<?php print($ROOT_PATH); ?>create'>Create Account</a>
+        <br /><a href='<?php print($ROOT_PATH); ?>resend'>Resend Verification Email</a>
     </div>
     <?php
 

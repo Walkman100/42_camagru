@@ -16,6 +16,9 @@ else
 // default domain name, used in emails
 $DOMAIN_NAME = "cmg.carteronline.net";
 
+// URL after domain name - used for all links
+$ROOT_PATH = '/';
+
 // username validation for browser and server
 $USERNAME_REGEX = "^[a-zA-Z][a-zA-Z0-9-_\. ]{4,20}$";
 $USERNAME_HINT = "only letters, numbers or (-_\. ), and minimum 5 & maximum 20 characters";

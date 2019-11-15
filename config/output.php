@@ -1,7 +1,11 @@
 <?php
 
+require_once("globals.php");
+
 function output_head(string $title, string $additional_head = null)
 {
+    global $ROOT_PATH;
+
     //set headers to NOT cache a page
     //header("Cache-Control: no-cache, must-revalidate"); //HTTP 1.1
     header("Cache-Control: private, no-cache, no-store, proxy-revalidate, no-transform");
@@ -14,8 +18,8 @@ function output_head(string $title, string $additional_head = null)
         <meta http-equiv='Cache-control' content='no-store'>
         <meta http-equiv='X-UA-Compatible' content='ie=edge'>
         <title>" . $title . "</title>
-        <link rel='stylesheet' href='/include/main.css' type='text/css'>
-        <script type='text/javascript' src='/include/main.js'></script>");
+        <link rel='stylesheet' href='" . $ROOT_PATH . "include/main.css' type='text/css'>
+        <script type='text/javascript' src='" . $ROOT_PATH . "include/main.js'></script>");
     if ($additional_head !== null)
         print($additional_head);
     print("</head><body>");
@@ -29,17 +33,19 @@ function output_end()
 
 function output_header()
 {
+    global $ROOT_PATH;
+
     print("<div class='toolbar'><div class='toolbarsub'>");
-    print("<a href=\"/posts\"><div class='toolbarbutton'>Posts</div></a>");
+    print("<a href=\"" . $ROOT_PATH . "posts\"><div class='toolbarbutton'>Posts</div></a>");
     if (isset($_SESSION['username']))
     {
-        print(" <a href=\"/post\"><div class='toolbarbutton'>Add</div></a>");
+        print(" <a href=\"" . $ROOT_PATH . "post\"><div class='toolbarbutton'>Add</div></a>");
         print(" <div class='username'>" . $_SESSION['username'] . "</div>");
-        print(" <a href=\"/logout\"><div class='toolbarbutton'>Logout</div></a>");
-        print(" <a href=\"/profile\"><div class='toolbarbutton'>Profile</div></a>");
+        print(" <a href=\"" . $ROOT_PATH . "logout\"><div class='toolbarbutton'>Logout</div></a>");
+        print(" <a href=\"" . $ROOT_PATH . "profile\"><div class='toolbarbutton'>Profile</div></a>");
     }
     else
-        print("<a href=\"/login\"><div class='toolbarbutton'>Login</div></a>");
+        print("<a href=\"" . $ROOT_PATH . "login\"><div class='toolbarbutton'>Login</div></a>");
     print("</div></div>");
     print("<div class='main'>");
 }

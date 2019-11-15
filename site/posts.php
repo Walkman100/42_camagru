@@ -41,7 +41,7 @@ if ($posts)
     foreach ($posts as $post)
     {
         print("<div class='post'>");
-        print("  <img class='postimg' src=\"/postimages/" . $post['post_id'] . ".png\">");
+        print("  <img class='postimg' src=\"" . $ROOT_PATH . "postimages/" . $post['post_id'] . ".png\">");
 
         print("  <form method='POST' action='api/posts' id='form" . $post['post_id'] . "'");
            print(" onsubmit=\"return submitMultibuttonForm('form" . $post['post_id'] . "');\">");
@@ -95,7 +95,7 @@ print("<div class='pages'>");
 $endval = post_page_count();
 for ($i = 1; $i < $endval + 1; $i++)
 {
-    print("<a class='pageno' href=\"/posts?page=" . $i . "\">");
+    print("<a class='pageno' href=\"" . $ROOT_PATH . "posts?page=" . $i . "\">");
     print("<div class='pageno");
     if ($i == $index)
         print(" current");

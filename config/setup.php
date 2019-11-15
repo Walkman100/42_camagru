@@ -7,6 +7,8 @@ require_once("func_images.php");
 
 function setup_db()
 {
+    global $server_root;
+
     print("Connecting to the db server...");
     $tmpPDO = new PDO($GLOBALS["DB_DSN"], $GLOBALS["DB_USER"], $GLOBALS["DB_PASSWORD"], array(PDO::ATTR_PERSISTENT => true));
     $tmpPDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

@@ -1,5 +1,6 @@
 <?php
 
+require_once('../config/globals.php');
 require_once('../config/output.php');
 
 session_start();
@@ -26,12 +27,11 @@ output_header();
         <br /><input class='forminput' required type='password' name='password' />
         <br /><button type='submit' class='submitbtn' name='action' value='login'>Login</button>
     </form>
-    <br /><a href='/create'>Create Account</a>
-    <br /><a href='/reset'>Reset Password</a>
-    <br /><a href='/resend'>Resend Verification Email</a>
-</div>
-
-<?php
+    <?php
+    print("<br /><a href='" . $ROOT_PATH . "create'>Create Account</a>");
+    print("<br /><a href='" . $ROOT_PATH . "reset'>Reset Password</a>");
+    print("<br /><a href='" . $ROOT_PATH . "resend'>Resend Verification Email</a>");
+print("</div>");
 
 output_footer();
 

@@ -1,5 +1,6 @@
 <?php
 
+require_once('../config/globals.php');
 require_once('../config/output.php');
 
 session_start();
@@ -17,8 +18,8 @@ output_header();
             <input class='forminput' required autofocus type='email' name='email' placeholder='Email Address' />
       <br /><button type='submit' class='submitbtn' name='action' value='resend'>Send</button>
     </form>
-    <br /><a href='/create'>Create Account</a>
-    <br /><a href='/reset'>Reset Password</a>
+    <br /><a href='<?php print($ROOT_PATH); ?>create'>Create Account</a>
+    <br /><a href='<?php print($ROOT_PATH); ?>reset'>Reset Password</a>
 </div>
 
 <?php

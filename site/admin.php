@@ -9,13 +9,13 @@ session_start();
 
 if (!isset($_SESSION["username"]))
 {
-    header("Location: /login");
+    header("Location: " . $ROOT_PATH . "login");
     exit;
 }
 
 if ($_SESSION["username"] !== $ADMIN_USER)
 {
-    header('Location: /profile');
+    header("Location: " . $ROOT_PATH . "profile");
     exit;
 }
 
@@ -55,7 +55,7 @@ if ($images)
     foreach ($images as $image)
     {
         print("<div class='userimage'>");
-        print("  <img class='userimage' src=\"/userdata/" . $image['md5'] . ".png\">");
+        print("  <img class='userimage' src=\"" . $ROOT_PATH . "userdata/" . $image['md5'] . ".png\">");
         print("  <div class='postdate'>Uploaded on " . $image['upload_date'] . "</div>");
         print("  <div class='postdate'>By " . $image['username'] . "</div>");
         print("  <form method='POST' action='api/posts' id='form" . $image['md5'] . "'");
@@ -78,7 +78,7 @@ if ($overlays)
     foreach ($overlays as $id)
     {
         print("<div class='userimage'>");
-        print("  <img class='overlay' src=\"/overlays/" . $id . ".png\">");
+        print("  <img class='overlay' src=\"" . $ROOT_PATH . "overlays/" . $id . ".png\">");
         print("  <form method='POST' action='api/posts' id='form" . $id . "' onsubmit=\"return submitForm('form" . $id . "');\">");
         print("    <input type='hidden' name='id' value=\"" . $id . "\" />");
         print("    <button type='submit' name='action' value='deleteoverlay' class='delete'>Delete</button>");

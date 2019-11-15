@@ -8,13 +8,13 @@ session_start();
 
 if (!isset($_SESSION['username']))
 {
-    header('Location: /login');
+    header("Location: " . $ROOT_PATH . "login");
     exit;
 }
 
 if ($_SESSION['username'] === $ADMIN_USER)
 {
-    header('Location: /admin');
+    header("Location: " . $ROOT_PATH . "admin");
     exit;
 }
 

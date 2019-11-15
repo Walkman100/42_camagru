@@ -7,7 +7,7 @@ require_once('../../config/func_images.php');
 session_start();
 
 /**
- * Adds overlays to a base image, and saves it to the specified path. Images must be image/png
+ * Adds overlays to a base image, and saves it to the specified path. Images must be 'image/png'
  *
  * @param   string      $baseimage_path     Path of the base image to add overlays to
  * @param   string      $newpath            Path to save the generated image to
