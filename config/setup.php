@@ -63,9 +63,9 @@ function setup_db()
     $tmpPDO = null;
 
     print(" Complete.<br />" . PHP_EOL . "Creating image folders...");
-    mkdir($server_root . "/overlays/", 0777, true);
-    mkdir($server_root . "/userdata/", 0777, true);
-    mkdir($server_root . "/postimages/", 0777, true);
+    if (!is_dir($server_root . "/overlays/")) { mkdir($server_root . "/overlays/", 0777, true); }
+    if (!is_dir($server_root . "/userdata/")) { mkdir($server_root . "/userdata/", 0777, true); }
+    if (!is_dir($server_root . "/postimages/")) { mkdir($server_root . "/postimages/", 0777, true); }
 
     print(" Complete. <br />" . PHP_EOL . "Indexing all overlays...");
     add_all_overlays();
