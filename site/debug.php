@@ -51,8 +51,11 @@ output_head("Debug Info", "<style>
 
 <?php
 
-foreach (getallheaders() as $key => $value) {
-    print("<tr><td>" . $key . "</td><td>" . $value . "</td></tr>");
+if (function_exists('getallheaders'))
+{
+    foreach (getallheaders() as $key => $value) {
+        print("<tr><td>" . $key . "</td><td>" . $value . "</td></tr>");
+    }
 }
 
 ?>
