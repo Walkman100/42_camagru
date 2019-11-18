@@ -68,7 +68,7 @@ output_header();
                 print("  <div class='postdate'>Uploaded on " . $image['upload_date'] . "</div>");
                 print("  <form method='POST' action='api/posts' id='form" . $image['md5'] . "' onsubmit=\"return submitMultibuttonForm('form" . $image['md5'] . "');\">");
                 print("    <input type='hidden' name='md5' value=\"" . $image['md5'] . "\" />");
-                print("    <button type='submit' name='action' value='add' class='select'>Select</button>");
+                print("    <button type='submit' name='action' value='add' class='select'>Post</button>");
                 print("    <button type='submit' name='action' value='deleteimage' class='delete'>Delete</button>");
                 print("  </form>");
                 print("</div>");

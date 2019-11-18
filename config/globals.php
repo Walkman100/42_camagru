@@ -28,7 +28,7 @@ $USERNAME_REGEX = "^[a-zA-Z][a-zA-Z0-9-_\. ]{3,20}$";
 $USERNAME_HINT = "only letters, numbers or (-_\. ), and minimum 4 & maximum 20 characters";
 
 // password validation for browser and server
-$PASSWORD_REGEX = "^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$";
+$PASSWORD_REGEX = "^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{7,}$";
 $PASSWORD_HINT = "at least one number, lowercase and uppercase letter, minimum 8 characters";
 
 // php POST max size is 40M, so set image max size to 35M
