@@ -18,6 +18,8 @@ function overlays()
             var img = document.createElement("img");
             img.className = 'wc-overlay';
             img.src = 'overlays/' + id + '.png';
+            img.style = 'margin-left: ' + overlayPosX + 'px;';
+            overlayPosX += 170; // 160px = image width, +10 for margin
             overlay_div.appendChild(img);
         });
 }

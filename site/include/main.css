@@ -242,7 +242,6 @@ div#wc-overlays {
 img.wc-overlay {
     display: block;
     position: absolute;
-    margin-left: 10px;
     margin-right: 0px;
     margin-top: 10px;
     margin-bottom: 0px;
