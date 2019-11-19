@@ -53,6 +53,7 @@ uploadButton.onclick = function()
         formData.append('MAX_FILE_SIZE', '35000000');
         formData.append('userfile', blob, 'webcamimage.png');
 
+        // add overlays
         var overlayForm = document.forms['formupload'];
         for (var element in overlayForm)
         {

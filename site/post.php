@@ -18,7 +18,7 @@ if ($_SESSION["username"] === $ADMIN_USER)
     exit;
 }
 
-output_head("Add Post");
+output_head("Add Post", "<script type='text/javascript' src='" . $ROOT_PATH . "include/overlays.js'></script>");
 output_header();
 
 ?>
@@ -39,6 +39,7 @@ output_header();
         </div>
         <div id="webcamdiv">
             <h2>Capture Image</h2>
+            <div id="wc-overlays"></div>
             <video autoplay playsinline id="videoElement"></video>
             <br />
             <button type='button' class='submitbtn' id='btnstart'>Start</button>
@@ -82,7 +83,7 @@ output_header();
         {
             foreach ($overlays as $id)
             {
-                print("<label><input type='checkbox' form='formupload' name='overlay[]' value='" . $id . "'>");
+                print("<label><input type='checkbox' form='formupload' name='overlay[]' value='" . $id . "' onchange='overlays();'>");
                 print("<img class='overlay' src=\"" . $ROOT_PATH . "overlays/" . $id . ".png\">");
                 print("</label> ");
             }
