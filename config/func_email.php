@@ -25,7 +25,7 @@ function send_verification_mail($name, $email, $emailhash)
 {
     global $DOMAIN_NAME;
     global $ROOT_PATH;
-    $verifypage = "<a href='" . $DOMAIN_NAME . $ROOT_PATH . "verify?hash=$emailhash'>Verify Address</a>";
+    $verifypage = "<a href='" . $DOMAIN_NAME . $ROOT_PATH . "verify.php?hash=$emailhash'>Verify Address</a>";
 
     $message = "<html><head><title>Email Verification</title></head><body>
         <p>Hello $name. To verify this address, go to the following page: $verifypage</p>
@@ -40,7 +40,7 @@ function send_reset_email($email, $resethash)
 {
     global $DOMAIN_NAME;
     global $ROOT_PATH;
-    $resetpage = "<a href='" . $DOMAIN_NAME . $ROOT_PATH . "reset?hash=$resethash'>Reset Password</a>";
+    $resetpage = "<a href='" . $DOMAIN_NAME . $ROOT_PATH . "reset.php?hash=$resethash'>Reset Password</a>";
 
     $message = "<html><head><title>Password Reset</title></head><body>
         <p>A password reset was requested for an account with this address.</p>

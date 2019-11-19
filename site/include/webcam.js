@@ -62,7 +62,7 @@ uploadButton.onclick = function()
                 formData.append(formElement.name, formElement.value);
         }
 
-        var action = 'api/upload';
+        var action = 'api/upload.php';
 
         // build the request object and actions
         var xhr = new XMLHttpRequest();

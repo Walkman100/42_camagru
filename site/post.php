@@ -8,13 +8,13 @@ session_start();
 
 if (!isset($_SESSION["username"]))
 {
-    header("Location: " . $ROOT_PATH . "login");
+    header("Location: " . $ROOT_PATH . "login.php");
     exit;
 }
 
 if ($_SESSION["username"] === $ADMIN_USER)
 {
-    header("Location: " . $ROOT_PATH . "admin");
+    header("Location: " . $ROOT_PATH . "admin.php");
     exit;
 }
 
@@ -28,7 +28,7 @@ output_header();
     <div class='postmain'>
         <div id="uploadformdiv">
             <h2>Upload Image</h2>
-            <form method="POST" action="api/upload" enctype="multipart/form-data" id='formupload' onsubmit="return submitUploadForm('formupload');">
+            <form method="POST" action="api/upload.php" enctype="multipart/form-data" id='formupload' onsubmit="return submitUploadForm('formupload');">
                 <input type="hidden" name="MAX_FILE_SIZE" value="<?php print($MAX_UPLOAD_SIZE); ?>" />
                     Select Image (Only PNG):
                 <br /><input style="width: 200px; height: 23px" required type="file" accept="image/png" name="userfile" />
@@ -67,7 +67,7 @@ output_header();
                 print("<div class='userimage'>");
                 print("  <img class='userimage' src=\"" . $ROOT_PATH . "userdata/" . $image['md5'] . ".png\">");
                 print("  <div class='postdate'>Uploaded on " . $image['upload_date'] . "</div>");
-                print("  <form method='POST' action='api/posts' id='form" . $image['md5'] . "' onsubmit=\"return submitMultibuttonForm('form" . $image['md5'] . "');\">");
+                print("  <form method='POST' action='api/posts.php' id='form" . $image['md5'] . "' onsubmit=\"return submitMultibuttonForm('form" . $image['md5'] . "');\">");
                 print("    <input type='hidden' name='md5' value=\"" . $image['md5'] . "\" />");
                 print("    <button type='submit' name='action' value='add' class='select'>Post</button>");
                 print("    <button type='submit' name='action' value='deleteimage' class='delete'>Delete</button>");

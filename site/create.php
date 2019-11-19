@@ -7,7 +7,7 @@ session_start();
 
 if (isset($_SESSION['username']))
 {
-    header("Location: " . $ROOT_PATH . "profile");
+    header("Location: " . $ROOT_PATH . "profile.php");
     exit;
 }
 
@@ -20,7 +20,7 @@ output_header();
 <br /><br />
 <div class='form'>
     <h4>Create Account</h4>
-    <form method='POST' action='api/account' id='form' onsubmit="return submitForm('form');">
+    <form method='POST' action='api/account.php' id='form' onsubmit="return submitForm('form');">
               Username:
         <br /><input class='forminput' required autofocus type='text' name='username'
                     pattern='<?php print($USERNAME_REGEX); ?>' title='<?php print($USERNAME_HINT); ?>' />
@@ -31,8 +31,8 @@ output_header();
         <br /><input class='forminput' required type='email' name='email' />
         <br /><button type='submit' class='submitbtn' name='action' value='create'>Create</button>
     </form>
-    <br /><a href="<?php print($ROOT_PATH); ?>reset">Reset Password</a>
-    <br /><a href="<?php print($ROOT_PATH); ?>resend">Resend Verification Email</a>
+    <br /><a href="<?php print($ROOT_PATH); ?>reset.php">Reset Password</a>
+    <br /><a href="<?php print($ROOT_PATH); ?>resend.php">Resend Verification Email</a>
 </div>
 
 <?php

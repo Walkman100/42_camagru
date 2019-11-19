@@ -42,7 +42,7 @@ output_head("Debug Info", "<style>
       </tr>
     </table>
     <br />
-    <a href="config/info">PHP Info</a><br /><br />
+    <a href="config/info.php">PHP Info</a><br /><br />
     <table>
       <tr>
         <th>Header key</th>

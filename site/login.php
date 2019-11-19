@@ -7,7 +7,7 @@ session_start();
 
 if (isset($_SESSION['username']))
 {
-    header("Location: " . $ROOT_PATH . "profile");
+    header("Location: " . $ROOT_PATH . "profile.php");
     exit;
 }
 
@@ -20,7 +20,7 @@ output_header();
 <br /><br />
 <div class='form'>
     <h4>Login</h4>
-    <form method='POST' action='api/account' id='form' onsubmit="return submitForm('form');">
+    <form method='POST' action='api/account.php' id='form' onsubmit="return submitForm('form');">
               Username:
         <br /><input class='forminput' required autofocus type='text' name='username' />
         <br />Password:
@@ -28,9 +28,9 @@ output_header();
         <br /><button type='submit' class='submitbtn' name='action' value='login'>Login</button>
     </form>
     <?php
-    print("<br /><a href='" . $ROOT_PATH . "create'>Create Account</a>");
-    print("<br /><a href='" . $ROOT_PATH . "reset'>Reset Password</a>");
-    print("<br /><a href='" . $ROOT_PATH . "resend'>Resend Verification Email</a>");
+    print("<br /><a href='" . $ROOT_PATH . "create.php'>Create Account</a>");
+    print("<br /><a href='" . $ROOT_PATH . "reset.php'>Reset Password</a>");
+    print("<br /><a href='" . $ROOT_PATH . "resend.php'>Resend Verification Email</a>");
 print("</div>");
 
 output_footer();

@@ -36,16 +36,16 @@ function output_header()
     global $ROOT_PATH;
 
     print("<div class='toolbar'><div class='toolbarsub'>");
-    print("<a href=\"" . $ROOT_PATH . "posts\"><div class='toolbarbutton'>Posts</div></a>");
+    print("<a href=\"" . $ROOT_PATH . "posts.php\"><div class='toolbarbutton'>Posts</div></a>");
     if (isset($_SESSION['username']))
     {
-        print(" <a href=\"" . $ROOT_PATH . "post\"><div class='toolbarbutton'>Add</div></a>");
+        print(" <a href=\"" . $ROOT_PATH . "post.php\"><div class='toolbarbutton'>Add</div></a>");
         print(" <div class='username'>" . $_SESSION['username'] . "</div>");
-        print(" <a href=\"" . $ROOT_PATH . "logout\"><div class='toolbarbutton'>Logout</div></a>");
-        print(" <a href=\"" . $ROOT_PATH . "profile\"><div class='toolbarbutton'>Profile</div></a>");
+        print(" <a href=\"" . $ROOT_PATH . "logout.php\"><div class='toolbarbutton'>Logout</div></a>");
+        print(" <a href=\"" . $ROOT_PATH . "profile.php\"><div class='toolbarbutton'>Profile</div></a>");
     }
     else
-        print("<a href=\"" . $ROOT_PATH . "login\"><div class='toolbarbutton'>Login</div></a>");
+        print("<a href=\"" . $ROOT_PATH . "login.php\"><div class='toolbarbutton'>Login</div></a>");
     print("</div></div>");
     print("<div class='main'>");
 }

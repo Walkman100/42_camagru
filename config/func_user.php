@@ -108,7 +108,7 @@ function email_used(string $email)
     else
     {
         $stmt = null;
-        print("Error checking for email address existance");
+        print("Error checking for email address existence");
         exit;
     }
 }

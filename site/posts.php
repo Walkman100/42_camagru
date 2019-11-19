@@ -43,7 +43,7 @@ if ($posts)
         print("<div class='post'>");
         print("  <img class='postimg' src=\"" . $ROOT_PATH . "postimages/" . $post['post_id'] . ".png\">");
 
-        print("  <form method='POST' action='api/posts' id='form" . $post['post_id'] . "'");
+        print("  <form method='POST' action='api/posts.php' id='form" . $post['post_id'] . "'");
            print(" onsubmit=\"return submitMultibuttonForm('form" . $post['post_id'] . "');\">");
         print("    <input type='hidden' name='postid' value=\"" . $post['post_id'] . "\" />");
         print("    <input type='hidden' name='like' value=\"" . like_value($post['post_id']) . "\" />");
@@ -75,7 +75,7 @@ if ($posts)
 
         if (isset($_SESSION['username']) && $_SESSION['username'] !== $ADMIN_USER)
         {
-            print("<form method='POST' action='api/comments' id='form" . $post['post_id'] . "comments'");
+            print("<form method='POST' action='api/comments.php' id='form" . $post['post_id'] . "comments'");
                            print(" onsubmit=\"return submitForm('form" . $post['post_id'] . "comments');\">");
             print("  <input type='hidden' name='postid' value=\"" . $post['post_id'] . "\" />");
             print("  <textarea name='posttext' rows='2' cols='48' required placeholder='Post a comment...' class='commentinput'></textarea>");
