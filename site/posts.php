@@ -95,7 +95,7 @@ print("<div class='pages'>");
 $endval = post_page_count();
 for ($i = 1; $i < $endval + 1; $i++)
 {
-    print("<a class='pageno' href=\"" . $ROOT_PATH . "posts?page=" . $i . "\">");
+    print("<a class='pageno' href=\"" . $ROOT_PATH . "posts.php?page=" . $i . "\">");
     print("<div class='pageno");
     if ($i == $index)
         print(" current");
